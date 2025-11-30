@@ -68,11 +68,36 @@ export default function Navbar() {
           {/* Logo */}
           <div className="nav-logo">
             <Link href="/" className="logo">
-              <div className="logo-icon">🚪</div>
               <div className="logo-text">
-                <span className="logo-name">Shree Doors</span>
-                <span className="logo-tagline">Premium Wooden Doors</span>
-              </div>
+<span
+  style={{
+    display: "flex",
+    alignItems: "center",
+    height: "40px",       // ⭐ Image jitna chahte ho, utna height yahan set karo
+  }}
+>
+  <img
+    src="/images/logo/1.png"
+    alt="Logo"
+    style={{
+      height: "100px",
+      width: "auto",
+    }}
+  /> 
+</span>
+
+
+
+ <span
+    style={{
+      fontSize: "18px",
+      fontWeight: 600,
+      color: "#6b4f2d",
+      letterSpacing: "1px",
+    }}
+  >
+    Woods Arts
+  </span>              </div>
             </Link>
           </div>
 
