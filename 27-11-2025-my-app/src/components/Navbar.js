@@ -86,8 +86,6 @@ export default function Navbar() {
   /> 
 </span>
 
-
-
  <span
     style={{
       fontSize: "18px",
