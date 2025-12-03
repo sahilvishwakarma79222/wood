@@ -16,8 +16,8 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <MaterialsSection />
       <BestSeller></BestSeller>
+      <MaterialsSection />
       <FindTheRightFit></FindTheRightFit>
       <Categories />
       <Products />

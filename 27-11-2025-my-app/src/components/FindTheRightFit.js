@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import './FindTheRightFit.css'
+
 
 function FindTheRightFit() {
   const [selectedDoor, setSelectedDoor] = useState(null);
