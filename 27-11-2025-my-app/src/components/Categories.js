@@ -1,6 +1,207 @@
-'use client'
+// 'use client'
+// import { useState } from 'react'
+// import Link from 'next/link'
+
+// const categoriesData = {
+//   'wood-type': {
+//     title: 'By Wood Type',
+//     categories: [
+//       {
+//         name: 'Teak Wood Doors',
+//         href: '/categories/teak-wood',
+//         image: '/images/categories/teak-wood/teak-wood.jpg',
+//         description: 'Premium quality, durable & termite resistant',
+//         badge: 'Popular'
+//       },
+//       {
+//         name: 'Sagwan Wood Doors',
+//         href: '/categories/sagwan-wood',
+//         image: '/images/categories/sagwan-wood/sagwan-wood.jpg',
+//         description: 'Elegant grain patterns & natural beauty',
+//         badge: 'Eco-Friendly'
+//       },
+//       {
+//         name: 'Sheesham Wood Doors',
+//         href: '/categories/sheesham-wood',
+//         image: '/images/categories/sheesham-wood/sheesham-wood.jpg',
+//         description: 'Hardwood with rich texture & durability',
+//         badge: 'Luxury'
+//       },
+//       {
+//         name: 'Sal Wood Doors',
+//         href: '/categories/sal-wood',
+//         image: '/images/categories/sal-wood/sal-wood.jpg',
+//         description: 'Strong, heavy & weather resistant',
+//         badge: 'Strong'
+//       },
+//       {
+//         name: 'Teak Wood Doors',
+//         href: '/categories/teak-wood',
+//         image: '/images/categories/teak-wood/teak-wood.jpg',
+//         description: 'Premium quality, durable & termite resistant',
+//         badge: 'Popular'
+//       },
+//       {
+//         name: 'Sagwan Wood Doors',
+//         href: '/categories/sagwan-wood',
+//         image: '/images/categories/sagwan-wood/sagwan-wood.jpg',
+//         description: 'Elegant grain patterns & natural beauty',
+//         badge: 'Eco-Friendly'
+//       },
+//       {
+//         name: 'Sheesham Wood Doors',
+//         href: '/categories/sheesham-wood',
+//         image: '/images/categories/sheesham-wood/sheesham-wood.jpg',
+//         description: 'Hardwood with rich texture & durability',
+//         badge: 'Luxury'
+//       },
+//       {
+//         name: 'Sal Wood Doors',
+//         href: '/categories/sal-wood',
+//         image: '/images/categories/sal-wood/sal-wood.jpg',
+//         description: 'Strong, heavy & weather resistant',
+//         badge: 'Strong'
+//       }
+//     ]
+//   },
+//   'usage': {
+//     title: 'By Usage',
+//     categories: [
+//       {
+//         name: 'Main Entrance Doors',
+//         href: '/categories/main-entrance',
+//         image: '/images/categories/main-entrance.jpg',
+//         description: 'Grand entrance with security focus',
+//         badge: 'Secure'
+//       },
+//       {
+//         name: 'Bedroom Doors',
+//         href: '/categories/bedroom',
+//         image: '/images/categories/bedroom-doors.jpg',
+//         description: 'Privacy with elegant designs',
+//         badge: 'Private'
+//       },
+//       {
+//         name: 'Bathroom Doors',
+//         href: '/categories/bathroom',
+//         image: '/images/categories/bathroom-doors.jpg',
+//         description: 'Waterproof & moisture resistant',
+//         badge: 'Waterproof'
+//       },
+//       {
+//         name: 'Kitchen Doors',
+//         href: '/categories/kitchen',
+//         image: '/images/categories/kitchen-doors.jpg',
+//         description: 'Heat & grease resistant finishes',
+//         badge: 'Durable'
+//       }
+//     ]
+//   },
+//   'design': {
+//     title: 'By Design',
+//     categories: [
+//       {
+//         name: 'Carved Wooden Doors',
+//         href: '/categories/carved',
+//         image: '/images/categories/carved-doors.jpg',
+//         description: 'Intricate traditional & modern carvings',
+//         badge: 'Artistic'
+//       },
+//       {
+//         name: 'Modern Minimal Doors',
+//         href: '/categories/modern',
+//         image: '/images/categories/modern-doors.jpg',
+//         description: 'Clean lines & contemporary design',
+//         badge: 'Modern'
+//       },
+//       {
+//         name: 'Traditional Indian Doors',
+//         href: '/categories/traditional',
+//         image: '/images/categories/traditional-doors.jpg',
+//         description: 'Classic Indian designs & motifs',
+//         badge: 'Traditional'
+//       },
+//       {
+//         name: 'Glass Panel Doors',
+//         href: '/categories/glass-panel',
+//         image: '/images/categories/glass-panel-doors.jpg',
+//         description: 'Elegant glass & wood combinations',
+//         badge: 'Elegant'
+//       }
+//     ]
+//   }
+// }
+
+// const tabButtons = [
+//   { id: 'wood-type', label: 'By Wood Type' },
+//   { id: 'usage', label: 'By Usage' },
+//   { id: 'design', label: 'By Design' }
+// ]
+
+// export default function Categories() {
+//   const [activeTab, setActiveTab] = useState('wood-type')
+
+//   return (
+//     <section id="categories" className="categories-section">
+//       <div className="categories-pattern"></div>
+//       <div className="container">
+//         <h2>50+ Wooden Door Categories</h2>
+//         <p>Explore our extensive collection of premium wooden doors for every need and style</p>
+
+//         <div className="category-tabs">
+//           {tabButtons.map(tab => (
+//             <button
+//               key={tab.id}
+//               className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+//               onClick={() => setActiveTab(tab.id)}
+//             >
+//               {tab.label}
+//             </button>
+//           ))}
+//         </div>
+
+//         {Object.entries(categoriesData).map(([tabId, tabData]) => (
+//           <div
+//             key={tabId}
+//             className={`tab-content ${activeTab === tabId ? 'active' : ''}`}
+//             id={tabId}
+//           >
+//             <div className="category-grid">
+//               {tabData.categories.map(category => (
+//                 <Link key={category.href} href={category.href} className="category-card">
+//                   <div className="category-image">
+//                     <img src={category.image} alt={category.name} />
+//                     {category.badge && (
+//                       <span className="category-badge">{category.badge}</span>
+//                     )}
+//                   </div>
+//                   <h3>{category.name}</h3>
+//                   <p>{category.description}</p>
+//                 </Link>
+//               ))}
+//             </div>
+//           </div>
+//         ))}
+
+//         <div className="view-all-container">
+//           <Link href="/categories" className="view-all-btn">
+//             View All 50+ Categories
+//             <i className="fas fa-arrow-right"></i>
+//           </Link>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
+
+
+
+
+"use client";
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import './Categories.css'
 
 const categoriesData = {
   'wood-type': {
@@ -11,56 +212,64 @@ const categoriesData = {
         href: '/categories/teak-wood',
         image: '/images/categories/teak-wood/teak-wood.jpg',
         description: 'Premium quality, durable & termite resistant',
-        badge: 'Popular'
+        badge: 'Popular',
+        stats: '100+ Designs'
       },
       {
         name: 'Sagwan Wood Doors',
         href: '/categories/sagwan-wood',
         image: '/images/categories/sagwan-wood/sagwan-wood.jpg',
         description: 'Elegant grain patterns & natural beauty',
-        badge: 'Eco-Friendly'
+        badge: 'Eco-Friendly',
+        stats: '80+ Designs'
       },
       {
         name: 'Sheesham Wood Doors',
         href: '/categories/sheesham-wood',
         image: '/images/categories/sheesham-wood/sheesham-wood.jpg',
         description: 'Hardwood with rich texture & durability',
-        badge: 'Luxury'
+        badge: 'Luxury',
+        stats: '120+ Designs'
       },
       {
         name: 'Sal Wood Doors',
         href: '/categories/sal-wood',
         image: '/images/categories/sal-wood/sal-wood.jpg',
         description: 'Strong, heavy & weather resistant',
-        badge: 'Strong'
+        badge: 'Strong',
+        stats: '60+ Designs'
       },
       {
-        name: 'Teak Wood Doors',
-        href: '/categories/teak-wood',
+        name: 'Oak Wood Doors',
+        href: '/categories/oak-wood',
         image: '/images/categories/teak-wood/teak-wood.jpg',
-        description: 'Premium quality, durable & termite resistant',
-        badge: 'Popular'
+        description: 'Classic European style & sturdy construction',
+        badge: 'Classic',
+        stats: '90+ Designs'
       },
       {
-        name: 'Sagwan Wood Doors',
-        href: '/categories/sagwan-wood',
+        name: 'Mahogany Doors',
+        href: '/categories/mahogany',
         image: '/images/categories/sagwan-wood/sagwan-wood.jpg',
-        description: 'Elegant grain patterns & natural beauty',
-        badge: 'Eco-Friendly'
+        description: 'Deep red tones & exceptional durability',
+        badge: 'Premium',
+        stats: '70+ Designs'
       },
       {
-        name: 'Sheesham Wood Doors',
-        href: '/categories/sheesham-wood',
+        name: 'Pine Wood Doors',
+        href: '/categories/pine-wood',
         image: '/images/categories/sheesham-wood/sheesham-wood.jpg',
-        description: 'Hardwood with rich texture & durability',
-        badge: 'Luxury'
+        description: 'Lightweight & affordable wooden doors',
+        badge: 'Budget',
+        stats: '150+ Designs'
       },
       {
-        name: 'Sal Wood Doors',
-        href: '/categories/sal-wood',
+        name: 'Cedar Wood Doors',
+        href: '/categories/cedar-wood',
         image: '/images/categories/sal-wood/sal-wood.jpg',
-        description: 'Strong, heavy & weather resistant',
-        badge: 'Strong'
+        description: 'Natural insect repellent & aromatic wood',
+        badge: 'Aromatic',
+        stats: '50+ Designs'
       }
     ]
   },
@@ -71,29 +280,65 @@ const categoriesData = {
         name: 'Main Entrance Doors',
         href: '/categories/main-entrance',
         image: '/images/categories/main-entrance.jpg',
-        description: 'Grand entrance with security focus',
-        badge: 'Secure'
+        description: 'Grand entrance with maximum security focus',
+        badge: 'Secure',
+        stats: '200+ Designs'
       },
       {
         name: 'Bedroom Doors',
         href: '/categories/bedroom',
         image: '/images/categories/bedroom-doors.jpg',
-        description: 'Privacy with elegant designs',
-        badge: 'Private'
+        description: 'Privacy with elegant & soundproof designs',
+        badge: 'Private',
+        stats: '180+ Designs'
       },
       {
         name: 'Bathroom Doors',
         href: '/categories/bathroom',
         image: '/images/categories/bathroom-doors.jpg',
-        description: 'Waterproof & moisture resistant',
-        badge: 'Waterproof'
+        description: 'Waterproof & moisture resistant materials',
+        badge: 'Waterproof',
+        stats: '160+ Designs'
       },
       {
         name: 'Kitchen Doors',
         href: '/categories/kitchen',
         image: '/images/categories/kitchen-doors.jpg',
-        description: 'Heat & grease resistant finishes',
-        badge: 'Durable'
+        description: 'Heat & grease resistant durable finishes',
+        badge: 'Durable',
+        stats: '140+ Designs'
+      },
+      {
+        name: 'Living Room Doors',
+        href: '/categories/living-room',
+        image: '/images/categories/main-entrance.jpg',
+        description: 'Elegant designs to match your interior decor',
+        badge: 'Elegant',
+        stats: '170+ Designs'
+      },
+      {
+        name: 'Office Doors',
+        href: '/categories/office',
+        image: '/images/categories/bedroom-doors.jpg',
+        description: 'Professional & formal door designs',
+        badge: 'Professional',
+        stats: '120+ Designs'
+      },
+      {
+        name: 'Balcony Doors',
+        href: '/categories/balcony',
+        image: '/images/categories/bathroom-doors.jpg',
+        description: 'Weather resistant outdoor doors',
+        badge: 'Outdoor',
+        stats: '110+ Designs'
+      },
+      {
+        name: 'French Doors',
+        href: '/categories/french',
+        image: '/images/categories/kitchen-doors.jpg',
+        description: 'Classic glass panel design for elegance',
+        badge: 'Classic',
+        stats: '90+ Designs'
       }
     ]
   },
@@ -105,89 +350,236 @@ const categoriesData = {
         href: '/categories/carved',
         image: '/images/categories/carved-doors.jpg',
         description: 'Intricate traditional & modern carvings',
-        badge: 'Artistic'
+        badge: 'Artistic',
+        stats: '150+ Designs'
       },
       {
         name: 'Modern Minimal Doors',
         href: '/categories/modern',
         image: '/images/categories/modern-doors.jpg',
-        description: 'Clean lines & contemporary design',
-        badge: 'Modern'
+        description: 'Clean lines & contemporary sleek design',
+        badge: 'Modern',
+        stats: '200+ Designs'
       },
       {
         name: 'Traditional Indian Doors',
         href: '/categories/traditional',
         image: '/images/categories/traditional-doors.jpg',
-        description: 'Classic Indian designs & motifs',
-        badge: 'Traditional'
+        description: 'Classic Indian designs & cultural motifs',
+        badge: 'Traditional',
+        stats: '180+ Designs'
       },
       {
         name: 'Glass Panel Doors',
         href: '/categories/glass-panel',
         image: '/images/categories/glass-panel-doors.jpg',
         description: 'Elegant glass & wood combinations',
-        badge: 'Elegant'
+        badge: 'Elegant',
+        stats: '160+ Designs'
+      },
+      {
+        name: 'Sliding Doors',
+        href: '/categories/sliding',
+        image: '/images/categories/carved-doors.jpg',
+        description: 'Space saving modern sliding mechanism',
+        badge: 'Space Saver',
+        stats: '140+ Designs'
+      },
+      {
+        name: 'Panel Doors',
+        href: '/categories/panel',
+        image: '/images/categories/modern-doors.jpg',
+        description: 'Classic raised or recessed panel designs',
+        badge: 'Classic',
+        stats: '170+ Designs'
+      },
+      {
+        name: 'Flush Doors',
+        href: '/categories/flush',
+        image: '/images/categories/traditional-doors.jpg',
+        description: 'Smooth surface & contemporary look',
+        badge: 'Contemporary',
+        stats: '130+ Designs'
+      },
+      {
+        name: 'Louvred Doors',
+        href: '/categories/louvred',
+        image: '/images/categories/glass-panel-doors.jpg',
+        description: 'Ventilation with stylish slatted design',
+        badge: 'Ventilated',
+        stats: '90+ Designs'
       }
     ]
   }
 }
 
 const tabButtons = [
-  { id: 'wood-type', label: 'By Wood Type' },
-  { id: 'usage', label: 'By Usage' },
-  { id: 'design', label: 'By Design' }
+  { id: 'wood-type', label: 'Wood Type', icon: '🪵' },
+  { id: 'usage', label: 'Usage', icon: '🚪' },
+  { id: 'design', label: 'Design', icon: '🎨' }
 ]
 
 export default function Categories() {
   const [activeTab, setActiveTab] = useState('wood-type')
+  const [hoveredCard, setHoveredCard] = useState(null)
 
   return (
     <section id="categories" className="categories-section">
-      <div className="categories-pattern"></div>
-      <div className="container">
-        <h2>50+ Wooden Door Categories</h2>
-        <p>Explore our extensive collection of premium wooden doors for every need and style</p>
+      {/* Background Elements */}
+      <div className="bg-elements">
+        <div className="bg-ornament left"></div>
+        <div className="bg-ornament right"></div>
+        <div className="floating-dots">
+          {[...Array(16)].map((_, i) => (
+            <div key={i} className="floating-dot" style={{
+              '--delay': `${i * 0.3}s`,
+              '--x': `${Math.random() * 100}%`,
+              '--y': `${Math.random() * 100}%`
+            }} />
+          ))}
+        </div>
+      </div>
 
+      <div className="categories-container">
+        {/* Header Section */}
+        <div className="categories-header">
+          <div className="title-wrapper">
+            <span className="section-tag">EXPLORE COLLECTION</span>
+            <h2 className="section-title">
+              Discover <span className="highlight-text">50+ Door Categories</span>
+            </h2>
+            <div className="title-decoration">
+              <div className="deco-line"></div>
+              <div className="deco-dot"></div>
+              <div className="deco-line"></div>
+            </div>
+          </div>
+          
+          <p className="section-description">
+            Explore our extensive collection of premium wooden doors crafted for every need, style, and space
+          </p>
+
+          {/* Stats Bar */}
+          <div className="stats-bar">
+            <div className="stat-item">
+              <div className="stat-number">5000+</div>
+              <div className="stat-label">Doors Sold</div>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <div className="stat-number">50+</div>
+              <div className="stat-label">Categories</div>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <div className="stat-number">100%</div>
+              <div className="stat-label">Customizable</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
         <div className="category-tabs">
-          {tabButtons.map(tab => (
-            <button
-              key={tab.id}
-              className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab.id)}
+          <div className="tabs-container">
+            {tabButtons.map(tab => (
+              <button
+                key={tab.id}
+                className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                <span className="tab-icon">{tab.icon}</span>
+                <span className="tab-label">{tab.label}</span>
+                <div className="tab-indicator"></div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        <div className="tab-content-container">
+          {Object.entries(categoriesData).map(([tabId, tabData]) => (
+            <div
+              key={tabId}
+              className={`tab-content ${activeTab === tabId ? 'active' : ''}`}
+              id={tabId}
             >
-              {tab.label}
-            </button>
+              <div className="category-grid">
+                {tabData.categories.map((category, index) => (
+                  <Link 
+                    key={`${tabId}-${index}`} 
+                    href={category.href} 
+                    className="category-card"
+                    onMouseEnter={() => setHoveredCard(`${tabId}-${index}`)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    {/* Card Glow Effect */}
+                    <div className="card-glow"></div>
+                    
+                    {/* Card Badge */}
+                    {category.badge && (
+                      <div className="category-badge">
+                        <span className="badge-text">{category.badge}</span>
+                      </div>
+                    )}
+
+                    {/* Card Image */}
+                    <div className="category-image">
+                      <div className="image-wrapper">
+                        <Image
+                          src={category.image}
+                          alt={category.name}
+                          width={400}
+                          height={300}
+                          className="card-image"
+                        />
+                        <div className="image-overlay"></div>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="card-content">
+                      <div className="card-header">
+                        <div className="category-stats">
+                          <span className="stats-icon">📊</span>
+                          <span className="stats-text">{category.stats}</span>
+                        </div>
+                        <div className="card-index">
+                          <span className="index-number">0{index + 1}</span>
+                        </div>
+                      </div>
+                      
+                      <h3 className="category-name">{category.name}</h3>
+                      <p className="category-description">{category.description}</p>
+                      
+                      <div className="card-footer">
+                        <button className="explore-btn">
+                          Explore Designs
+                          <span className="btn-arrow">→</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Card Hover Effect */}
+                    <div className="card-hover-effect"></div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
-        {Object.entries(categoriesData).map(([tabId, tabData]) => (
-          <div
-            key={tabId}
-            className={`tab-content ${activeTab === tabId ? 'active' : ''}`}
-            id={tabId}
-          >
-            <div className="category-grid">
-              {tabData.categories.map(category => (
-                <Link key={category.href} href={category.href} className="category-card">
-                  <div className="category-image">
-                    <img src={category.image} alt={category.name} />
-                    {category.badge && (
-                      <span className="category-badge">{category.badge}</span>
-                    )}
-                  </div>
-                  <h3>{category.name}</h3>
-                  <p>{category.description}</p>
-                </Link>
-              ))}
+        {/* View All Button */}
+        <div className="view-all-section">
+          <div className="view-all-wrapper">
+            <div className="view-all-text">
+              <h3>Want to see more?</h3>
+              <p>Browse our complete collection of 50+ door categories</p>
             </div>
+            <Link href="/categories" className="view-all-btn">
+              View All Categories
+              <span className="btn-icon">⟶</span>
+            </Link>
           </div>
-        ))}
-
-        <div className="view-all-container">
-          <Link href="/categories" className="view-all-btn">
-            View All 50+ Categories
-            <i className="fas fa-arrow-right"></i>
-          </Link>
         </div>
       </div>
     </section>
