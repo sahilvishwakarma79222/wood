@@ -6,7 +6,7 @@ const productsData = [
   {
     id: 1,
     name: 'Royal Teak Entrance Door',
-    image: '/images/main-doors/pratap-door-01.jpg',
+    image: '/images/best-selling-product/1.png',
     category: 'Teak Wood | Main Entrance',
     price: '₹25,999',
     description: 'Premium Burma Teak main entrance door with intricate hand carvings and superior finish. Perfect for luxury homes seeking traditional elegance with modern security features.',
@@ -16,7 +16,7 @@ const productsData = [
   {
     id: 2,
     name: 'Sheesham Carved Door',
-    image: '/images/main-doors/cunningham-door-2.jpg',
+    image: '/images/best-selling-product/2.png',
     category: 'Sheesham Wood | Carved',
     price: '₹18,499',
     description: 'Elegant Sheesham wood door with traditional Indian carvings. Known for its durability and rich grain patterns that add warmth to any entrance.',
@@ -26,7 +26,7 @@ const productsData = [
   {
     id: 3,
     name: 'Modern Sagwan Door',
-    image: '/images/main-doors/karnavati-door-30.jpg',
+    image: '/images/best-selling-product/3.png',
     category: 'Sagwan Wood | Modern',
     price: '₹15,999',
     description: 'Contemporary Sagwan wood door with minimalist design. Perfect for modern homes and offices seeking clean lines and natural wood beauty.',
@@ -36,7 +36,7 @@ const productsData = [
   {
     id: 4,
     name: 'Classic Sal Wood Door',
-    image: '/images/main-doors/sal-wood-door.jpg',
+    image: '/images/best-selling-product/4.png',
     category: 'Sal Wood | Traditional',
     price: '₹22,999',
     description: 'Durable Sal wood door with classic design elements. Excellent for areas with high humidity and temperature variations.',
@@ -46,7 +46,7 @@ const productsData = [
   {
     id: 5,
     name: 'Designer Glass Panel Door',
-    image: '/images/main-doors/glass-panel-door.jpg',
+    image: '/images/best-selling-product/5.png',
     category: 'Sagwan Wood | Glass Panel',
     price: '₹19,999',
     description: 'Elegant combination of wood and glass creating a sophisticated look. Perfect for modern interiors with ample natural light.',
@@ -56,7 +56,7 @@ const productsData = [
   {
     id: 6,
     name: 'Traditional Carved Door',
-    image: '/images/main-doors/traditional-carved.jpg',
+    image: '/images/best-selling-product/6.png',
     category: 'Sheesham Wood | Carved',
     price: '₹27,999',
     description: 'Exquisite hand-carved traditional door featuring intricate patterns and motifs. A masterpiece of Indian craftsmanship.',

@@ -6,17 +6,23 @@
 // import 'swiper/css/effect-fade'
 // import 'swiper/css/navigation'
 // import 'swiper/css/parallax'
-// // सागवान दरवाज़े व चौखटें
+
 // export default function Hero() {
 //   const [displayText, setDisplayText] = useState('')
 //   const [currentStat, setCurrentStat] = useState({ categories: 0, customers: 0, experience: 0 })
 //   const [isVisible, setIsVisible] = useState(false)
 //   const [currentDescription, setCurrentDescription] = useState(0) // 0 for English, 1 for Hindi
 //   const statsRef = useRef(null)
-//   const fullText = "Sagwan Doors & Frames"
-//   const typeSpeed = 100
-//   const eraseSpeed = 50
-//   const pauseTime = 2000
+//   const typewriterRef = useRef(null)
+
+//   // Texts for typewriter
+//   const englishText = "Sagwan Doors & Frames"
+//   const hindiText = "सागवान दरवाज़े व चौखटें"
+
+//   // SLOWER TIMING FOR BETTER VISIBILITY
+//   const typeSpeed = 150 // Slower typing
+//   const eraseSpeed = 80 // Slower erasing
+//   const pauseTime = 3000 // Longer pause
 
 //   // Description texts in both languages
 //   const descriptions = [
@@ -35,20 +41,48 @@
 //   useEffect(() => {
 //     // Start animations
 //     setIsVisible(true)
-//     startTypewriter()
 //     setupIntersectionObserver()
 
-//     // Start description rotation
+//     // Start typewriter
+//     startTypewriter()
+
+//     // Start description rotation - LONGER INTERVAL
 //     const descriptionInterval = setInterval(() => {
 //       setCurrentDescription(prev => (prev === 0 ? 1 : 0))
-//     }, 3000) // Change every 3 seconds
+//     }, 6000) // Change every 6 seconds (doubled)
 
 //     return () => {
 //       clearInterval(descriptionInterval)
+//       if (typewriterRef.current) {
+//         clearTimeout(typewriterRef.current)
+//       }
 //     }
 //   }, [])
 
+//   // Jab description change ho, typewriter bhi change ho
+//   useEffect(() => {
+//     if (typewriterRef.current) {
+//       clearTimeout(typewriterRef.current)
+//     }
+
+//     // Jab description change ho, typewriter reset karo aur naye text ke saath start karo
+//     const currentFullText = currentDescription === 0 ? englishText : hindiText
+//     setDisplayText('') // Pehle text clear karo
+
+//     // Thoda delay ke baad naya text start karo
+//     typewriterRef.current = setTimeout(() => {
+//       startTypewriterForLanguage(currentDescription)
+//     }, 500) // Increased delay
+
+//   }, [currentDescription])
+
 //   const startTypewriter = () => {
+//     // Pehle English se start karo
+//     startTypewriterForLanguage(0)
+//   }
+
+//   const startTypewriterForLanguage = (languageIndex) => {
+//     const fullText = languageIndex === 0 ? englishText : hindiText
 //     let currentIndex = 0
 //     let isDeleting = false
 //     let currentText = ''
@@ -67,14 +101,19 @@
 //       let typeDelay = isDeleting ? eraseSpeed : typeSpeed
 
 //       if (!isDeleting && currentText === fullText) {
+//         // Typing complete, pause - LONGER PAUSE
 //         typeDelay = pauseTime
 //         isDeleting = true
 //       } else if (isDeleting && currentText === '') {
+//         // Deleting complete, wait for description to change
+//         // DON'T restart automatically - wait for description change
 //         isDeleting = false
 //         currentIndex = 0
+//         // Description automatically changes via interval, so we wait
+//         return
 //       }
 
-//       setTimeout(type, typeDelay)
+//       typewriterRef.current = setTimeout(type, typeDelay)
 //     }
 
 //     type()
@@ -180,16 +219,16 @@
 //       subtitle: 'Custom Made'
 //     },
 //     {
-//       id: 5,
+//       id: 6,
 //       src: '/images/doors/6.png',
-//       alt: 'Luxury Wooden Door 5',
+//       alt: 'Luxury Wooden Door 6',
 //       title: 'Designer Edition',
 //       subtitle: 'Custom Made'
 //     },
 //     {
-//       id: 6,
+//       id: 7,
 //       src: '/images/doors/45.png',
-//       alt: 'Luxury Wooden Door 6',
+//       alt: 'Luxury Wooden Door 7',
 //       title: 'Classic Mahogany',
 //       subtitle: 'Timeless Beauty'
 //     }
@@ -210,7 +249,8 @@
 //       <div className="hero-container">
 //         {/* Left Side - Premium Content */}
 //         <div className="hero-content">
-//           {/* Main Heading with Gradient */}
+
+//           {/* Main Heading with Typewriter */}
 //           <div className="hero-heading">
 //             <h1 className="typewriter-text">
 //               {displayText}
@@ -228,10 +268,6 @@
 //                 __html: descriptions[currentDescription].text
 //               }}
 //             />
-//             <div className="language-indicator">
-//               <span className={`language-dot ${currentDescription === 0 ? 'active' : ''}`}></span>
-//               <span className={`language-dot ${currentDescription === 1 ? 'active' : ''}`}></span>
-//             </div>
 //           </div>
 
 //           {/* Premium CTA Button */}
@@ -240,7 +276,9 @@
 //               className="cta-button premium-cta pulse-animation"
 //               onClick={scrollToCategories}
 //             >
-//               <span className="cta-text">Explore Collection <i className="fas fa-arrow-right"></i></span>
+//               <span className="cta-text">
+//                 Explore Collection <i className="fas fa-arrow-right"></i>
+//               </span>
 //               <div className="cta-icon"></div>
 //               <div className="cta-glow"></div>
 //             </button>
@@ -255,7 +293,9 @@
 //               <span className="hero-stat-number count-animation">
 //                 {currentStat.categories}+
 //               </span>
-//               <div className="hero-stat-label">Premium Categories</div>
+//               <div className="hero-stat-label">
+//                 Premium Categories
+//               </div>
 //             </div>
 //             <div className="hero-stat">
 //               <div className="stat-icon">
@@ -264,7 +304,9 @@
 //               <span className="hero-stat-number count-animation">
 //                 {currentStat.customers}+
 //               </span>
-//               <div className="hero-stat-label">Satisfied Clients</div>
+//               <div className="hero-stat-label">
+//                 Satisfied Clients
+//               </div>
 //             </div>
 //             <div className="hero-stat">
 //               <div className="stat-icon">
@@ -273,7 +315,9 @@
 //               <span className="hero-stat-number count-animation">
 //                 {currentStat.experience}+
 //               </span>
-//               <div className="hero-stat-label">Years Excellence</div>
+//               <div className="hero-stat-label">
+//                 Years Excellence
+//               </div>
 //             </div>
 //           </div>
 
@@ -362,7 +406,9 @@
 
 //       {/* Premium Scroll Indicator */}
 //       <div className="scroll-indicator premium-scroll">
-//         <div className="scroll-text">Scroll Down</div>
+//         <div className="scroll-text">
+//           Scroll Down
+//         </div>
 //         <div className="scroll-line">
 //           <div className="scroll-glow"></div>
 //         </div>
@@ -380,6 +426,7 @@
 
 
 
+
 'use client'
 import { useEffect, useState, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -393,78 +440,20 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('')
   const [currentStat, setCurrentStat] = useState({ categories: 0, customers: 0, experience: 0 })
   const [isVisible, setIsVisible] = useState(false)
-  const [currentDescription, setCurrentDescription] = useState(0) // 0 for English, 1 for Hindi
   const statsRef = useRef(null)
-  const typewriterRef = useRef(null)
-  
-  // Texts for typewriter
-  const englishText = "Sagwan Doors & Frames"
-  const hindiText = "सागवान दरवाज़े व चौखटें"
-  
-  // SLOWER TIMING FOR BETTER VISIBILITY
-  const typeSpeed = 150 // Slower typing
-  const eraseSpeed = 80 // Slower erasing
-  const pauseTime = 3000 // Longer pause
-
-  // Description texts in both languages
-  const descriptions = [
-    {
-      id: 0,
-      text: "We create <span class='highlight-text'>finely crafted sagwan doors</span> using traditional handwork and modern CNC 2D/3D design — bringing <span class='highlight-text'>natural elegance</span> to every home.",
-      language: "en"
-    },
-    {
-      id: 1,
-      text: "हम <span class='highlight-text'>हाथ की कारीगरी</span> और आधुनिक CNC 2D/3D डिज़ाइन के साथ सागवान के दरवाज़े बनाते हैं, जो हर घर में <span class='highlight-text'>प्राकृतिक सुंदरता</span> जोड़ते हैं।",
-      language: "hi"
-    }
-  ]
+  const fullText = "Wooden Doors & Windows"
+  const typeSpeed = 100
+  const eraseSpeed = 50
+  const pauseTime = 2000
 
   useEffect(() => {
     // Start animations
     setIsVisible(true)
-    setupIntersectionObserver()
-    
-    // Start typewriter
     startTypewriter()
-
-    // Start description rotation - LONGER INTERVAL
-    const descriptionInterval = setInterval(() => {
-      setCurrentDescription(prev => (prev === 0 ? 1 : 0))
-    }, 6000) // Change every 6 seconds (doubled)
-
-    return () => {
-      clearInterval(descriptionInterval)
-      if (typewriterRef.current) {
-        clearTimeout(typewriterRef.current)
-      }
-    }
+    setupIntersectionObserver()
   }, [])
 
-  // Jab description change ho, typewriter bhi change ho
-  useEffect(() => {
-    if (typewriterRef.current) {
-      clearTimeout(typewriterRef.current)
-    }
-    
-    // Jab description change ho, typewriter reset karo aur naye text ke saath start karo
-    const currentFullText = currentDescription === 0 ? englishText : hindiText
-    setDisplayText('') // Pehle text clear karo
-    
-    // Thoda delay ke baad naya text start karo
-    typewriterRef.current = setTimeout(() => {
-      startTypewriterForLanguage(currentDescription)
-    }, 500) // Increased delay
-    
-  }, [currentDescription])
-
   const startTypewriter = () => {
-    // Pehle English se start karo
-    startTypewriterForLanguage(0)
-  }
-
-  const startTypewriterForLanguage = (languageIndex) => {
-    const fullText = languageIndex === 0 ? englishText : hindiText
     let currentIndex = 0
     let isDeleting = false
     let currentText = ''
@@ -483,19 +472,14 @@ export default function Hero() {
       let typeDelay = isDeleting ? eraseSpeed : typeSpeed
 
       if (!isDeleting && currentText === fullText) {
-        // Typing complete, pause - LONGER PAUSE
         typeDelay = pauseTime
         isDeleting = true
       } else if (isDeleting && currentText === '') {
-        // Deleting complete, wait for description to change
-        // DON'T restart automatically - wait for description change
         isDeleting = false
         currentIndex = 0
-        // Description automatically changes via interval, so we wait
-        return
       }
 
-      typewriterRef.current = setTimeout(type, typeDelay)
+      setTimeout(type, typeDelay)
     }
 
     type()
@@ -631,8 +615,7 @@ export default function Hero() {
       <div className="hero-container">
         {/* Left Side - Premium Content */}
         <div className="hero-content">
-
-          {/* Main Heading with Typewriter */}
+          {/* Main Heading with Gradient */}
           <div className="hero-heading">
             <h1 className="typewriter-text">
               {displayText}
@@ -641,16 +624,12 @@ export default function Hero() {
             <div className="heading-glow"></div>
           </div>
 
-          {/* Premium Description with Language Rotation */}
-          <div className="description-container">
-            <p
-              className="fade-in-text premium-description"
-              key={currentDescription}
-              dangerouslySetInnerHTML={{
-                __html: descriptions[currentDescription].text
-              }}
-            />
-          </div>
+          {/* Premium Description */}
+          <p className="fade-in-text premium-description">
+            Crafting <span className="highlight-text">timeless elegance</span> with India's finest wooden doors.
+            Experience unparalleled craftsmanship with <span className="highlight-text">50+ specialized categories</span>
+            of premium doors and windows.
+          </p>
 
           {/* Premium CTA Button */}
           <div className="cta-container">
@@ -658,10 +637,9 @@ export default function Hero() {
               className="cta-button premium-cta pulse-animation"
               onClick={scrollToCategories}
             >
-              <span className="cta-text">
-                Explore Collection <i className="fas fa-arrow-right"></i>
-              </span>
-              <div className="cta-icon"></div>
+              <span className="cta-text">Explore Collection <i className="fas fa-arrow-right"></i></span>
+              <div className="cta-icon">
+              </div>
               <div className="cta-glow"></div>
             </button>
           </div>
@@ -675,9 +653,7 @@ export default function Hero() {
               <span className="hero-stat-number count-animation">
                 {currentStat.categories}+
               </span>
-              <div className="hero-stat-label">
-                Premium Categories
-              </div>
+              <div className="hero-stat-label">Premium Categories</div>
             </div>
             <div className="hero-stat">
               <div className="stat-icon">
@@ -686,9 +662,7 @@ export default function Hero() {
               <span className="hero-stat-number count-animation">
                 {currentStat.customers}+
               </span>
-              <div className="hero-stat-label">
-                Satisfied Clients
-              </div>
+              <div className="hero-stat-label">Satisfied Clients</div>
             </div>
             <div className="hero-stat">
               <div className="stat-icon">
@@ -697,9 +671,7 @@ export default function Hero() {
               <span className="hero-stat-number count-animation">
                 {currentStat.experience}+
               </span>
-              <div className="hero-stat-label">
-                Years Excellence
-              </div>
+              <div className="hero-stat-label">Years Excellence</div>
             </div>
           </div>
 
@@ -788,9 +760,7 @@ export default function Hero() {
 
       {/* Premium Scroll Indicator */}
       <div className="scroll-indicator premium-scroll">
-        <div className="scroll-text">
-          Scroll Down
-        </div>
+        <div className="scroll-text">Scroll Down</div>
         <div className="scroll-line">
           <div className="scroll-glow"></div>
         </div>
