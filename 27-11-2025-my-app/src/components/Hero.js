@@ -160,7 +160,7 @@ export default function Hero() {
     },
     {
       id: 3,
-      src: '/images/doors/3.png',
+      src: '/images/doors/5.png',
       alt: 'Luxury Wooden Door 3',
       title: 'Modern Elegance',
       subtitle: 'Contemporary Design'
@@ -174,7 +174,7 @@ export default function Hero() {
     },
     {
       id: 5,
-      src: '/images/doors/5.png',
+      src: '/images/doors/3.png',
       alt: 'Luxury Wooden Door 5',
       title: 'Designer Edition',
       subtitle: 'Custom Made'

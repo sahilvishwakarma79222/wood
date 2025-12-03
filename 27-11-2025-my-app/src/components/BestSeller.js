@@ -43,7 +43,7 @@ export default function BestSeller() {
           speed={800}
           spaceBetween={40} // Increased space between slides
           autoplay={{
-            delay: 3000,
+            delay: 1500,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
