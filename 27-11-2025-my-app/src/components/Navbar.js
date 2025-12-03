@@ -140,7 +140,7 @@ export default function Navbar() {
           <div className="nav-contact">
             <a href="tel:+919876543210" className="nav-phone">
               <i className="fas fa-phone"></i>
-              <span>+91 98765 43210</span>
+              <span>+91 8007747733</span>
             </a>
             <Link href="/contact" className="nav-cta">
               Get Quote

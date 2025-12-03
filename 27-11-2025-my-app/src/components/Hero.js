@@ -6,22 +6,46 @@ import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/navigation'
 import 'swiper/css/parallax'
-
+// सागवान दरवाज़े व चौखटें
 export default function Hero() {
   const [displayText, setDisplayText] = useState('')
   const [currentStat, setCurrentStat] = useState({ categories: 0, customers: 0, experience: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [currentDescription, setCurrentDescription] = useState(0) // 0 for English, 1 for Hindi
   const statsRef = useRef(null)
-  const fullText = "Wooden Doors & Windows"
+  const fullText = "Sagwan Doors & Frames"
   const typeSpeed = 100
   const eraseSpeed = 50
   const pauseTime = 2000
+
+  // Description texts in both languages
+  const descriptions = [
+    {
+      id: 0,
+      text: "We create <span class='highlight-text'>finely crafted sagwan doors</span> using traditional handwork and modern CNC 2D/3D design — bringing <span class='highlight-text'>natural elegance</span> to every home.",
+      language: "en"
+    },
+    {
+      id: 1,
+      text: "हम <span class='highlight-text'>हाथ की कारीगरी</span> और आधुनिक CNC 2D/3D डिज़ाइन के साथ सागवान के दरवाज़े बनाते हैं, जो हर घर में <span class='highlight-text'>प्राकृतिक सुंदरता</span> जोड़ते हैं।",
+      language: "hi"
+    }
+  ]
 
   useEffect(() => {
     // Start animations
     setIsVisible(true)
     startTypewriter()
     setupIntersectionObserver()
+    
+    // Start description rotation
+    const descriptionInterval = setInterval(() => {
+      setCurrentDescription(prev => (prev === 0 ? 1 : 0))
+    }, 3000) // Change every 3 seconds
+
+    return () => {
+      clearInterval(descriptionInterval)
+    }
   }, [])
 
   const startTypewriter = () => {
@@ -129,7 +153,7 @@ export default function Hero() {
     },
     {
       id: 2,
-      src: '/images/doors/Cunningham-Door-2.jpg',
+      src: '/images/doors/2.png',
       alt: 'Luxury Wooden Door 2',
       title: 'Heritage Collection',
       subtitle: 'Traditional Carving'
@@ -155,9 +179,16 @@ export default function Hero() {
       title: 'Designer Edition',
       subtitle: 'Custom Made'
     },
+     {
+      id: 5,
+      src: '/images/doors/6.png',
+      alt: 'Luxury Wooden Door 5',
+      title: 'Designer Edition',
+      subtitle: 'Custom Made'
+    },
     {
       id: 6,
-      src: '/images/doors/door3.jpg',
+      src: '/images/doors/45.png',
       alt: 'Luxury Wooden Door 6',
       title: 'Classic Mahogany',
       subtitle: 'Timeless Beauty'
@@ -188,12 +219,20 @@ export default function Hero() {
             <div className="heading-glow"></div>
           </div>
 
-          {/* Premium Description */}
-          <p className="fade-in-text premium-description">
-            Crafting <span className="highlight-text">timeless elegance</span> with India's finest wooden doors.
-            Experience unparalleled craftsmanship with <span className="highlight-text">50+ specialized categories</span>
-            of premium doors and windows.
-          </p>
+          {/* Premium Description with Language Rotation */}
+          <div className="description-container">
+            <p
+              className="fade-in-text premium-description"
+              key={currentDescription}
+              dangerouslySetInnerHTML={{
+                __html: descriptions[currentDescription].text
+              }}
+            />
+            <div className="language-indicator">
+              <span className={`language-dot ${currentDescription === 0 ? 'active' : ''}`}></span>
+              <span className={`language-dot ${currentDescription === 1 ? 'active' : ''}`}></span>
+            </div>
+          </div>
 
           {/* Premium CTA Button */}
           <div className="cta-container">
@@ -202,8 +241,7 @@ export default function Hero() {
               onClick={scrollToCategories}
             >
               <span className="cta-text">Explore Collection <i className="fas fa-arrow-right"></i></span>
-              <div className="cta-icon">
-              </div>
+              <div className="cta-icon"></div>
               <div className="cta-glow"></div>
             </button>
           </div>
