@@ -73,7 +73,7 @@ export default function Home() {
 
     window.addEventListener('scroll', handleScroll)
     document.addEventListener('mousedown', handleClickOutside)
-    
+
     // Auto show notification after 5 seconds
     const timer = setTimeout(() => {
       setShowNotification(true)
@@ -140,8 +140,8 @@ export default function Home() {
 
   const handleQuickMessage = (type) => {
     let message = ''
-    
-    switch(type) {
+
+    switch (type) {
       case 'catalog':
         message = '📗 Product catalog aur price list bhej sakte ho?'
         break
@@ -157,7 +157,7 @@ export default function Home() {
       default:
         message = 'Maa Kripa Wood Art ke products ke bare mein janna hai.'
     }
-    
+
     window.open(`https://wa.me/917028426042?text=${encodeURIComponent(message)}`, '_blank')
   }
 
@@ -179,11 +179,11 @@ export default function Home() {
       {showContactPanel && (
         <div className="contact-panel-wrapper" ref={panelRef}>
           <div className={`contact-floating-panel ${isExpanded ? 'expanded' : 'collapsed'}`}>
-            
+
             {/* Collapsed State - Just Icon */}
             {!isExpanded ? (
               <div className="collapsed-view">
-                <button 
+                <button
                   className="main-contact-btn"
                   onClick={handleMainButtonClick}
                   aria-label="Contact Maa Kripa Wood Art"
@@ -206,7 +206,7 @@ export default function Home() {
                       <p className="company-tagline">Maa Kripa Wood Art</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     className="close-panel-btn"
                     onClick={() => setIsExpanded(false)}
                     aria-label="Close panel"
@@ -235,30 +235,30 @@ export default function Home() {
                 </div>
 
                 <div className="quick-messages-section">
-                  <p className="section-title">Quick Options</p>
+                  <p className="section-title-home">Quick Options</p>
                   <div className="quick-message-buttons">
-                    <button 
+                    <button
                       className="quick-msg-btn"
                       onClick={() => handleQuickMessage('catalog')}
                     >
                       <span>📗</span>
                       Catalog
                     </button>
-                    <button 
+                    <button
                       className="quick-msg-btn"
                       onClick={() => handleQuickMessage('quote')}
                     >
                       <span>💰</span>
                       Quote
                     </button>
-                    <button 
+                    <button
                       className="quick-msg-btn"
                       onClick={() => handleQuickMessage('visit')}
                     >
                       <span>📍</span>
                       Visit
                     </button>
-                    <button 
+                    <button
                       className="quick-msg-btn"
                       onClick={() => handleQuickMessage('custom')}
                     >
