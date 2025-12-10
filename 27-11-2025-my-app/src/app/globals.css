@@ -1353,7 +1353,7 @@ body.no-scroll {
     var(--primary-gold),
     var(--secondary-gold)
   );
-  color: var(--primary-black);
+  color: var(--white);
   padding: 14px 35px;
   text-decoration: none;
   border-radius: 8px;
@@ -1647,7 +1647,13 @@ body.no-scroll {
 }
 
 .view-details {
-  background-color: var(--primary-black);
+  /* background-color: var(--primary-black);
+  color: var(--white); */
+    background: linear-gradient(
+    135deg,
+    var(--primary-gold),
+    var(--secondary-gold)
+  );
   color: var(--white);
   border: none;
   padding: 10px 20px;
@@ -2754,5 +2760,191 @@ body.no-scroll {
   .material-card {
     min-width: 320px;
     height: 420px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Sticky WhatsApp & Call Buttons */
+.sticky-buttons-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 9999;
+  animation: fadeIn 0.5s ease;
+}
+
+.sticky-whatsapp-btn {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  animation: floatWhatsApp 3s ease-in-out infinite;
+}
+
+.sticky-call-btn {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 25px rgba(76, 175, 80, 0.4);
+  transition: all 0.3s ease;
+  animation: floatCall 3s ease-in-out infinite 0.5s;
+}
+
+.sticky-whatsapp-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 35px rgba(37, 211, 102, 0.6);
+  background: linear-gradient(135deg, #128C7E, #25D366);
+}
+
+.sticky-call-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 35px rgba(76, 175, 80, 0.6);
+  background: linear-gradient(135deg, #2E7D32, #4CAF50);
+}
+
+.whatsapp-icon {
+  font-size: 26px;
+  animation: shake 2s infinite;
+}
+
+.call-icon {
+  font-size: 22px;
+}
+
+.btn-text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatWhatsApp {
+  0%, 100% { 
+    transform: translateY(0); 
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+  }
+  50% { 
+    transform: translateY(-10px); 
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+  }
+}
+
+@keyframes floatCall {
+  0%, 100% { 
+    transform: translateY(0); 
+    box-shadow: 0 6px 25px rgba(76, 175, 80, 0.4);
+  }
+  50% { 
+    transform: translateY(-10px); 
+    box-shadow: 0 12px 35px rgba(76, 175, 80, 0.6);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0); }
+  10%, 30%, 50%, 70%, 90% { transform: rotate(-5deg); }
+  20%, 40%, 60%, 80% { transform: rotate(5deg); }
+}
+
+/* Pulse effect for attention */
+.sticky-whatsapp-btn::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  background-color: rgba(37, 211, 102, 0.1);
+  top: 0;
+  left: 0;
+  z-index: -1;
+  animation: pulseRing 2s infinite;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .sticky-buttons-container {
+    bottom: 20px;
+    right: 20px;
+    gap: 12px;
+  }
+  
+  .sticky-whatsapp-btn,
+  .sticky-call-btn {
+    padding: 12px 22px;
+    font-size: 15px;
+    gap: 10px;
+  }
+  
+  .whatsapp-icon {
+    font-size: 22px;
+  }
+  
+  .call-icon {
+    font-size: 20px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .sticky-buttons-container {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .sticky-whatsapp-btn,
+  .sticky-call-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    gap: 8px;
+  }
+  
+  .btn-text {
+    font-size: 13px;
   }
 }
