@@ -69,33 +69,33 @@ export default function Navbar() {
           <div className="nav-logo">
             <Link href="/" className="logo">
               <div className="logo-text">
-<span
-  style={{
-    display: "flex",
-    alignItems: "center",
-    height: "40px",       // ⭐ Image jitna chahte ho, utna height yahan set karo
-  }}
->
-  <img
-    src="/images/logo/1.png"
-    alt="Logo"
-    style={{
-      height: "100px",
-      width: "auto",
-    }}
-  /> 
-</span>
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "40px",       // ⭐ Image jitna chahte ho, utna height yahan set karo
+                  }}
+                >
+                  <img
+                    src="/images/logo/1.png"
+                    alt="Logo"
+                    style={{
+                      height: "100px",
+                      width: "auto",
+                    }}
+                  />
+                </span>
 
- <span
-    style={{
-      fontSize: "18px",
-      fontWeight: 600,
-      color: "#6b4f2d",
-      letterSpacing: "1px",
-    }}
-  >
-    Woods Arts
-  </span>              </div>
+                <span
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "#6b4f2d",
+                    letterSpacing: "1px",
+                  }}
+                >
+                  Woods Arts
+                </span>              </div>
             </Link>
           </div>
 
@@ -103,7 +103,7 @@ export default function Navbar() {
           <div className="nav-menu">
             <ul>
               <li><Link href="/">Home</Link></li>
-              
+
               <li className="dropdown">
                 <a>Products <i className="fas fa-chevron-down"></i></a>
                 <div className="dropdown-menu">
@@ -181,7 +181,7 @@ export default function Navbar() {
 
           <nav className="mobile-nav">
             <Link href="/" onClick={handleLinkClick}>Home</Link>
-            
+
             <div className="mobile-dropdown">
               <button onClick={() => toggleDropdown('products')}>
                 Products <i className={`fas fa-chevron-${activeDropdown === 'products' ? 'up' : 'down'}`}></i>
@@ -229,7 +229,7 @@ export default function Navbar() {
 
             <Link href="/gallery" onClick={handleLinkClick}>Gallery</Link>
             <Link href="/about" onClick={handleLinkClick}>About</Link>
-            
+
             <Link href="/contact" className="mobile-cta" onClick={handleLinkClick}>
               Get Free Quote
             </Link>

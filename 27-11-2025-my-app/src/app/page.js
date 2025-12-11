@@ -1,36 +1,3 @@
-// 'use client'
-// import Navbar from '@/components/Navbar'
-// import Hero from '@/components/Hero'
-// import Categories from '@/components/Categories'
-// import Products from '@/components/Products'
-// import Features from '@/components/Features'
-// import CTA from '@/components/CTA'
-// import Footer from '@/components/Footer'
-// import AboutSection from '@/components/AboutSection'
-// import BestSeller from '@/components/BestSeller'
-// import FindTheRightFit from '@/components/FindTheRightFit'
-// import MaterialsSection from '@/components/MaterialsSection'
-
-// export default function Home() {
-//   return (
-//     <main>
-//       <Navbar />
-//       <Hero />
-//       <BestSeller></BestSeller>
-//       <MaterialsSection />
-//       <FindTheRightFit></FindTheRightFit>
-//       <Categories />
-//       <Products />
-//       <AboutSection />
-//       <Features />
-//       <CTA />
-//       <Footer />
-//     </main>
-//   )
-// }
-
-
-
 'use client'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
@@ -47,6 +14,7 @@ import { useState, useEffect, useRef } from 'react'
 import { FaWhatsapp, FaPhone, FaComment, FaTimes, FaChevronRight, FaEnvelope } from 'react-icons/fa'
 import { MdLocationOn } from 'react-icons/md'
 import './Home.css'
+import CustomerReviews from '@/components/CustomerReviews'
 
 export default function Home() {
   const [showContactPanel, setShowContactPanel] = useState(false)
@@ -166,15 +134,15 @@ export default function Home() {
       <Navbar />
       <Hero />
       <BestSeller />
+      <Categories />
       <MaterialsSection />
       <FindTheRightFit />
-      <Categories />
       <Products />
       <AboutSection />
+      <CustomerReviews />
       <Features />
       <CTA />
       <Footer />
-
       {/* Premium Sticky Contact Panel */}
       {showContactPanel && (
         <div className="contact-panel-wrapper" ref={panelRef}>
@@ -214,7 +182,6 @@ export default function Home() {
                     <FaTimes />
                   </button>
                 </div>
-
                 <div className="contact-options-grid">
                   {contactOptions.map(option => (
                     <button
@@ -233,7 +200,6 @@ export default function Home() {
                     </button>
                   ))}
                 </div>
-
                 <div className="quick-messages-section">
                   <p className="section-title-home">Quick Options</p>
                   <div className="quick-message-buttons">
@@ -267,7 +233,6 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-
                 <div className="location-info">
                   <MdLocationOn className="location-icon" />
                   <div>

@@ -432,6 +432,7 @@ body.no-scroll {
   overflow: hidden;
 }
 
+
 /* =============================================================== */
 
 /* Premium Hero Section - Optimized */
@@ -1383,178 +1384,6 @@ body.no-scroll {
   color: var(--primary-black);
 }
 
-/* Premium About Section */
-.about {
-  padding: 5rem 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.about::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary-gold),
-    transparent
-  );
-}
-
-.about::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary-gold),
-    transparent
-  );
-}
-
-.about .container {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  width: 100%;
-  padding: 0 2rem;
-}
-
-.about h2 {
-  color: var(--primary-black);
-  margin-bottom: 2rem;
-  font-size: var(--text-4xl);
-  font-weight: 700;
-  position: relative;
-  display: inline-block;
-}
-
-.about h2::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--primary-gold),
-    var(--secondary-gold)
-  );
-  border-radius: 2px;
-}
-
-.about h2::after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--primary-gold),
-    var(--secondary-gold)
-  );
-  border-radius: 2px;
-}
-
-.about p {
-  font-size: var(--text-lg);
-  line-height: 1.8;
-  color: var(--text-dark);
-  max-width: 700px;
-  margin: 0 auto;
-  font-weight: 400;
-  position: relative;
-  padding: 2rem 0;
-}
-
-.about p::before {
-  content: '"';
-  font-size: 4rem;
-  color: var(--primary-gold);
-  position: absolute;
-  top: 0;
-  left: -30px;
-  font-family: serif;
-  opacity: 0.3;
-}
-
-.about p::after {
-  content: '"';
-  font-size: 4rem;
-  color: var(--primary-gold);
-  position: absolute;
-  bottom: -20px;
-  right: -30px;
-  font-family: serif;
-  opacity: 0.3;
-}
-
-/* Background Decoration */
-.about-decoration {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(200, 169, 126, 0.1) 0%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  z-index: 1;
-}
-
-.about-corner {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border: 2px solid var(--primary-gold);
-  opacity: 0.1;
-}
-
-.about-corner-tl {
-  top: 20px;
-  left: 20px;
-  border-right: none;
-  border-bottom: none;
-}
-
-.about-corner-tr {
-  top: 20px;
-  right: 20px;
-  border-left: none;
-  border-bottom: none;
-}
-
-.about-corner-bl {
-  bottom: 20px;
-  left: 20px;
-  border-right: none;
-  border-top: none;
-}
-
-.about-corner-br {
-  bottom: 20px;
-  right: 20px;
-  border-left: none;
-  border-top: none;
-}
 
 
 
@@ -2082,9 +1911,7 @@ body.no-scroll {
     padding: 0 4rem;
   }
 
-  .about .container {
-    padding: 0 4rem;
-  }
+
 
   .cta .container {
     padding: 0 4rem;
@@ -2204,39 +2031,6 @@ body.no-scroll {
     font-size: var(--text-sm);
   }
 
-  .about {
-    padding: 4rem 0;
-  }
-
-  .about h2 {
-    font-size: var(--text-3xl);
-    margin-bottom: 1.5rem;
-  }
-
-  .about p {
-    font-size: var(--text-base);
-    padding: 1.5rem 1rem;
-  }
-
-  .about p::before {
-    left: 0;
-    font-size: 3rem;
-  }
-
-  .about p::after {
-    right: 0;
-    font-size: 3rem;
-  }
-
-  .about-decoration {
-    width: 200px;
-    height: 200px;
-  }
-
-  .about-corner {
-    width: 60px;
-    height: 60px;
-  }
 
   .categories-section {
     padding: 3rem 0;
@@ -2384,20 +2178,6 @@ body.no-scroll {
   .cta-button {
     padding: 11px 24px;
     font-size: var(--text-sm);
-  }
-
-  .about h2 {
-    font-size: var(--text-2xl);
-  }
-
-  .about p {
-    font-size: var(--text-sm);
-    line-height: 1.6;
-  }
-
-  .about-decoration {
-    width: 150px;
-    height: 150px;
   }
 
   .categories-section h2 {
@@ -2948,3 +2728,257 @@ body.no-scroll {
     font-size: 13px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============ */
+
+
+/* Premium Hero Badges - Compact */
+.hero-badges {
+  margin-bottom: 15px; /* Kam kiya 20 se 15 */
+  animation: fadeInDown 0.6s ease-out 0.3s both;
+}
+
+.badge-group {
+  display: flex;
+  gap: 10px; /* Kam kiya 15 se 10 */
+  flex-wrap: wrap;
+}
+
+.badge {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px; /* Kam kiya 8 se 6 */
+  padding: 7px 16px; /* Kam kiya 10px 22px se 7px 16px */
+  border-radius: 20px; /* Kam kiya 25 se 20 */
+  font-size: 13px; /* Thoda chhota */
+  font-weight: 600;
+  letter-spacing: 0.3px; /* Kam kiya 0.5 se 0.3 */
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Kam kiya blur */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Faster transition */
+  z-index: 1;
+}
+
+.badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: -1;
+}
+
+.badge:hover {
+  transform: translateY(-2px); /* Kam kiya -3 se -2 */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Kam kiya blur */
+}
+
+.badge:hover::before {
+  opacity: 1;
+}
+
+/* Since 1996 Badge - Premium Gold */
+.since-badge {
+  background: linear-gradient(135deg, 
+    #8B4513 0%, 
+    #A0522D 30%, 
+    #D4AF37 70%, 
+    #E6C990 100%);
+  color: white;
+  animation: goldShine 3s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+.since-badge .badge-icon {
+  font-size: 14px; /* Kam kiya 16 se 14 */
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)); /* Kam kiya blur */
+  animation: badgeIconPulse 1.5s ease-in-out infinite; /* Faster animation */
+}
+
+@keyframes goldShine {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes badgeIconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Kam kiya 1.2 se 1.1 */
+  }
+}
+
+/* Natural Wood Badge - Premium Green */
+.natural-badge {
+  background: linear-gradient(135deg, 
+    #2E7D32 0%, 
+    #4CAF50 30%, 
+    #66BB6A 70%, 
+    #A5D6A7 100%);
+  color: white;
+  background-size: 200% 200%;
+}
+
+.natural-badge .badge-icon {
+  font-size: 14px; /* Kam kiya 16 se 14 */
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3)); /* Kam kiya blur */
+  animation: leafFloat 2s ease-in-out infinite; /* Faster animation */
+}
+
+@keyframes leafFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-1px) rotate(-3deg); /* Kam kiya movement */
+  }
+  75% {
+    transform: translateY(1px) rotate(3deg); /* Kam kiya movement */
+  }
+}
+
+/* Badge Content */
+.badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; /* Kam kiya 24 se 20 */
+  height: 20px; /* Kam kiya 24 se 20 */
+  font-size: 12px; /* Kam kiya 14 se 12 */
+}
+
+.badge-text {
+  white-space: nowrap;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); /* Kam kiya blur */
+}
+
+/* Badge Glow Effect */
+.badge::after {
+  content: '';
+  position: absolute;
+  top: -1px; /* Kam kiya -2 se -1 */
+  left: -1px; /* Kam kiya -2 se -1 */
+  right: -1px; /* Kam kiya -2 se -1 */
+  bottom: -1px; /* Kam kiya -2 se -1 */
+  background: inherit;
+  border-radius: 21px; /* Kam kiya 27 se 21 */
+  z-index: -2;
+  opacity: 0.3; /* Kam kiya 0.5 se 0.3 */
+  filter: blur(5px); /* Kam kiya 8 se 5 */
+  transition: opacity 0.2s ease;
+}
+
+.badge:hover::after {
+  opacity: 0.5; /* Kam kiya 0.8 se 0.5 */
+}
+
+/* Fade In Animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Kam kiya -20 se -10 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design - More Compact */
+@media (max-width: 1024px) {
+  .badge-group {
+    gap: 8px; /* Kam kiya 12 se 8 */
+  }
+  
+  .badge {
+    padding: 6px 14px; /* Kam kiya 8px 18px se 6px 14px */
+    font-size: 12px;
+  }
+  
+  .badge-icon {
+    width: 18px; /* Kam kiya 20 se 18 */
+    height: 18px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-badges {
+    margin-bottom: 12px; /* Kam kiya 15 se 12 */
+  }
+  
+  .badge-group {
+    gap: 6px; /* Kam kiya 10 se 6 */
+  }
+  
+  .badge {
+    padding: 5px 12px; /* Kam kiya 8px 16px se 5px 12px */
+    font-size: 11px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .badge {
+    padding: 4px 10px; /* Kam kiya 7px 14px se 4px 10px */
+    font-size: 10px;
+  }
+  
+  .badge-icon {
+    width: 16px; /* Kam kiya 18 se 16 */
+    height: 16px;
+    font-size: 10px;
+  }
+  
+  .badge-text {
+    font-size: 10px;
+  }
+}
+
+/* Even More Minimal Option */
+/* Agar abhi bhi bada lage to yeh try karo: */
+/*
+.badge {
+  padding: 5px 12px;
+  font-size: 12px;
+  gap: 5px;
+}
+
+.badge-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+}
+
+.badge-group {
+  gap: 8px;
+}
+
+.hero-badges {
+  margin-bottom: 12px;
+}
+*/

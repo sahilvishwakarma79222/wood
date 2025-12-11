@@ -4,7 +4,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Shree Doors - Premium Wooden Doors & Windows',
+  title: 'माँ-कृपा Wood Arts - Premium Wooden Doors & Windows',
   description: 'India\'s trusted manufacturer of luxury wooden doors with 50+ specialized categories',
 }
 

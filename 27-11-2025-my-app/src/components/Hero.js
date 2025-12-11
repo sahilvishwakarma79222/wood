@@ -643,6 +643,21 @@ export default function Hero() {
               <div className="cta-glow"></div>
             </button>
           </div>
+          {/* 👇 YAHAN ADD KARO - EXACT POSITION */}
+          {/* <div className="hero-badges">
+            <div className="badge-group">
+              <div className="badge since-badge">
+                <span className="badge-icon">🎯</span>
+                <span className="badge-text">Trusted Since 1996</span>
+              </div>
+
+              <div className="badge natural-badge">
+                <span className="badge-icon">🍃</span>
+                <span className="badge-text">100% Natural Wood</span>
+              </div>
+            </div>
+          </div> */}
+          {/* 👆 YAHAN TAK ADD KARO */}
 
           {/* Premium Stats */}
           <div className="hero-stats premium-stats" ref={statsRef}>
