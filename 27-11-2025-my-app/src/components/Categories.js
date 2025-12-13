@@ -10,7 +10,7 @@ const categoriesData = {
     categories: [
       {
         name: 'Teak Wood Doors',
-        href: '/categories/teak-wood',
+       href: '/explore-designs/teak-wood',
         image: '/images/categories/teak-wood/teak-wood.jpg',
         description: 'Premium quality, durable & termite resistant',
         badge: 'Popular',

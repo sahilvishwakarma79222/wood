@@ -67,38 +67,46 @@ body {
 }
 
 /* Logo */
-.nav-logo {
-  flex-shrink: 0;
-}
-
-.logo {
+/* Logo Images Horizontal Layout */
+/* Horizontal Logo Layout */
+.logo-horizontal {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  color: inherit;
+  gap: 10px;
 }
 
-.logo-icon {
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, #c8a97e, #b8941f);
-  padding: 0.4rem;
-  border-radius: 8px;
-  color: white;
+.logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-img-1 {
+  border-right: 2px solid #c8a97e;
+  padding-right: 12px;
+}
+
+.logo-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo-img-2 {
+  height: 35px;
+  width: auto;
 }
 
 .logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
+  font-size: 16px;
+  font-weight: 700;
+  color: #6b4f2d;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-top: 2px;
 }
 
-.logo-name {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #1f2937;
-  letter-spacing: -0.5px;
-}
 
 .logo-tagline {
   font-size: 0.7rem;
