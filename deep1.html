@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maa Kripa Wood Art - Premium Interior Decorators</title>
+
+  <!-- Google Font for Hindi + Bold Look -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Serif+Devanagari:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #fefefe; /* Clean white background */
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      color: #2c3e50;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Fixed Navigation Bar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.98);
+      color: #2c3e50;
+      padding: 0;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 80px;
+      border-bottom: 3px solid #c19a5b;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      height: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo-icon {
+      font-size: 32px;
+      color: #c19a5b;
+      filter: drop-shadow(0 2px 4px rgba(193, 154, 91, 0.3));
+    }
+
+    .logo-text h2 {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 24px;
+      margin-bottom: 3px;
+      color: #2c3e50;
+      font-weight: 700;
+    }
+
+    .logo-text p {
+      font-size: 13px;
+      color: #7f8c8d;
+      letter-spacing: 1px;
+    }
+
+    .nav-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .phone {
+      font-size: 20px;
+      font-weight: 700;
+      color: #c19a5b;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .phone:hover {
+      color: #a87c3b;
+    }
+
+    .gst {
+      font-size: 13px;
+      color: #7f8c8d;
+      background: #f8f9fa;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Categories Bar - Fixed below navbar */
+    .categories-bar {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      width: 100%;
+      padding: 20px 0;
+      border-bottom: 1px solid #ecf0f1;
+      backdrop-filter: blur(10px);
+    }
+
+    .categories-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* Categories Grid - 12 items in grid */
+    .categories-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 15px;
+    }
+
+    .category-card {
+      background: linear-gradient(135deg, #ffffff 0%, #fdfdfd 100%);
+      color: #2c3e50;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      font-size: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid transparent;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+      transform: translateY(0);
+    }
+
+    .category-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #c19a5b, #e6c28c);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      transform-origin: left;
+    }
+
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(193, 154, 91, 0.15);
+      border-color: #e6c28c;
+    }
+
+    .category-card:hover:before {
+      transform: scaleX(1);
+    }
+
+    .category-card.active {
+      border: 2px solid #c19a5b;
+      box-shadow: 0 10px 25px rgba(193, 154, 91, 0.2);
+      background: linear-gradient(135deg, #fff9ec 0%, #fff 100%);
+    }
+
+    .category-card.active:before {
+      transform: scaleX(1);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 85px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .category-card span {
+      display: block;
+      padding: 15px 8px;
+      font-weight: 700;
+      background: transparent;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.4;
+      color: #2c3e50;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      transition: color 0.3s ease;
+    }
+
+    .category-card:hover span {
+      color: #c19a5b;
+    }
+
+    /* Main Content */
+    .main-content {
+      width: 100%;
+      max-width: 1400px;
+      margin: 160px auto 60px; /* Adjusted for navbar + categories bar */
+      padding: 0 40px;
+    }
+
+    /* Category Display Section */
+    .category-display {
+      width: 100%;
+      margin-bottom: 80px;
+      display: none;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .category-display.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    .category-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-bottom: 30px;
+      position: relative;
+    }
+
+    .category-header:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #c19a5b, #e6c28c);
+      border-radius: 2px;
+    }
+
+    .category-header h2 {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 42px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .category-header h2:before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c19a5b"><path d="M12 2L9 12H2L7 16L4 22L12 17L20 22L17 16L22 12H15L12 2Z"/></svg>');
+      background-size: contain;
+    }
+
+    .category-header p {
+      color: #7f8c8d;
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .images-count {
+      display: inline-block;
+      background: linear-gradient(135deg, #fff9ec 0%, #fff 100%);
+      color: #c19a5b;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-size: 15px;
+      margin-top: 25px;
+      border: 2px solid #f1e4d1;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(193, 154, 91, 0.1);
+    }
+
+    /* Images Grid - Professional layout */
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      width: 100%;
+    }
+
+    .image-card {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid #ecf0f1;
+      height: 100%;
+      position: relative;
+      transform: translateY(0);
+    }
+
+    .image-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .image-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(193, 154, 91, 0.15);
+      border-color: #e6c28c;
+    }
+
+    .image-card:hover:before {
+      opacity: 1;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .image-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .image-info {
+      padding: 25px;
+      background: #ffffff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .image-info h3 {
+      color: #2c3e50;
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .image-info p {
+      color: #7f8c8d;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .image-number {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #c19a5b, #e6c28c);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(193, 154, 91, 0.4);
+      z-index: 3;
+      transition: all 0.3s ease;
+    }
+
+    .image-card:hover .image-number {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* View More Button */
+    .view-more-btn {
+      display: block;
+      margin: 40px auto 0;
+      background: linear-gradient(135deg, #c19a5b, #e6c28c);
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(193, 154, 91, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .view-more-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(193, 154, 91, 0.4);
+      background: linear-gradient(135deg, #b08c4f, #d4b47c);
+    }
+
+    /* Loading Animation */
+    .loading {
+      text-align: center;
+      padding: 60px;
+      font-size: 18px;
+      color: #c19a5b;
+      display: none;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .loading-spinner {
+      border: 4px solid rgba(193, 154, 91, 0.1);
+      border-top: 4px solid #c19a5b;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background: linear-gradient(135deg, #c19a5b, #e6c28c);
+      color: white;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 6px 20px rgba(193, 154, 91, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      background: linear-gradient(135deg, #b08c4f, #d4b47c);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(193, 154, 91, 0.5);
+    }
+
+    /* Footer */
+    .footer {
+      background: #2c3e50;
+      color: #ffffff;
+      padding: 60px 0 30px;
+      margin-top: 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #c19a5b, #e6c28c);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .footer h3 {
+      font-family: 'Noto Serif Devanagari', serif;
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #e6c28c;
+    }
+
+    .footer p {
+      color: #bdc3c7;
+      font-size: 15px;
+      margin-bottom: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-highlights {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 40px 0 50px;
+      flex-wrap: wrap;
+    }
+
+    .footer-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(230, 194, 140, 0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(230, 194, 140, 0.4);
+      transform: translateY(-5px);
+    }
+
+    .footer-item i {
+      color: #e6c28c;
+      margin-right: 15px;
+      font-size: 20px;
+    }
+
+    .copyright {
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      color: #95a5a6;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1400px) {
+      .categories-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 15px;
+      }
+      
+      .category-card img {
+        height: 90px;
+      }
+      
+      .images-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .nav-container,
+      .categories-container,
+      .main-content,
+      .footer-content {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+      
+      .categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .main-content {
+        margin-top: 155px;
+      }
+      
+      .category-header h2 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .navbar {
+        height: 75px;
+      }
+      
+      .categories-bar {
+        top: 75px;
+      }
+      
+      .main-content {
+        margin-top: 150px;
+      }
+      
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .category-header h2 {
+        font-size: 34px;
+      }
+      
+      .images-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+      }
+      
+      .image-card img {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container,
+      .categories-container,
+      .main-content,
+      .footer-content {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
+      .category-card img {
+        height: 85px;
+      }
+      
+      .main-content {
+        margin-top: 145px;
+      }
+      
+      .category-header h2 {
+        font-size: 30px;
+      }
+      
+      .category-header p {
+        font-size: 16px;
+      }
+      
+      .images-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+      
+      .image-card img {
+        height: 180px;
+      }
+      
+      .footer-highlights {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .footer-item {
+        width: 100%;
+        max-width: 400px;
+        text-align: left;
+      }
+      
+      .scroll-top {
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .navbar {
+        height: 70px;
+      }
+      
+      .categories-bar {
+        top: 70px;
+        padding: 15px 0;
+      }
+      
+      .main-content {
+        margin-top: 140px;
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      
+      .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      
+      .category-card span {
+        font-size: 11px;
+        padding: 12px 5px;
+      }
+      
+      .category-card img {
+        height: 80px;
+      }
+      
+      .category-header h2 {
+        font-size: 26px;
+      }
+      
+      .category-header h2:before {
+        left: -20px;
+        width: 15px;
+        height: 15px;
+      }
+      
+      .images-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .logo-text h2 {
+        font-size: 20px;
+      }
+      
+      .phone {
+        font-size: 16px;
+      }
+      
+      .nav-contact {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .category-header h2 {
+        font-size: 24px;
+      }
+      
+      .nav-container,
+      .categories-container {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+      
+      .logo-text h2 {
+        font-size: 18px;
+      }
+      
+      .phone {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-tree"></i>
+        </div>
+        <div class="logo-text">
+          <h2>माँ कृपा वुड आर्ट</h2>
+          <p>Premium Interior Decorators</p>
+        </div>
+      </div>
+      
+      <div class="nav-contact">
+        <div class="phone"><i class="fas fa-phone"></i> 8007774733</div>
+        <div class="gst">GSTIN: 27CJYPP4338M1Z5</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Fixed Categories Bar -->
+  <div class="categories-bar">
+    <div class="categories-container">
+      <div class="categories-grid" id="categoriesGrid">
+        <!-- Categories will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Category Display Sections -->
+    <div id="categorySectionsContainer">
+      <!-- Category sections will be added here by JavaScript -->
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading Images...</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <h3>माँ कृपा वुड आर्ट</h3>
+      <p>Premium Interior Decorators & Woodwork Specialists with over 15 years of experience in crafting exquisite wooden interiors.</p>
+      
+      <div class="footer-highlights">
+        <div class="footer-item">
+          <i class="fas fa-phone"></i> 
+          <div>
+            <strong>Contact</strong><br>
+            8007774733
+          </div>
+        </div>
+        <div class="footer-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>Location</strong><br>
+            Mumbai, India
+          </div>
+        </div>
+        <div class="footer-item">
+          <i class="fas fa-cogs"></i>
+          <div>
+            <strong>Services</strong><br>
+            CNC & Laser Cutting
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        © 2023 Maa Kripa Wood Art. All rights reserved. | Crafting Excellence in Wood Since 2008
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script>
+    // Generate images for each category (100 images for first category, 50 for others)
+    function generateCategoryImages(categoryName, count) {
+      const images = [];
+      const baseUrl = 'https://images.unsplash.com/photo-';
+      const categoryImageMap = {
+        'DOOR FRAME': [
+          '1586023492125-27b2c045efd7', // door/window
+          '1591955506269-5f9a88b3ba32', // safety door
+          '1560448204-603b3fc33ddc',   // door2
+          '1570129477492-45c003edd2be', // door3
+          '1586023492125-27b2c045efd7', // door/window
+        ],
+        'WOODEN BED': [
+          '1505693416388-ac5ce068fe85', // bed
+          '1616594039964-ae9021a400a0', // bed2
+          '1616627547586-6c6d6d8f0e71', // bed3
+          '1505693416388-ac5ce068fe85', // bed
+        ],
+        'WOODEN MANDIR': [
+          '1592496008944-ebd4f6c24c8e', // temple
+          '1592496008944-ebd4f6c24c8e', // temple
+        ],
+        'DOOR CUTTING': [
+          '1584917865442-de89df76afd3', // door cutting
+          '1584917865442-de89df76afd3', // door cutting
+        ],
+        '3D PANEL': [
+          '1558618666-fcd25c85cd64',   // 3d panel
+          '1558618666-fcd25c85cd64',   // 3d panel
+        ],
+        'WALL PANEL': [
+          '1615876234886-fd9a39fda97f', // wall panel
+          '1615876234886-fd9a39fda97f', // wall panel
+        ],
+        'SAFETY DOOR': [
+          '1591955506269-5f9a88b3ba32', // safety door
+          '1591955506269-5f9a88b3ba32', // safety door
+        ],
+        'FURNITURE': [
+          '1588854337236-6a87f0163586', // furniture
+          '1588854337236-6a87f0163586', // furniture
+        ],
+        'WOODEN SHELVES': [
+          '1538688525198-9b88f6f53126', // shelves
+          '1538688525198-9b88f6f53126', // shelves
+        ],
+        'WOODEN STAIRS': [
+          '1567538096630-e0c55bd6374c', // stairs
+          '1567538096630-e0c55bd6374c', // stairs
+        ],
+        'WOODEN CEILING': [
+          '1598300042247-d088f8ab3a91', // ceiling
+          '1598300042247-d088f8ab3a91', // ceiling
+        ],
+        'CUSTOM CARVING': [
+          '1540574163026-643ea20ade25', // carving
+          '1540574163026-643ea20ade25', // carving
+        ]
+      };
+      
+      const categoryImages = categoryImageMap[categoryName] || categoryImageMap['DOOR FRAME'];
+      
+      for (let i = 1; i <= count; i++) {
+        const imageIndex = (i - 1) % categoryImages.length;
+        const imageId = categoryImages[imageIndex];
+        images.push({
+          url: `${baseUrl}${imageId}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80`,
+          title: `${categoryName} Design ${i}`,
+          desc: `Premium ${categoryName.toLowerCase()} design with exquisite craftsmanship. Custom made with high-quality wood and precision engineering.`,
+          number: i
+        });
+      }
+      
+      return images;
+    }
+
+    // Category data
+    const categories = [
+      { 
+        id: 'door-frame', 
+        name: 'DOOR FRAME', 
+        description: 'Premium wooden door frames with intricate designs and durable construction. Crafted from high-quality wood with precision engineering.',
+        imageCount: 100 // First category has 100 images
+      },
+      { 
+        id: 'wooden-bed', 
+        name: 'WOODEN BED', 
+        description: 'Elegant and sturdy wooden beds in various designs for your bedroom. Handcrafted with attention to detail for lasting comfort.',
+        imageCount: 50
+      },
+      { 
+        id: 'wooden-mandir', 
+        name: 'WOODEN MANDIR', 
+        description: 'Beautifully crafted wooden temples for home worship with intricate designs. Spiritual spaces with artistic craftsmanship.',
+        imageCount: 50
+      },
+      { 
+        id: 'door-cutting', 
+        name: 'DOOR CUTTING', 
+        description: 'Precision door cutting services for custom designs and patterns. Advanced CNC technology for perfect cuts.',
+        imageCount: 50
+      },
+      { 
+        id: '3d-panel', 
+        name: '3D PANEL', 
+        description: 'Modern 3D wall panels that add depth and texture to your interiors. Transform plain walls into artistic statements.',
+        imageCount: 50
+      },
+      { 
+        id: 'wall-panel', 
+        name: 'WALL PANEL', 
+        description: 'Decorative wall panels to enhance the aesthetics of your space. Custom designs to match your interior theme.',
+        imageCount: 50
+      },
+      { 
+        id: 'safety-door', 
+        name: 'SAFETY DOOR', 
+        description: 'Strong and secure safety doors with advanced locking mechanisms. Security without compromising on aesthetics.',
+        imageCount: 50
+      },
+      { 
+        id: 'furniture', 
+        name: 'FURNITURE', 
+        description: 'Custom wooden furniture including tables, chairs, and cabinets. Functional art pieces for your home.',
+        imageCount: 50
+      },
+      { 
+        id: 'wooden-shelves', 
+        name: 'WOODEN SHELVES', 
+        description: 'Functional and decorative wooden shelves for storage and display. Maximize space with beautiful organization.',
+        imageCount: 50
+      },
+      { 
+        id: 'wooden-stairs', 
+        name: 'WOODEN STAIRS', 
+        description: 'Sturdy and elegant wooden staircases with handrails and balusters. Safe and beautiful transitions between floors.',
+        imageCount: 50
+      },
+      { 
+        id: 'wooden-ceiling', 
+        name: 'WOODEN CEILING', 
+        description: 'Wooden ceiling designs that add warmth and character to interiors. Elevate your ceiling with natural beauty.',
+        imageCount: 50
+      },
+      { 
+        id: 'custom-carving', 
+        name: 'CUSTOM CARVING', 
+        description: 'Custom wood carving services for personalized designs and patterns. Traditional craftsmanship meets modern design.',
+        imageCount: 50
+      }
+    ];
+
+    // DOM Elements
+    const categoriesGrid = document.getElementById('categoriesGrid');
+    const categorySectionsContainer = document.getElementById('categorySectionsContainer');
+    const scrollTopBtn = document.getElementById('scrollTop');
+    const loadingIndicator = document.getElementById('loading');
+    let activeCategory = null;
+    let categoryImagesCache = {};
+    let displayedImagesCount = {};
+
+    // Initialize categories grid (12 items in grid)
+    function initCategoriesGrid() {
+      categories.forEach((category, index) => {
+        const categoryCard = document.createElement('div');
+        categoryCard.className = 'category-card';
+        categoryCard.dataset.id = category.id;
+        categoryCard.dataset.index = index;
+        
+        // Use appropriate image for each category
+        let imageUrl = '';
+        switch(category.id) {
+          case 'door-frame': imageUrl = 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'wooden-bed': imageUrl = 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'wooden-mandir': imageUrl = 'https://images.unsplash.com/photo-1592496008944-ebd4f6c24c8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'door-cutting': imageUrl = 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case '3d-panel': imageUrl = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'wall-panel': imageUrl = 'https://images.unsplash.com/photo-1615876234886-fd9a39fda97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'safety-door': imageUrl = 'https://images.unsplash.com/photo-1591955506269-5f9a88b3ba32?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'furniture': imageUrl = 'https://images.unsplash.com/photo-1588854337236-6a87f0163586?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'wooden-shelves': imageUrl = 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'wooden-stairs': imageUrl = 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'wooden-ceiling': imageUrl = 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          case 'custom-carving': imageUrl = 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
+          default: imageUrl = 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80';
+        }
+        
+        categoryCard.innerHTML = `
+          <img src="${imageUrl}" alt="${category.name}" loading="lazy" />
+          <span>${category.name}</span>
+        `;
+        
+        categoryCard.addEventListener('click', () => {
+          activateCategory(category.id);
+        });
+        
+        categoriesGrid.appendChild(categoryCard);
+      });
+    }
+
+    // Create category sections
+    function createCategorySections() {
+      categories.forEach(category => {
+        // Initialize displayed images count
+        displayedImagesCount[category.id] = 12;
+        
+        // Create section for this category
+        const section = document.createElement('div');
+        section.className = 'category-display';
+        section.id = `category-${category.id}`;
+        
+        section.innerHTML = `
+          <div class="category-header">
+            <h2>${category.name}</h2>
+            <p>${category.description}</p>
+            <div class="images-count">
+              <i class="fas fa-images"></i> ${category.imageCount}+ Premium Designs Available
+            </div>
+          </div>
+          <div class="images-grid" id="images-grid-${category.id}">
+            <!-- Images will be loaded here on demand -->
+          </div>
+          <button class="view-more-btn" id="view-more-${category.id}" data-category="${category.id}">
+            <i class="fas fa-plus"></i> Load More Designs
+          </button>
+        `;
+        
+        categorySectionsContainer.appendChild(section);
+      });
+    }
+
+    // Activate a category
+    function activateCategory(categoryId) {
+      const category = categories.find(cat => cat.id === categoryId);
+      if (!category) return;
+      
+      // Update active card
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.classList.remove('active');
+        if (card.dataset.id === categoryId) {
+          card.classList.add('active');
+        }
+      });
+      
+      // Hide all category sections
+      document.querySelectorAll('.category-display').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected category section
+      const categorySection = document.getElementById(`category-${categoryId}`);
+      if (categorySection) {
+        categorySection.classList.add('active');
+        
+        // Load images if not already loaded
+        const imagesGrid = document.getElementById(`images-grid-${categoryId}`);
+        if (imagesGrid.children.length === 0) {
+          loadCategoryImages(categoryId, 12); // Load initial 12 images
+        }
+        
+        // Scroll to the category section
+        setTimeout(() => {
+          categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+      
+      // Set active category
+      activeCategory = categoryId;
+    }
+
+    // Load images for a category
+    function loadCategoryImages(categoryId, count) {
+      const category = categories.find(cat => cat.id === categoryId);
+      if (!category) return;
+      
+      // Show loading indicator
+      loadingIndicator.classList.add('active');
+      
+      // Generate or get images from cache
+      if (!categoryImagesCache[categoryId]) {
+        categoryImagesCache[categoryId] = generateCategoryImages(category.name, category.imageCount);
+      }
+      
+      const images = categoryImagesCache[categoryId];
+      const imagesGrid = document.getElementById(`images-grid-${categoryId}`);
+      const viewMoreBtn = document.getElementById(`view-more-${categoryId}`);
+      
+      // Create image cards
+      setTimeout(() => {
+        const startIndex = imagesGrid.children.length;
+        const endIndex = Math.min(startIndex + count, images.length);
+        
+        for (let i = startIndex; i < endIndex; i++) {
+          const img = images[i];
+          const imageCard = document.createElement('div');
+          imageCard.className = 'image-card';
+          
+          imageCard.innerHTML = `
+            <div class="image-number">${i + 1}</div>
+            <img src="${img.url}" alt="${img.title}" loading="lazy" />
+            <div class="image-info">
+              <h3>${img.title}</h3>
+              <p>${img.desc}</p>
+            </div>
+          `;
+          
+          imagesGrid.appendChild(imageCard);
+        }
+        
+        // Update displayed count
+        displayedImagesCount[categoryId] = endIndex;
+        
+        // Update view more button if all images loaded
+        if (endIndex >= images.length) {
+          if (viewMoreBtn) {
+            viewMoreBtn.innerHTML = '<i class="fas fa-check"></i> All Designs Loaded';
+            viewMoreBtn.disabled = true;
+            viewMoreBtn.style.opacity = '0.7';
+            viewMoreBtn.style.cursor = 'default';
+          }
+        }
+        
+        // Hide loading indicator
+        loadingIndicator.classList.remove('active');
+      }, 500);
+    }
+
+    // Handle scroll event
+    function handleScroll() {
+      const scrollPosition = window.scrollY;
+      
+      // Show/hide scroll to top button
+      if (scrollPosition > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initCategoriesGrid();
+      createCategorySections();
+      
+      // Handle scroll events
+      window.addEventListener('scroll', handleScroll);
+      
+      // Initial check for scroll position
+      handleScroll();
+      
+      // Activate first category by default
+      setTimeout(() => {
+        activateCategory(categories[0].id);
+      }, 100);
+      
+      // Scroll to top button event
+      scrollTopBtn.addEventListener('click', scrollToTop);
+      
+      // View more button events
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('view-more-btn') || e.target.closest('.view-more-btn')) {
+          const button = e.target.classList.contains('view-more-btn') ? e.target : e.target.closest('.view-more-btn');
+          const categoryId = button.dataset.category;
+          
+          if (categoryId && !button.disabled) {
+            loadCategoryImages(categoryId, 12); // Load 12 more images
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
