@@ -178,8 +178,8 @@ export default function Navbar() {
                     </div>
 
                     <div className="mega-menu-footer">
-                      <Link href="/explore-categories" className="view-all-btn">
-                        <span>View All 50+ Categories</span>
+                      <Link href="/sahilcategory" className="view-all-btn">
+                        <span>sahil Categories</span>
                         <i className="fas fa-arrow-right"></i>
                       </Link>
                     </div>

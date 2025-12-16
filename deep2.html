@@ -102,18 +102,18 @@
             width: 100%;
         }
 
-        /* Category Section with Images */
+        /* Category Filter Section */
         .category-section {
-            padding: 40px 0;
-            background-color: white;
+            padding: 40px 0 20px;
+            text-align: center;
         }
 
         .section-title {
             font-size: 28px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: var(--primary-color);
-            text-align: center;
             position: relative;
+            display: inline-block;
         }
 
         .section-title::after {
@@ -127,96 +127,46 @@
             transform: translateX(-50%);
         }
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .category-item {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            text-align: center;
-            position: relative;
-        }
-
-        .category-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .category-img-container {
-            height: 120px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .category-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .category-item:hover .category-img-container img {
-            transform: scale(1.05);
-        }
-
-        .category-name {
-            padding: 15px 10px;
-            font-weight: 600;
-            color: var(--dark-color);
-            background-color: white;
-        }
-
-        .category-item.active .category-name {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .category-count {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--accent-color);
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Gallery Section */
-        .gallery-section {
-            padding: 40px 0;
-        }
-
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .gallery-title {
-            font-size: 24px;
-            color: var(--primary-color);
-        }
-
-        .gallery-count {
+        .section-subtitle {
             color: #666;
+            margin-bottom: 30px;
             font-size: 16px;
         }
 
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .filter-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Gallery Section */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -476,10 +426,6 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .category-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -491,20 +437,21 @@
                 gap: 20px;
             }
 
-            .category-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-filter {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 14px;
             }
         }
 
         @media (max-width: 576px) {
-            .category-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: 1fr;
             }
@@ -546,14 +493,25 @@
         </div>
     </header>
 
-    <!-- Category Section with Images -->
+    <!-- Category Filter Section -->
     <section class="category-section">
         <div class="container">
-            <h2 class="section-title">Browse Categories</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Click on any category to filter the gallery</p>
+            <h2 class="section-title">Our Categories</h2>
+            <p class="section-subtitle">Browse through our carefully curated collection of premium images</p>
             
-            <div class="category-grid">
-                <!-- Category items will be dynamically loaded here -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="nature">Nature</button>
+                <button class="filter-btn" data-category="architecture">Architecture</button>
+                <button class="filter-btn" data-category="technology">Technology</button>
+                <button class="filter-btn" data-category="travel">Travel</button>
+                <button class="filter-btn" data-category="art">Art</button>
+                <button class="filter-btn" data-category="food">Food</button>
+                <button class="filter-btn" data-category="people">People</button>
+                <button class="filter-btn" data-category="business">Business</button>
+                <button class="filter-btn" data-category="sports">Sports</button>
+                <button class="filter-btn" data-category="abstract">Abstract</button>
+                <button class="filter-btn" data-category="animals">Animals</button>
             </div>
         </div>
     </section>
@@ -561,11 +519,6 @@
     <!-- Gallery Section -->
     <section class="gallery-section">
         <div class="container">
-            <div class="gallery-header">
-                <h3 class="gallery-title">All Images</h3>
-                <div class="gallery-count">Showing <span id="image-count">12</span> images</div>
-            </div>
-            
             <div class="gallery">
                 <!-- Images will be dynamically loaded here -->
             </div>
@@ -636,22 +589,6 @@
     </footer>
 
     <script>
-        // Category data with images
-        const categoryData = [
-            { id: "all", name: "All", count: 12, img: "https://images.unsplash.com/photo-1518834103327-0d0c6bf07002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: "nature", name: "Nature", count: 2, img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-400&q=60" },
-            { id: "architecture", name: "Architecture", count: 3, img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "art", name: "Art", count: 1, img: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "technology", name: "Technology", count: 1, img: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "travel", name: "Travel", count: 1, img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "food", name: "Food", count: 1, img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "people", name: "People", count: 1, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "business", name: "Business", count: 1, img: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "sports", name: "Sports", count: 1, img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "abstract", name: "Abstract", count: 1, img: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "animals", name: "Animals", count: 1, img: "https://images.unsplash.com/photo-1519068737630-e5db30e12e42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" }
-        ];
-
         // Image data for the gallery
         const imageData = [
             { id: 1, title: "Mountain Landscape", category: "nature", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "1920x1080", material: "Digital Print", price: "$49.99", format: "JPEG/PNG" },
@@ -669,9 +606,8 @@
         ];
 
         // DOM elements
-        const categoryGrid = document.querySelector('.category-grid');
         const gallery = document.querySelector('.gallery');
-        const imageCountElement = document.getElementById('image-count');
+        const filterButtons = document.querySelectorAll('.filter-btn');
         const modalOverlay = document.querySelector('.modal-overlay');
         const closeBtn = document.querySelector('.close-btn');
         const modalImg = document.getElementById('modal-img');
@@ -681,45 +617,6 @@
         const modalMaterial = document.getElementById('modal-material');
         const modalPrice = document.getElementById('modal-price');
         const modalFormat = document.getElementById('modal-format');
-        const galleryTitle = document.querySelector('.gallery-title');
-
-        // Initialize categories with images
-        function initializeCategories() {
-            categoryGrid.innerHTML = '';
-            categoryData.forEach(category => {
-                const categoryItem = document.createElement('div');
-                categoryItem.className = 'category-item';
-                categoryItem.setAttribute('data-category', category.id);
-                
-                if (category.id === 'all') {
-                    categoryItem.classList.add('active');
-                }
-                
-                categoryItem.innerHTML = `
-                    <div class="category-img-container">
-                        <img src="${category.img}" alt="${category.name}">
-                        <div class="category-count">${category.count}</div>
-                    </div>
-                    <div class="category-name">${category.name}</div>
-                `;
-                
-                categoryGrid.appendChild(categoryItem);
-            });
-            
-            // Add event listeners to category items
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterImages(category);
-                    
-                    // Update active category
-                    document.querySelectorAll('.category-item').forEach(cat => {
-                        cat.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
-        }
 
         // Initialize gallery with all images
         function initializeGallery() {
@@ -749,9 +646,6 @@
                 gallery.appendChild(imageCard);
             });
             
-            // Update image count
-            imageCountElement.textContent = imageData.length;
-            
             // Add event listeners to view buttons
             document.querySelectorAll('.view-btn').forEach(button => {
                 button.addEventListener('click', function() {
@@ -764,26 +658,22 @@
         // Filter images by category
         function filterImages(category) {
             const imageCards = document.querySelectorAll('.image-card');
-            let visibleCount = 0;
             
             imageCards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'block';
-                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
             
-            // Update image count and gallery title
-            imageCountElement.textContent = visibleCount;
-            
-            if (category === 'all') {
-                galleryTitle.textContent = 'All Images';
-            } else {
-                const categoryName = categoryData.find(cat => cat.id === category).name;
-                galleryTitle.textContent = `${categoryName} Images`;
-            }
+            // Update active button
+            filterButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-category') === category) {
+                    button.classList.add('active');
+                }
+            });
         }
 
         // Open modal with image details
@@ -812,8 +702,15 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            initializeCategories();
             initializeGallery();
+            
+            // Add event listeners to filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterImages(category);
+                });
+            });
             
             // Close modal when clicking close button or outside modal
             closeBtn.addEventListener('click', closeModal);

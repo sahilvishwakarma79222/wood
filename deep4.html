@@ -36,19 +36,35 @@
             padding: 0 20px;
         }
 
-        /* Header & Navbar */
+        /* Header & Navbar - Base */
         header {
             background-color: white;
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
+        /* New: Hidden Navbar state */
+        .header-hidden {
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            padding: 0;
+            pointer-events: none; /* Disable interaction when hidden */
+        }
+        
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 0;
+            transition: padding 0.3s ease;
+        }
+        
+        /* New: Adjust navbar padding when header is visible */
+        header:not(.header-hidden) .navbar {
             padding: 20px 0;
         }
 
@@ -102,18 +118,43 @@
             width: 100%;
         }
 
-        /* Category Section with Images */
+        /* Category Filter Section - Base */
         .category-section {
-            padding: 40px 0;
-            background-color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+            transition: padding 0.3s ease;
+            background-color: #f9f9f9; /* Ensure background matches body */
         }
+        
+        /* New: Sticky/Fixed Category Bar state */
+        .category-fixed {
+            position: fixed;
+            top: 0; /* Aligns to the top when fixed */
+            width: 100%;
+            padding: 10px 0; /* Condensed padding */
+            background-color: white;
+            box-shadow: var(--shadow);
+            z-index: 900; /* Below the full header, but above content */
+        }
+        
+        /* New: Hide main title/subtitle when fixed */
+        .category-fixed .section-title,
+        .category-fixed .section-subtitle {
+            display: none;
+        }
+        
+        /* New: Adjust the container padding for the fixed state */
+        .category-fixed .container {
+            padding: 0 20px;
+        }
+        
 
         .section-title {
             font-size: 28px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: var(--primary-color);
-            text-align: center;
             position: relative;
+            display: inline-block;
         }
 
         .section-title::after {
@@ -127,94 +168,76 @@
             transform: translateX(-50%);
         }
 
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
         }
 
-        .category-item {
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            transition: margin-bottom 0.3s ease;
+        }
+        
+        /* New: Remove bottom margin when fixed */
+        .category-fixed .category-filter {
+            margin-bottom: 0;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
             background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            text-align: center;
-            position: relative;
-        }
-
-        .category-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .category-img-container {
-            height: 120px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .category-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .category-item:hover .category-img-container img {
-            transform: scale(1.05);
-        }
-
-        .category-name {
-            padding: 15px 10px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
             font-weight: 600;
-            color: var(--dark-color);
-            background-color: white;
+            color: #555;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex; /* Allow content to align */
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+        }
+        
+        /* New: Hide the icon when fixed */
+        .category-fixed .filter-btn i {
+            display: none;
         }
 
-        .category-item.active .category-name {
+        .filter-btn i {
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+
+        .filter-btn:hover {
             background-color: var(--secondary-color);
             color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .filter-btn:hover i {
+            color: white;
         }
 
-        .category-count {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--accent-color);
+        .filter-btn.active {
+            background-color: var(--secondary-color);
             color: white;
-            font-size: 12px;
-            font-weight: bold;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-color: var(--secondary-color);
+        }
+        
+        .filter-btn.active i {
+            color: white;
         }
 
         /* Gallery Section */
         .gallery-section {
-            padding: 40px 0;
-        }
-
-        .gallery-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .gallery-title {
-            font-size: 24px;
-            color: var(--primary-color);
-        }
-
-        .gallery-count {
-            color: #666;
-            font-size: 16px;
+            /* Add padding to account for the sticky header/filter */
+            padding-top: 10px; 
         }
 
         .gallery {
@@ -225,6 +248,7 @@
         }
 
         .image-card {
+            /* ... (keep existing styles) ... */
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
@@ -232,7 +256,7 @@
             transition: var(--transition);
             position: relative;
         }
-
+        /* ... (rest of gallery/modal styles - keeping for completeness) ... */
         .image-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
@@ -476,10 +500,6 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .category-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -491,20 +511,21 @@
                 gap: 20px;
             }
 
-            .category-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .category-filter {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 14px;
             }
         }
 
         @media (max-width: 576px) {
-            .category-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: 1fr;
             }
@@ -526,8 +547,7 @@
     </style>
 </head>
 <body>
-    <!-- Header & Navbar -->
-    <header>
+    <header id="main-header">
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="logo">
@@ -546,33 +566,35 @@
         </div>
     </header>
 
-    <!-- Category Section with Images -->
-    <section class="category-section">
+    <section class="category-section" id="category-section">
         <div class="container">
-            <h2 class="section-title">Browse Categories</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 20px;">Click on any category to filter the gallery</p>
+            <h2 class="section-title">Our Categories</h2>
+            <p class="section-subtitle">Browse through our carefully curated collection of premium images</p>
             
-            <div class="category-grid">
-                <!-- Category items will be dynamically loaded here -->
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all"><i class="fas fa-globe"></i> All</button>
+                <button class="filter-btn" data-category="nature"><i class="fas fa-leaf"></i> Nature</button>
+                <button class="filter-btn" data-category="architecture"><i class="fas fa-building"></i> Architecture</button>
+                <button class="filter-btn" data-category="technology"><i class="fas fa-microchip"></i> Technology</button>
+                <button class="filter-btn" data-category="travel"><i class="fas fa-plane-departure"></i> Travel</button>
+                <button class="filter-btn" data-category="art"><i class="fas fa-palette"></i> Art</button>
+                <button class="filter-btn" data-category="food"><i class="fas fa-utensils"></i> Food</button>
+                <button class="filter-btn" data-category="people"><i class="fas fa-users"></i> People</button>
+                <button class="filter-btn" data-category="business"><i class="fas fa-chart-line"></i> Business</button>
+                <button class="filter-btn" data-category="sports"><i class="fas fa-football-ball"></i> Sports</button>
+                <button class="filter-btn" data-category="abstract"><i class="fas fa-shapes"></i> Abstract</button>
+                <button class="filter-btn" data-category="animals"><i class="fas fa-paw"></i> Animals</button>
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section class="gallery-section">
         <div class="container">
-            <div class="gallery-header">
-                <h3 class="gallery-title">All Images</h3>
-                <div class="gallery-count">Showing <span id="image-count">12</span> images</div>
-            </div>
-            
             <div class="gallery">
-                <!-- Images will be dynamically loaded here -->
-            </div>
+                </div>
         </div>
     </section>
 
-    <!-- Image Preview Modal -->
     <div class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
@@ -613,7 +635,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -636,22 +657,6 @@
     </footer>
 
     <script>
-        // Category data with images
-        const categoryData = [
-            { id: "all", name: "All", count: 12, img: "https://images.unsplash.com/photo-1518834103327-0d0c6bf07002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: "nature", name: "Nature", count: 2, img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-400&q=60" },
-            { id: "architecture", name: "Architecture", count: 3, img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "art", name: "Art", count: 1, img: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "technology", name: "Technology", count: 1, img: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "travel", name: "Travel", count: 1, img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "food", name: "Food", count: 1, img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "people", name: "People", count: 1, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "business", name: "Business", count: 1, img: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "sports", name: "Sports", count: 1, img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "abstract", name: "Abstract", count: 1, img: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "animals", name: "Animals", count: 1, img: "https://images.unsplash.com/photo-1519068737630-e5db30e12e42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" }
-        ];
-
         // Image data for the gallery
         const imageData = [
             { id: 1, title: "Mountain Landscape", category: "nature", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "1920x1080", material: "Digital Print", price: "$49.99", format: "JPEG/PNG" },
@@ -669,9 +674,8 @@
         ];
 
         // DOM elements
-        const categoryGrid = document.querySelector('.category-grid');
         const gallery = document.querySelector('.gallery');
-        const imageCountElement = document.getElementById('image-count');
+        const filterButtons = document.querySelectorAll('.filter-btn');
         const modalOverlay = document.querySelector('.modal-overlay');
         const closeBtn = document.querySelector('.close-btn');
         const modalImg = document.getElementById('modal-img');
@@ -681,50 +685,43 @@
         const modalMaterial = document.getElementById('modal-material');
         const modalPrice = document.getElementById('modal-price');
         const modalFormat = document.getElementById('modal-format');
-        const galleryTitle = document.querySelector('.gallery-title');
+        
+        // New DOM elements for scroll logic
+        const mainHeader = document.getElementById('main-header');
+        const categorySection = document.getElementById('category-section');
 
-        // Initialize categories with images
-        function initializeCategories() {
-            categoryGrid.innerHTML = '';
-            categoryData.forEach(category => {
-                const categoryItem = document.createElement('div');
-                categoryItem.className = 'category-item';
-                categoryItem.setAttribute('data-category', category.id);
-                
-                if (category.id === 'all') {
-                    categoryItem.classList.add('active');
-                }
-                
-                categoryItem.innerHTML = `
-                    <div class="category-img-container">
-                        <img src="${category.img}" alt="${category.name}">
-                        <div class="category-count">${category.count}</div>
-                    </div>
-                    <div class="category-name">${category.name}</div>
-                `;
-                
-                categoryGrid.appendChild(categoryItem);
-            });
-            
-            // Add event listeners to category items
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterImages(category);
-                    
-                    // Update active category
-                    document.querySelectorAll('.category-item').forEach(cat => {
-                        cat.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
+        // Function to set the initial margin on the gallery section
+        // to prevent content jump when the category-section becomes fixed
+        function setGalleryMargin() {
+            // Get the height of the category section (before fixing)
+            const categoryHeight = categorySection.offsetHeight;
+            // Apply this height as top margin to the gallery section's parent or sibling
+            // Using a hidden div as a placeholder is a cleaner approach, but for simplicity
+            // we'll use a margin-top on the gallery section itself, or use an observer.
+            // A simple scroll observer is often easier.
         }
 
         // Initialize gallery with all images
         function initializeGallery() {
             gallery.innerHTML = '';
             imageData.forEach(image => {
+                // Determine icon based on category for consistency. 
+                // In a real app, this would be part of the image data or a map.
+                const categoryIconMap = {
+                    'nature': 'fas fa-leaf',
+                    'architecture': 'fas fa-building',
+                    'technology': 'fas fa-microchip',
+                    'travel': 'fas fa-plane-departure',
+                    'art': 'fas fa-palette',
+                    'food': 'fas fa-utensils',
+                    'people': 'fas fa-users',
+                    'business': 'fas fa-chart-line',
+                    'sports': 'fas fa-football-ball',
+                    'abstract': 'fas fa-shapes',
+                    'animals': 'fas fa-paw',
+                    'all': 'fas fa-globe'
+                };
+                
                 const imageCard = document.createElement('div');
                 imageCard.className = 'image-card';
                 imageCard.setAttribute('data-category', image.category);
@@ -749,9 +746,6 @@
                 gallery.appendChild(imageCard);
             });
             
-            // Update image count
-            imageCountElement.textContent = imageData.length;
-            
             // Add event listeners to view buttons
             document.querySelectorAll('.view-btn').forEach(button => {
                 button.addEventListener('click', function() {
@@ -764,26 +758,22 @@
         // Filter images by category
         function filterImages(category) {
             const imageCards = document.querySelectorAll('.image-card');
-            let visibleCount = 0;
             
             imageCards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'block';
-                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
             
-            // Update image count and gallery title
-            imageCountElement.textContent = visibleCount;
-            
-            if (category === 'all') {
-                galleryTitle.textContent = 'All Images';
-            } else {
-                const categoryName = categoryData.find(cat => cat.id === category).name;
-                galleryTitle.textContent = `${categoryName} Images`;
-            }
+            // Update active button
+            filterButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-category') === category) {
+                    button.classList.add('active');
+                }
+            });
         }
 
         // Open modal with image details
@@ -809,11 +799,62 @@
             modalOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
+        
+        // *** NEW SCROLL LOGIC ***
+        let categorySectionOffset = 0; // Will store the initial top offset
+        let headerHeight = 0;
+
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            
+            // 1. Navbar Visibility: Hide the header as soon as we scroll
+            if (scrollY > 5) { // A small threshold to trigger the hiding
+                mainHeader.classList.add('header-hidden');
+            } else {
+                mainHeader.classList.remove('header-hidden');
+            }
+
+            // 2. Category Section Stickiness/Compacting:
+            // Calculate the point where the category section hits the top of the viewport
+            // It should become fixed when its original position moves off-screen
+            if (scrollY >= categorySectionOffset - headerHeight) {
+                categorySection.classList.add('category-fixed');
+            } else {
+                categorySection.classList.remove('category-fixed');
+            }
+        }
+        
+        // Function to calculate initial offsets after everything has rendered
+        function calculateOffsets() {
+            // Recalculate header height (it's 0 when hidden, so we need to check if it's visible)
+            headerHeight = mainHeader.offsetHeight;
+
+            // Get the original distance of the category section from the top of the document
+            // We use getBoundingClientRect().top + scrollY to get the absolute position
+            const rect = categorySection.getBoundingClientRect();
+            categorySectionOffset = rect.top + window.scrollY;
+        }
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            initializeCategories();
             initializeGallery();
+            
+            // Recalculate offsets on load and whenever the window resizes
+            calculateOffsets();
+            window.addEventListener('resize', calculateOffsets);
+            
+            // Add scroll listener for sticky/hide effects
+            window.addEventListener('scroll', handleScroll);
+            
+            // Add event listeners to filter buttons
+            filterButtons.forEach(button => {
+                // Add the initial icon to the button text (since we changed the HTML structure)
+                
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterImages(category);
+                });
+            });
             
             // Close modal when clicking close button or outside modal
             closeBtn.addEventListener('click', closeModal);

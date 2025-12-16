@@ -31,7 +31,7 @@
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -102,10 +102,11 @@
             width: 100%;
         }
 
-        /* Category Section with Images */
+        /* Category Section with 12 in one row */
         .category-section {
             padding: 40px 0;
             background-color: white;
+            border-bottom: 1px solid #eee;
         }
 
         .section-title {
@@ -127,10 +128,11 @@
             transform: translateX(-50%);
         }
 
+        /* Compact 12-category grid */
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px;
             margin-top: 30px;
         }
 
@@ -143,15 +145,17 @@
             cursor: pointer;
             text-align: center;
             position: relative;
+            border: 1px solid #f0f0f0;
         }
 
         .category-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary-color);
         }
 
         .category-img-container {
-            height: 120px;
+            height: 80px;
             overflow: hidden;
             position: relative;
         }
@@ -168,10 +172,14 @@
         }
 
         .category-name {
-            padding: 15px 10px;
+            padding: 12px 5px;
             font-weight: 600;
             color: var(--dark-color);
             background-color: white;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .category-item.active .category-name {
@@ -181,14 +189,14 @@
 
         .category-count {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             background-color: var(--accent-color);
             color: white;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: bold;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -219,7 +227,7 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 60px;
         }
@@ -238,8 +246,9 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
+        /* Increased image height */
         .image-container {
-            height: 200px;
+            height: 240px; /* Increased from 200px */
             overflow: hidden;
             position: relative;
         }
@@ -321,14 +330,14 @@
             text-align: center;
         }
 
-        /* Image Preview Modal */
+        /* Enhanced Image Preview Modal with Multiple Images */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -347,7 +356,7 @@
             background-color: white;
             border-radius: 10px;
             width: 90%;
-            max-width: 800px;
+            max-width: 1000px;
             overflow: hidden;
             position: relative;
             transform: scale(0.9);
@@ -392,11 +401,26 @@
             gap: 20px;
         }
 
-        .modal-image {
+        /* Modal Images with Navigation */
+        .modal-images-container {
+            position: relative;
             width: 100%;
-            height: 350px;
+            height: 400px;
             overflow: hidden;
             border-radius: 5px;
+        }
+
+        .modal-images-slider {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .modal-image {
+            width: 33.333%;
+            height: 100%;
+            flex-shrink: 0;
         }
 
         .modal-image img {
@@ -405,10 +429,65 @@
             object-fit: cover;
         }
 
+        /* Navigation arrows */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .modal-nav:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-nav.prev {
+            left: 15px;
+        }
+
+        .modal-nav.next {
+            right: 15px;
+        }
+
+        /* Image indicators */
+        .image-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        /* Modal Details Grid */
         .modal-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
+            margin-top: 20px;
         }
 
         .detail-item {
@@ -475,13 +554,20 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 992px) {
+        @media (max-width: 1200px) {
             .category-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(6, 1fr);
+                gap: 12px;
             }
-            
+        }
+
+        @media (max-width: 992px) {
             .gallery {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -491,22 +577,26 @@
                 gap: 20px;
             }
 
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .category-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
+            .modal-images-container {
+                height: 300px;
             }
         }
 
         @media (max-width: 576px) {
-            .category-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
             .gallery {
                 grid-template-columns: 1fr;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .nav-links {
@@ -518,8 +608,8 @@
             .modal-body {
                 padding: 15px;
             }
-
-            .modal-image {
+            
+            .modal-images-container {
                 height: 250px;
             }
         }
@@ -527,7 +617,7 @@
 </head>
 <body>
     <!-- Header & Navbar -->
-    <header>
+    <header id="main-header">
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="logo">
@@ -552,7 +642,7 @@
             <h2 class="section-title">Browse Categories</h2>
             <p style="text-align: center; color: #666; margin-bottom: 20px;">Click on any category to filter the gallery</p>
             
-            <div class="category-grid">
+            <div class="category-grid" id="category-grid">
                 <!-- Category items will be dynamically loaded here -->
             </div>
         </div>
@@ -572,7 +662,7 @@
         </div>
     </section>
 
-    <!-- Image Preview Modal -->
+    <!-- Enhanced Image Preview Modal with Multiple Images -->
     <div class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
@@ -580,13 +670,29 @@
                 <button class="close-btn"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modal-img" src="" alt="">
+                <div class="modal-images-container">
+                    <div class="modal-images-slider" id="modal-slider">
+                        <!-- Multiple images will be loaded here -->
+                    </div>
+                    
+                    <!-- Navigation arrows -->
+                    <button class="modal-nav prev" id="prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="modal-nav next" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <!-- Image indicators -->
+                    <div class="image-indicators" id="image-indicators">
+                        <!-- Indicators will be dynamically loaded here -->
+                    </div>
                 </div>
+                
                 <div class="modal-details">
                     <div class="detail-item">
                         <span class="detail-label">Title:</span>
-                        <span class="detail-value" id="modal-title">-</span>
+                        <span class="detail-value" id="modal-title-text">-</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Category:</span>
@@ -638,50 +744,128 @@
     <script>
         // Category data with images
         const categoryData = [
-            { id: "all", name: "All", count: 12, img: "https://images.unsplash.com/photo-1518834103327-0d0c6bf07002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: "nature", name: "Nature", count: 2, img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-400&q=60" },
-            { id: "architecture", name: "Architecture", count: 3, img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "art", name: "Art", count: 1, img: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "technology", name: "Technology", count: 1, img: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "travel", name: "Travel", count: 1, img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "food", name: "Food", count: 1, img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "people", name: "People", count: 1, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "business", name: "Business", count: 1, img: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "sports", name: "Sports", count: 1, img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "abstract", name: "Abstract", count: 1, img: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" },
-            { id: "animals", name: "Animals", count: 1, img: "https://images.unsplash.com/photo-1519068737630-e5db30e12e42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=60" }
+            { id: "all", name: "All", count: 12, img: "https://images.unsplash.com/photo-1518834103327-0d0c6bf07002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-globe" },
+            { id: "nature", name: "Nature", count: 2, img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-leaf" },
+            { id: "architecture", name: "Architecture", count: 3, img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-building" },
+            { id: "art", name: "Art", count: 1, img: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-palette" },
+            { id: "technology", name: "Technology", count: 1, img: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-microchip" },
+            { id: "travel", name: "Travel", count: 1, img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-plane-departure" },
+            { id: "food", name: "Food", count: 1, img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-utensils" },
+            { id: "people", name: "People", count: 1, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-users" },
+            { id: "business", name: "Business", count: 1, img: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-chart-line" },
+            { id: "sports", name: "Sports", count: 1, img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-football-ball" },
+            { id: "abstract", name: "Abstract", count: 1, img: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-shapes" },
+            { id: "animals", name: "Animals", count: 1, img: "https://images.unsplash.com/photo-1519068737630-e5db30e12e42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=60", icon: "fas fa-paw" }
         ];
 
-        // Image data for the gallery
+        // Image data for the gallery with multiple images per item
         const imageData = [
-            { id: 1, title: "Mountain Landscape", category: "nature", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "1920x1080", material: "Digital Print", price: "$49.99", format: "JPEG/PNG" },
-            { id: 2, title: "Modern Architecture", category: "architecture", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "2400x1600", material: "Canvas", price: "$79.99", format: "JPEG/TIFF" },
-            { id: 3, title: "Abstract Art", category: "art", img: "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "1600x1200", material: "Acrylic", price: "$129.99", format: "JPEG/RAW" },
-            { id: 4, title: "Tech Devices", category: "technology", img: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "2560x1440", material: "Digital Print", price: "$39.99", format: "JPEG/PNG" },
-            { id: 5, title: "Exotic Travel", category: "travel", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "3000x2000", material: "Photographic Paper", price: "$89.99", format: "JPEG/RAW" },
-            { id: 6, title: "Gourmet Food", category: "food", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "2200x1600", material: "Fine Art Paper", price: "$59.99", format: "JPEG/TIFF" },
-            { id: 7, title: "Portrait Session", category: "people", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "1800x2400", material: "Matte Paper", price: "$99.99", format: "JPEG/RAW" },
-            { id: 8, title: "Business Meeting", category: "business", img: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "2800x1860", material: "Glossy Paper", price: "$69.99", format: "JPEG/PNG" },
-            { id: 9, title: "Sports Action", category: "sports", img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "3200x1800", material: "Canvas", price: "$119.99", format: "JPEG/TIFF" },
-            { id: 10, title: "Colorful Abstract", category: "abstract", img: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "2000x1500", material: "Metal Print", price: "$149.99", format: "JPEG/RAW" },
-            { id: 11, title: "Wild Animals", category: "animals", img: "https://images.unsplash.com/photo-1519068737630-e5db30e12e42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "2600x1700", material: "Fine Art Paper", price: "$109.99", format: "JPEG/PNG" },
-            { id: 12, title: "City Lights", category: "architecture", img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80", dimensions: "3000x2000", material: "Acrylic", price: "$139.99", format: "JPEG/TIFF" }
+            { 
+                id: 1, 
+                title: "Mountain Landscape", 
+                category: "nature", 
+                images: [
+                    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                ], 
+                dimensions: "1920x1080", 
+                material: "Digital Print", 
+                price: "$49.99", 
+                format: "JPEG/PNG" 
+            },
+            { 
+                id: 2, 
+                title: "Modern Architecture", 
+                category: "architecture", 
+                images: [
+                    "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                ], 
+                dimensions: "2400x1600", 
+                material: "Canvas", 
+                price: "$79.99", 
+                format: "JPEG/TIFF" 
+            },
+            { 
+                id: 3, 
+                title: "Abstract Art", 
+                category: "art", 
+                images: [
+                    "https://images.unsplash.com/photo-1543857778-c4a1a569e388?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                ], 
+                dimensions: "1600x1200", 
+                material: "Acrylic", 
+                price: "$129.99", 
+                format: "JPEG/RAW" 
+            },
+            { 
+                id: 4, 
+                title: "Tech Devices", 
+                category: "technology", 
+                images: [
+                    "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                ], 
+                dimensions: "2560x1440", 
+                material: "Digital Print", 
+                price: "$39.99", 
+                format: "JPEG/PNG" 
+            },
+            { 
+                id: 5, 
+                title: "Exotic Travel", 
+                category: "travel", 
+                images: [
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                ], 
+                dimensions: "3000x2000", 
+                material: "Photographic Paper", 
+                price: "$89.99", 
+                format: "JPEG/RAW" 
+            },
+            { 
+                id: 6, 
+                title: "Gourmet Food", 
+                category: "food", 
+                images: [
+                    "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                ], 
+                dimensions: "2200x1600", 
+                material: "Fine Art Paper", 
+                price: "$59.99", 
+                format: "JPEG/TIFF" 
+            }
         ];
 
         // DOM elements
-        const categoryGrid = document.querySelector('.category-grid');
         const gallery = document.querySelector('.gallery');
+        const categoryGrid = document.getElementById('category-grid');
         const imageCountElement = document.getElementById('image-count');
         const modalOverlay = document.querySelector('.modal-overlay');
         const closeBtn = document.querySelector('.close-btn');
-        const modalImg = document.getElementById('modal-img');
-        const modalTitle = document.getElementById('modal-title');
+        const modalTitle = document.getElementById('modal-title-text');
         const modalCategory = document.getElementById('modal-category');
         const modalDimensions = document.getElementById('modal-dimensions');
         const modalMaterial = document.getElementById('modal-material');
         const modalPrice = document.getElementById('modal-price');
         const modalFormat = document.getElementById('modal-format');
-        const galleryTitle = document.querySelector('.gallery-title');
+        const modalSlider = document.getElementById('modal-slider');
+        const imageIndicators = document.getElementById('image-indicators');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Modal state
+        let currentImageIndex = 0;
+        let currentImages = [];
 
         // Initialize categories with images
         function initializeCategories() {
@@ -729,9 +913,12 @@
                 imageCard.className = 'image-card';
                 imageCard.setAttribute('data-category', image.category);
                 
+                // Use first image as thumbnail
+                const thumbnail = image.images[0];
+                
                 imageCard.innerHTML = `
                     <div class="image-container">
-                        <img src="${image.img}" alt="${image.title}">
+                        <img src="${thumbnail}" alt="${image.title}">
                         <div class="image-overlay">
                             <div class="image-info">
                                 <p><i class="fas fa-ruler-combined"></i> ${image.dimensions}</p>
@@ -775,24 +962,20 @@
                 }
             });
             
-            // Update image count and gallery title
+            // Update image count
             imageCountElement.textContent = visibleCount;
-            
-            if (category === 'all') {
-                galleryTitle.textContent = 'All Images';
-            } else {
-                const categoryName = categoryData.find(cat => cat.id === category).name;
-                galleryTitle.textContent = `${categoryName} Images`;
-            }
         }
 
-        // Open modal with image details
+        // Open modal with image details and multiple images
         function openModal(id) {
             const image = imageData.find(img => img.id === id);
             if (!image) return;
             
-            modalImg.src = image.img;
-            modalImg.alt = image.title;
+            // Set current images for navigation
+            currentImages = image.images;
+            currentImageIndex = 0;
+            
+            // Update modal details
             modalTitle.textContent = image.title;
             modalCategory.textContent = image.category.charAt(0).toUpperCase() + image.category.slice(1);
             modalDimensions.textContent = image.dimensions;
@@ -800,8 +983,59 @@
             modalPrice.textContent = image.price;
             modalFormat.textContent = image.format;
             
+            // Load images into slider
+            modalSlider.innerHTML = '';
+            currentImages.forEach((imgSrc, index) => {
+                const imageDiv = document.createElement('div');
+                imageDiv.className = 'modal-image';
+                imageDiv.innerHTML = `<img src="${imgSrc}" alt="${image.title} - View ${index + 1}">`;
+                modalSlider.appendChild(imageDiv);
+            });
+            
+            // Create indicators
+            imageIndicators.innerHTML = '';
+            currentImages.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+                indicator.setAttribute('data-index', index);
+                indicator.addEventListener('click', () => {
+                    goToImage(index);
+                });
+                imageIndicators.appendChild(indicator);
+            });
+            
+            // Reset slider position
+            modalSlider.style.transform = 'translateX(0)';
+            
+            // Show modal
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        // Navigate to specific image in modal
+        function goToImage(index) {
+            if (index < 0 || index >= currentImages.length) return;
+            
+            currentImageIndex = index;
+            const translateX = -index * (100 / 3); // Move slider by 33.333% per image
+            modalSlider.style.transform = `translateX(${translateX}%)`;
+            
+            // Update active indicator
+            document.querySelectorAll('.indicator').forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+        }
+
+        // Navigate to next image
+        function nextImage() {
+            const nextIndex = (currentImageIndex + 1) % currentImages.length;
+            goToImage(nextIndex);
+        }
+
+        // Navigate to previous image
+        function prevImage() {
+            const prevIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+            goToImage(prevIndex);
         }
 
         // Close modal
@@ -815,6 +1049,10 @@
             initializeCategories();
             initializeGallery();
             
+            // Add event listeners to navigation buttons
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+            
             // Close modal when clicking close button or outside modal
             closeBtn.addEventListener('click', closeModal);
             modalOverlay.addEventListener('click', function(e) {
@@ -827,6 +1065,10 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
                 }
             });
         });
