@@ -1,88 +1,146 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import './page.css';
 import Navbar from '@/components/Navbar';
 
-const ProfessionalGallery = () => {
-  // Update these counts based on your actual folder images
-  const categories = [
+export default function ProfessionalGallery() {
+  // Category definitions WITHOUT hardcoded counts
+  const categories = useMemo(() => [
     { 
       id: 'all', 
       name: 'All Products', 
-      count: 0, // Will be calculated dynamically
+      count: 0,
       image: null
     },
     { 
       id: 'woodenDoor', 
       name: 'Wooden Doors', 
       folder: '1_woodenDoor', 
-      count: 70, // You have 70+ images
+      count: 0,
       image: '/images/category/1_woodenDoor/1.jpg'
     },
     { 
       id: 'woodenFrame', 
       name: 'Wooden Frames', 
       folder: '2_WoodenFream', 
-      count: 35, // Update based on your images
+      count: 0,
       image: '/images/category/2_WoodenFream/1.jpg'
     },
     { 
       id: 'safetyDoors', 
       name: 'Safety Doors', 
       folder: '3_safetyDoors', 
-      count: 45, // Update based on your images
+      count: 0,
       image: '/images/category/3_safetyDoors/1.jpg'
     },
     { 
       id: 'woodenBed', 
       name: 'Wooden Beds', 
       folder: '4_woodenBed', 
-      count: 30, // Update based on your images
+      count: 0,
       image: '/images/category/4_woodenBed/1.jpg'
     },
     { 
       id: 'woodenMandir', 
       name: 'Wooden Temples', 
       folder: '5_woodenMandir', 
-      count: 25, // Update based on your images
+      count: 0,
       image: '/images/category/5_woodenMandir/1.jpg'
     },
     { 
       id: 'woodenWindow', 
       name: 'Wooden Windows', 
       folder: '6_woodenWindow', 
-      count: 40, // Update based on your images
+      count: 0,
       image: '/images/category/6_woodenWindow/1.jpg'
     },
     { 
       id: 'woodenArt', 
       name: 'Wooden Art', 
-      folder: '7_woodenArt', 
-      count: 50, // Update based on your images
+      folder: '8_woodenArt', 
+      count: 0,
       image: '/images/category/7_woodenArt/1.jpg'
     },
     { 
       id: 'sofaChair', 
       name: 'Sofa & Chairs', 
-      folder: '8_sofaChair', 
-      count: 35, // Update based on your images
+      folder: '9_sofaChair', 
+      count: 0,
       image: '/images/category/8_sofaChair/1.jpg'
     }
-  ];
+  ], []);
 
-  // Function to check all image extensions
-  const getImagePath = (folder, imageNumber) => {
-    // First try .jpg, then .jpeg, then .png
-    return `/images/category/${folder}/${imageNumber}.jpg`;
-  };
+  // FAST Image Detection - Binary Search Approach
+  const detectLastImageNumber = useCallback(async (folderName) => {
+    console.log(`Detecting images for: ${folderName}`);
+    
+    // Binary search between 1 and 70 (MAX)
+    let low = 1;
+    let high = 70;
+    let lastFound = 0;
+    
+    const checkImageExists = async (num) => {
+      // Try both .jpg and .jpeg
+      const checkUrl = async (url) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
+      };
 
-  // Generate products for ALL categories
-  const generateProducts = () => {
+      const jpgExists = await checkUrl(`/images/category/${folderName}/${num}.jpg`);
+      if (jpgExists) return true;
+      
+      const jpegExists = await checkUrl(`/images/category/${folderName}/${num}.jpeg`);
+      return jpegExists;
+    };
+
+    // First, check if image 1 exists
+    const firstImageExists = await checkImageExists(1);
+    if (!firstImageExists) {
+      console.log(`No images found in ${folderName}`);
+      return 0;
+    }
+
+    // Binary search for last image
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2);
+      const exists = await checkImageExists(mid);
+      
+      if (exists) {
+        lastFound = mid;
+        low = mid + 1; // Search right side
+      } else {
+        high = mid - 1; // Search left side
+      }
+    }
+    
+    console.log(`Found ${lastFound} images in ${folderName}`);
+    return lastFound;
+  }, []);
+
+  // Generate products based on detected image count
+  const generateProducts = useCallback(async () => {
+    console.log("Generating products...");
+    
     const products = [];
     let id = 1;
 
-    // Product templates for each category
+    // Update categories with actual image counts
+    const updatedCategories = [...categories];
+    
+    // Detect image counts for all categories
+    for (const category of updatedCategories) {
+      if (category.id !== 'all') {
+        const count = await detectLastImageNumber(category.folder);
+        category.count = count;
+      }
+    }
+
+    // Product templates
     const categoryTemplates = {
       woodenDoor: {
         baseTitle: 'Wooden Door',
@@ -169,95 +227,138 @@ const ProfessionalGallery = () => {
       }
     };
 
-    // Generate products for each category
-    categories.forEach(category => {
-      if (category.id !== 'all') {
-        const template = categoryTemplates[category.id];
+    // Generate products for each category based on actual image count
+    for (const category of updatedCategories) {
+      if (category.id === 'all' || category.count === 0) continue;
+      
+      const template = categoryTemplates[category.id];
+      if (!template) continue;
+
+      console.log(`Generating ${category.count} products for ${category.name}`);
+      
+      for (let i = 1; i <= category.count; i++) {
+        // Select title variation
+        const variationIndex = (i - 1) % template.variations.length;
+        const title = template.variations[variationIndex] || `${template.baseTitle} Design ${i}`;
         
-        for (let i = 1; i <= category.count; i++) {
-          // Select title variation or generate based on pattern
-          const variationIndex = (i - 1) % template.variations.length;
-          const title = template.variations[variationIndex] || `${template.baseTitle} Design ${i}`;
-          
-          // Generate price within range
-          const priceIncrement = (template.priceRange.max - template.priceRange.min) / category.count;
-          const price = Math.round(template.priceRange.min + (priceIncrement * i));
-          
-          // Generate rating (3.5 to 5.0)
-          const rating = (3.5 + Math.random() * 1.5).toFixed(1);
-          
-          // Materials array
-          const materials = ['Teak Wood', 'Sheesham Wood', 'Rose Wood', 'Sal Wood', 'Mahogany', 'Oak', 'Walnut', 'Pine'];
-          const material = materials[(i - 1) % materials.length];
-          
-          // Dimensions array
-          const dimensions = ['7x3 ft', '8x4 ft', '6x3 ft', '5x2.5 ft', 'Custom Size', 'Standard Size'];
-          const dimension = dimensions[(i - 1) % dimensions.length];
-          
-          // Finish types
-          const finishes = ['Matte Finish', 'Glossy Polish', 'Semi-Gloss', 'Natural Wood', 'Lacquered', 'Varnished'];
-          const finish = finishes[(i - 1) % finishes.length];
-          
-          products.push({
-            id: id++,
-            title: title,
-            category: category.id,
-            folder: category.folder,
-            image: getImagePath(category.folder, i),
-            fallbackImage: `/images/category/${category.folder}/${i}.jpeg`,
-            description: template.desc,
-            price: `₹${price.toLocaleString()}`,
-            dimensions: dimension,
-            material: material,
-            finish: finish,
-            featured: i <= 10, // First 10 products in each category are featured
-            rating: rating,
-            delivery: '7-14 days',
-            warranty: '5 years warranty',
-            imageNumber: i
-          });
-        }
+        // Generate price within range
+        const priceIncrement = (template.priceRange.max - template.priceRange.min) / category.count;
+        const price = Math.round(template.priceRange.min + (priceIncrement * i));
+        
+        // Generate rating (4.0 to 5.0)
+        const rating = (4.0 + Math.random() * 1.0).toFixed(1);
+        
+        // Materials array
+        const materials = ['Teak Wood', 'Sheesham Wood', 'Rose Wood', 'Sal Wood', 'Mahogany', 'Oak', 'Walnut', 'Pine'];
+        const material = materials[(i - 1) % materials.length];
+        
+        // Dimensions array
+        const dimensions = ['7x3 ft', '8x4 ft', '6x3 ft', '5x2.5 ft', 'Custom Size', 'Standard Size'];
+        const dimension = dimensions[(i - 1) % dimensions.length];
+        
+        // Finish types
+        const finishes = ['Matte Finish', 'Glossy Polish', 'Semi-Gloss', 'Natural Wood', 'Lacquered', 'Varnished'];
+        const finish = finishes[(i - 1) % finishes.length];
+        
+        // Image URLs
+        const imageUrl = `/images/category/${category.folder}/${i}.jpg`;
+        const fallbackUrl = `/images/category/${category.folder}/${i}.jpeg`;
+        
+        products.push({
+          id: id++,
+          title: title,
+          category: category.id,
+          folder: category.folder,
+          image: imageUrl,
+          fallbackImage: fallbackUrl,
+          description: template.desc,
+          price: `₹${price.toLocaleString('en-IN')}`,
+          parsedPrice: price,
+          dimensions: dimension,
+          material: material,
+          finish: finish,
+          featured: i <= 5,
+          rating: parseFloat(rating),
+          delivery: i % 3 === 0 ? '10-15 days' : '7-12 days',
+          warranty: '5 years warranty',
+          imageNumber: i,
+          totalInCategory: category.count
+        });
       }
-    });
+    }
 
     // Calculate total for 'all' category
-    const allCategory = categories.find(c => c.id === 'all');
+    const allCategory = updatedCategories.find(c => c.id === 'all');
     if (allCategory) {
       allCategory.count = products.length;
     }
 
-    console.log(`Generated ${products.length} products total`);
-    console.log('Category counts:', categories.map(c => `${c.name}: ${c.count}`));
+    console.log('Product Generation Complete!');
+    console.log(`Total Products: ${products.length}`);
     
-    return products;
-  };
+    return { products, categories: updatedCategories };
+  }, [categories, detectLastImageNumber]);
 
-  // Initialize
-  const allProducts = generateProducts();
-  const [products] = useState(allProducts);
-  const [filteredProducts, setFilteredProducts] = useState(allProducts);
+  // State
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [dynamicCategories, setDynamicCategories] = useState(categories);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [viewMode, setViewMode] = useState('grid');
   const [sortBy, setSortBy] = useState('featured');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
   const productsPerPage = 12;
+  const galleryRef = useRef(null);
+
+  // Debounce search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Initialize products on mount
+  useEffect(() => {
+    const initializeProducts = async () => {
+      setIsInitializing(true);
+      try {
+        const { products: generatedProducts, categories: updatedCategories } = await generateProducts();
+        setAllProducts(generatedProducts);
+        setFilteredProducts(generatedProducts);
+        setDynamicCategories(updatedCategories);
+      } catch (error) {
+        console.error('Error initializing products:', error);
+      } finally {
+        setIsInitializing(false);
+        setIsLoading(false);
+      }
+    };
+
+    initializeProducts();
+  }, [generateProducts]);
 
   // Filter products
   useEffect(() => {
+    if (isInitializing) return;
+
     setIsLoading(true);
     
-    let result = [...products];
+    let result = [...allProducts];
 
     if (activeCategory !== 'all') {
       result = result.filter(product => product.category === activeCategory);
     }
 
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+    if (debouncedSearch.trim()) {
+      const query = debouncedSearch.toLowerCase();
       result = result.filter(product =>
         product.title.toLowerCase().includes(query) ||
         product.description.toLowerCase().includes(query) ||
@@ -265,23 +366,16 @@ const ProfessionalGallery = () => {
       );
     }
 
+    // Sort products
     switch(sortBy) {
       case 'price-low':
-        result.sort((a, b) => {
-          const priceA = parseInt(a.price.replace(/[₹,]/g, ''));
-          const priceB = parseInt(b.price.replace(/[₹,]/g, ''));
-          return priceA - priceB;
-        });
+        result.sort((a, b) => a.parsedPrice - b.parsedPrice);
         break;
       case 'price-high':
-        result.sort((a, b) => {
-          const priceA = parseInt(a.price.replace(/[₹,]/g, ''));
-          const priceB = parseInt(b.price.replace(/[₹,]/g, ''));
-          return priceB - priceA;
-        });
+        result.sort((a, b) => b.parsedPrice - a.parsedPrice);
         break;
       case 'rating':
-        result.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+        result.sort((a, b) => b.rating - a.rating);
         break;
       case 'featured':
         result.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
@@ -294,8 +388,8 @@ const ProfessionalGallery = () => {
       setFilteredProducts(result);
       setCurrentPage(1);
       setIsLoading(false);
-    }, 300);
-  }, [activeCategory, searchQuery, sortBy]);
+    }, 200);
+  }, [activeCategory, debouncedSearch, sortBy, allProducts, isInitializing]);
 
   // Pagination calculations
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -320,11 +414,11 @@ const ProfessionalGallery = () => {
     document.body.style.overflow = 'auto';
   };
 
-  const handleImageError = (e, fallbackImage) => {
-    if (fallbackImage && e.target.src !== fallbackImage) {
-      e.target.src = fallbackImage;
+  const handleImageError = (e, product) => {
+    if (product && product.fallbackImage && e.target.src !== product.fallbackImage) {
+      e.target.src = product.fallbackImage;
     } else {
-      e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f5f5f5"/><text x="50%" y="50%" font-family="Arial" font-size="14" fill="%23666" text-anchor="middle" dy=".3em">Product Image</text></svg>';
+      e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f5f5f5"/><text x="50%" y="50%" font-family="Arial" font-size="14" fill="%23666" text-anchor="middle" dy=".3em">Image Loading...</text></svg>';
       e.target.onerror = null;
     }
   };
@@ -336,28 +430,65 @@ const ProfessionalGallery = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo({ top: 400, behavior: 'smooth' });
+    if (galleryRef.current) {
+      galleryRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      window.scrollTo({ top: 400, behavior: 'smooth' });
+      if (galleryRef.current) {
+        galleryRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      window.scrollTo({ top: 400, behavior: 'smooth' });
+      if (galleryRef.current) {
+        galleryRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  // Refresh products
+  const handleRefreshProducts = async () => {
+    setIsLoading(true);
+    try {
+      const { products: generatedProducts, categories: updatedCategories } = await generateProducts();
+      setAllProducts(generatedProducts);
+      setFilteredProducts(generatedProducts);
+      setDynamicCategories(updatedCategories);
+      setActiveCategory('all');
+      setSearchQuery('');
+    } catch (error) {
+      console.error('Error refreshing products:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   // Get active category name
   const getActiveCategoryName = () => {
     if (activeCategory === 'all') return 'All Products';
-    return categories.find(c => c.id === activeCategory)?.name || '';
+    const category = dynamicCategories.find(c => c.id === activeCategory);
+    return category?.name || '';
   };
+
+  if (isInitializing) {
+    return (
+      <div className="gallery-container">
+        <Navbar />
+        <div className="initializing-state">
+          <div className="loader"></div>
+          <h2>Setting Up Gallery...</h2>
+          <p>Detecting images from folders. This will be fast!</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="gallery-container">
@@ -369,22 +500,34 @@ const ProfessionalGallery = () => {
           <div className="hero-content">
             <h1 className="hero-title">Premium Woodcraft Collection</h1>
             <p className="hero-subtitle">
-              Explore {allProducts.length}+ handcrafted wooden products across {categories.length - 1} categories
+              Explore {allProducts.length} handcrafted wooden products
             </p>
             <div className="search-container">
               <input
                 type="text"
                 className="search-input"
-                placeholder={`Search ${allProducts.length}+ products...`}
+                placeholder={`Search ${allProducts.length} products...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search products"
               />
-              <button className="search-button">
+              <button className="search-button" aria-label="Search">
                 <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
             </div>
+            <button 
+              className="refresh-button"
+              onClick={handleRefreshProducts}
+              aria-label="Refresh products"
+              title="Refresh to detect new images"
+            >
+              <svg className="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              Refresh Products
+            </button>
           </div>
         </div>
       </section>
@@ -393,12 +536,13 @@ const ProfessionalGallery = () => {
       <section className="categories-section">
         <div className="container">
           <div className="categories-scroll">
-            {categories.map(category => (
+            {dynamicCategories.map(category => (
               <button
                 key={category.id}
                 className={`category-item ${activeCategory === category.id ? 'active' : ''}`}
                 onClick={() => handleCategoryClick(category.id)}
                 title={`${category.count} products`}
+                aria-label={`View ${category.name} category with ${category.count} products`}
               >
                 <div className="category-image-wrapper">
                   {category.id === 'all' ? (
@@ -409,6 +553,7 @@ const ProfessionalGallery = () => {
                       alt={category.name}
                       className="category-image"
                       onError={handleCategoryImageError}
+                      loading="lazy"
                     />
                   )}
                 </div>
@@ -421,13 +566,14 @@ const ProfessionalGallery = () => {
       </section>
 
       {/* Controls */}
-      <div className="controls-section">
+      <div className="controls-section" ref={galleryRef}>
         <div className="container">
           <div className="controls-wrapper">
             <div className="view-toggle">
               <button
                 className={`view-button ${viewMode === 'grid' ? 'active' : ''}`}
                 onClick={() => setViewMode('grid')}
+                aria-label="Grid view"
               >
                 <svg className="view-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -437,6 +583,7 @@ const ProfessionalGallery = () => {
               <button
                 className={`view-button ${viewMode === 'list' ? 'active' : ''}`}
                 onClick={() => setViewMode('list')}
+                aria-label="List view"
               >
                 <svg className="view-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -451,6 +598,7 @@ const ProfessionalGallery = () => {
                 className="sort-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
+                aria-label="Sort products by"
               >
                 <option value="featured">Featured</option>
                 <option value="price-low">Price: Low to High</option>
@@ -472,7 +620,7 @@ const ProfessionalGallery = () => {
             </h3>
             {totalPages > 1 && (
               <div className="pagination-info">
-                Page {currentPage} of {totalPages} • Showing {currentProducts.length} of {filteredProducts.length}
+                Page {currentPage} of {totalPages}
               </div>
             )}
           </div>
@@ -487,6 +635,15 @@ const ProfessionalGallery = () => {
               <div className="empty-icon">📷</div>
               <h3>No products found</h3>
               <p>Try adjusting your search or filter criteria</p>
+              <button 
+                className="clear-filters-btn"
+                onClick={() => {
+                  setActiveCategory('all');
+                  setSearchQuery('');
+                }}
+              >
+                Clear All Filters
+              </button>
             </div>
           ) : (
             <>
@@ -496,19 +653,24 @@ const ProfessionalGallery = () => {
                     key={product.id}
                     className="product-card"
                     onClick={() => handleProductClick(product)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === 'Enter' && handleProductClick(product)}
+                    aria-label={`View details for ${product.title}`}
                   >
                     <div className="product-image-container">
                       <img
                         src={product.image}
                         alt={product.title}
                         className="product-image"
-                        onError={(e) => handleImageError(e, product.fallbackImage)}
+                        onError={(e) => handleImageError(e, product)}
+                        loading="lazy"
                       />
                       {product.featured && (
                         <div className="featured-badge">Featured</div>
                       )}
                       <div className="product-overlay">
-                        <button className="quick-view-btn">View Details</button>
+                        <button className="quick-view-btn">Quick View</button>
                       </div>
                     </div>
                     
@@ -539,7 +701,7 @@ const ProfessionalGallery = () => {
                       <div className="product-footer">
                         <div className="rating">
                           <span className="rating-stars">★★★★★</span>
-                          <span className="rating-value">{product.rating}</span>
+                          <span className="rating-value">{product.rating.toFixed(1)}</span>
                         </div>
                         <span className="image-number">#{product.imageNumber}</span>
                       </div>
@@ -555,6 +717,7 @@ const ProfessionalGallery = () => {
                     className="pagination-btn prev"
                     onClick={handlePrevPage}
                     disabled={currentPage === 1}
+                    aria-label="Previous page"
                   >
                     ← Previous
                   </button>
@@ -579,6 +742,8 @@ const ProfessionalGallery = () => {
                           key={pageNumber}
                           className={`pagination-number ${currentPage === pageNumber ? 'active' : ''}`}
                           onClick={() => handlePageChange(pageNumber)}
+                          aria-label={`Page ${pageNumber}`}
+                          aria-current={currentPage === pageNumber ? 'page' : undefined}
                         >
                           {pageNumber}
                         </button>
@@ -590,6 +755,7 @@ const ProfessionalGallery = () => {
                     className="pagination-btn next"
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
+                    aria-label="Next page"
                   >
                     Next →
                   </button>
@@ -605,15 +771,15 @@ const ProfessionalGallery = () => {
         <div className="container">
           <div className="stats-grid">
             <div className="stat-card">
-              <div className="stat-number">{allProducts.length}+</div>
+              <div className="stat-number">{allProducts.length}</div>
               <div className="stat-label">Total Products</div>
             </div>
             <div className="stat-card">
-              <div className="stat-number">{categories.length - 1}</div>
+              <div className="stat-number">{dynamicCategories.length - 1}</div>
               <div className="stat-label">Categories</div>
             </div>
             <div className="stat-card">
-              <div className="stat-number">5 Year</div>
+              <div className="stat-number">5 Years</div>
               <div className="stat-label">Warranty</div>
             </div>
             <div className="stat-card">
@@ -626,9 +792,13 @@ const ProfessionalGallery = () => {
 
       {/* Product Modal */}
       {showModal && selectedProduct && (
-        <div className="modal-overlay" onClick={closeModal}>
+        <div className="modal-overlay" onClick={closeModal} role="dialog" aria-modal="true">
           <div className="modal-container" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
+            <button 
+              className="modal-close" 
+              onClick={closeModal}
+              aria-label="Close modal"
+            >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -640,10 +810,11 @@ const ProfessionalGallery = () => {
                   src={selectedProduct.image}
                   alt={selectedProduct.title}
                   className="modal-main-image"
-                  onError={(e) => handleImageError(e, selectedProduct.fallbackImage)}
+                  onError={(e) => handleImageError(e, selectedProduct)}
+                  loading="lazy"
                 />
                 <div className="image-counter">
-                  Image {selectedProduct.imageNumber} of {categories.find(c => c.id === selectedProduct.category)?.count}
+                  Image {selectedProduct.imageNumber} of {selectedProduct.totalInCategory}
                 </div>
               </div>
               
@@ -654,12 +825,12 @@ const ProfessionalGallery = () => {
                 </div>
                 
                 <div className="modal-category">
-                  <strong>Category:</strong> {categories.find(c => c.id === selectedProduct.category)?.name}
+                  <strong>Category:</strong> {dynamicCategories.find(c => c.id === selectedProduct.category)?.name}
                 </div>
                 
                 <div className="modal-rating">
                   <span className="rating-stars">★★★★★</span>
-                  <span className="rating-value">{selectedProduct.rating} (Customer Rating)</span>
+                  <span className="rating-value">{selectedProduct.rating.toFixed(1)} Rating</span>
                 </div>
                 
                 <p className="modal-description">{selectedProduct.description}</p>
@@ -678,7 +849,7 @@ const ProfessionalGallery = () => {
                     <span className="spec-value">{selectedProduct.finish}</span>
                   </div>
                   <div className="spec-item">
-                    <span className="spec-label">Delivery Time:</span>
+                    <span className="spec-label">Delivery:</span>
                     <span className="spec-value">{selectedProduct.delivery}</span>
                   </div>
                   <div className="spec-item">
@@ -688,13 +859,13 @@ const ProfessionalGallery = () => {
                 </div>
                 
                 <div className="modal-actions">
-                  <button className="btn-primary">
+                  <button className="btn-primary" aria-label="Add to cart">
                     <svg className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     Add to Cart
                   </button>
-                  <button className="btn-secondary">
+                  <button className="btn-secondary" aria-label="Add to wishlist">
                     <svg className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
@@ -714,24 +885,25 @@ const ProfessionalGallery = () => {
             <div className="footer-section">
               <h3 className="footer-logo">WoodCraft</h3>
               <p className="footer-description">
-                Premium handcrafted wooden furniture and decor pieces across {categories.length - 1} categories.
+                Premium handcrafted wooden furniture and decor pieces.
               </p>
               <div className="total-products">
-                Total Products: {allProducts.length}+
+                Total Products: {allProducts.length}
               </div>
             </div>
             
             <div className="footer-section">
               <h4>Top Categories</h4>
               <ul className="footer-links">
-                {categories.slice(1, 6).map(category => (
+                {dynamicCategories.slice(1, 6).map(category => (
                   <li key={category.id}>
-                    <a href="#" onClick={(e) => { 
-                      e.preventDefault(); 
-                      handleCategoryClick(category.id);
-                    }}>
+                    <button 
+                      className="footer-link-btn"
+                      onClick={() => handleCategoryClick(category.id)}
+                      aria-label={`View ${category.name} category`}
+                    >
                       {category.name} ({category.count})
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -747,12 +919,10 @@ const ProfessionalGallery = () => {
           </div>
           
           <div className="footer-bottom">
-            <p>© 2024 WoodCraft Gallery • {allProducts.length}+ Premium Products</p>
+            <p>© 2024 WoodCraft Gallery • {allProducts.length} Premium Products</p>
           </div>
         </div>
       </footer>
     </div>
   );
-};
-
-export default ProfessionalGallery;
+}
