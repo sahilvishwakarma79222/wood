@@ -1,7 +1,7 @@
 /* Navbar Base Styles */
 .navbar {
   background: #ffffff;
-  padding: 0.5rem 0;
+  padding: 0.1rem 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -72,7 +72,7 @@
   min-width: 130px;
 }
 
-.logo-img-2 {
+/* .logo-img-2 {
   height: 58px !important;
   width: auto;
   object-fit: contain;
@@ -80,6 +80,16 @@
   transition: opacity 0.2s ease;
   max-width: 65px;
   margin-bottom: 0;
+} */
+
+.logo-img-2 {
+    object-fit: contain;
+    opacity: .95;
+    width: auto;
+    max-width: 75px;
+    margin-bottom: 0px;
+    transition: opacity .2s;
+    height: 70px !important;
 }
 
 .logo-text-wrapper:hover .logo-img-2 {
@@ -87,7 +97,7 @@
 }
 
 /* Text Styling - Large and Overlapping */
-.logo-text {
+/* .logo-text {
   font-size: 22px !important;
   font-weight: 900;
   color: #5a3921;
@@ -108,6 +118,29 @@
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
   z-index: 2;
   font-family: 'Montserrat', 'Inter', sans-serif;
+} */
+
+.logo-text {
+    color: #5a3921;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #5a3921 0%, #8b5a2b 100%);
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    text-shadow: 0 1px 3px #00000026;
+    z-index: 2;
+    -webkit-background-clip: text;
+    background-clip: text;
+    width: 100%;
+    padding: 0;
+    font-family: Montserrat, Inter, sans-serif;
+    font-weight: 900;
+    line-height: 1;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    margin-top: 2px !important;
+    font-size: 14px !important;
 }
 
 .logo-text::after {
@@ -778,7 +811,7 @@ body.no-scroll {
 
 @media (max-width: 640px) {
   .navbar {
-    padding: 0.3rem 0;
+    padding: 0.1rem 0;
   }
   
   .nav-container {
