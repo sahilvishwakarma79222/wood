@@ -1,7 +1,7 @@
 'use client'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import Categories from '@/components/Categories'
+import Categories from '@/components/ProductCategories'
 import Products from '@/components/Products'
 import Features from '@/components/Features'
 import CTA from '@/components/CTA'

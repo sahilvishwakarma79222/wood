@@ -2570,27 +2570,3 @@ body {
     font-size: 10px;
   }
 }
-
-/* Even More Minimal Option */
-/* Agar abhi bhi bada lage to yeh try karo: */
-/*
-.badge {
-  padding: 5px 12px;
-  font-size: 12px;
-  gap: 5px;
-}
-
-.badge-icon {
-  width: 18px;
-  height: 18px;
-  font-size: 11px;
-}
-
-.badge-group {
-  gap: 8px;
-}
-
-.hero-badges {
-  margin-bottom: 12px;
-}
-*/
