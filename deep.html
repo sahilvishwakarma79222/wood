@@ -1,1140 +1,940 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maa Kripa Wood Art - Premium Interior Decorators</title>
-
-  <!-- Google Font for Hindi + Bold Look -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Serif+Devanagari:wght@600;700&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      background: #0a1929;
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-      color: white;
-      overflow-x: hidden;
-      padding-top: 80px; /* For fixed navbar only */
-    }
-
-    /* Fixed Navigation Bar */
-    .navbar {
-      background: linear-gradient(90deg, #0a1929 0%, #1a2a3a 100%);
-      color: white;
-      padding: 0;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      width: 100%;
-      height: 80px;
-      border-bottom: 3px solid #ff9900;
-    }
-
-    .nav-container {
-      max-width: 100%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 40px;
-      height: 100%;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .logo-icon {
-      font-size: 28px;
-      color: #ff9900;
-    }
-
-    .logo-text h2 {
-      font-family: 'Noto Serif Devanagari', serif;
-      font-size: 22px;
-      margin-bottom: 3px;
-      background: linear-gradient(to right, #ff9900, #ffcc00);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .logo-text p {
-      font-size: 12px;
-      opacity: 0.9;
-    }
-
-    .nav-contact {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-
-    .phone {
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffcc00;
-      margin-bottom: 3px;
-    }
-
-    .gst {
-      font-size: 13px;
-      opacity: 0.9;
-    }
-
-    /* Main Content */
-    .main-content {
-      width: 100%;
-      max-width: 95%;
-      margin: 0 auto;
-      padding: 30px 0 60px;
-    }
-
-    /* Banner Section */
-    .banner-section {
-      width: 100%;
-      background: linear-gradient(135deg, rgba(10, 25, 41, 0.9), rgba(26, 42, 58, 0.95));
-      border-radius: 15px;
-      padding: 40px;
-      margin-bottom: 40px;
-      border: 1px solid rgba(255, 153, 0, 0.2);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .banner-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, #ff9900, #ffcc00, #ff9900);
-    }
-
-    /* Banner Title */
-    .banner-title {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .banner-title h1 {
-      font-family: 'Noto Serif Devanagari', serif;
-      font-size: 64px;
-      margin: 0 0 15px 0;
-      letter-spacing: 2px;
-      text-shadow: 3px 3px 12px rgba(0,0,0,0.7);
-      background: linear-gradient(to right, #fff, #ffecb3, #fff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .banner-subtitle {
-      display: inline-block;
-      background: rgba(255, 153, 0, 0.2);
-      color: #ffcc00;
-      padding: 12px 35px;
-      font-weight: 700;
-      border-radius: 8px;
-      font-size: 20px;
-      letter-spacing: 1.5px;
-      border: 2px solid rgba(255, 153, 0, 0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    /* Contact Info in Banner */
-    .banner-contact {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-
-    .contact-item {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    /* Categories Grid - 12 items in grid */
-    .categories-grid {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .category-card {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      font-size: 12px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      position: relative;
-      backdrop-filter: blur(5px);
-    }
-
-    .category-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      border-color: #ff9900;
-      background: rgba(255, 153, 0, 0.15);
-      z-index: 10;
-    }
-
-    .category-card.active {
-      border: 3px solid #ff9900;
-      box-shadow: 0 0 30px rgba(255, 153, 0, 0.6);
-      background: rgba(255, 153, 0, 0.2);
-      transform: scale(1.05);
-    }
-
-    .category-card img {
-      width: 100%;
-      height: 90px;
-      object-fit: cover;
-      border-bottom: 3px solid #ff9900;
-    }
-
-    .category-card span {
-      display: block;
-      padding: 12px 5px;
-      font-weight: 700;
-      background: rgba(0, 0, 0, 0.3);
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.3;
-      color: white;
-      font-size: 11.5px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* Footer Text */
-    .banner-footer {
-      text-align: center;
-      margin-top: 35px;
-      font-size: 18px;
-      font-weight: 700;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      letter-spacing: 1px;
-      color: #ffcc00;
-      border: 1px solid rgba(255, 204, 0, 0.2);
-    }
-
-    /* Default Message */
-    .default-message {
-      text-align: center;
-      padding: 80px 40px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 15px;
-      border: 2px dashed rgba(255, 153, 0, 0.3);
-      margin: 40px 0;
-    }
-
-    .default-icon {
-      font-size: 70px;
-      color: #ff9900;
-      margin-bottom: 25px;
-    }
-
-    .default-message h2 {
-      color: #ffcc00;
-      margin-bottom: 20px;
-      font-size: 32px;
-    }
-
-    .default-message p {
-      color: #aaa;
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 30px;
-      line-height: 1.6;
-    }
-
-    /* Category Display Section */
-    .category-display {
-      width: 100%;
-      margin: 50px 0 60px;
-      display: none;
-    }
-
-    .category-display.active {
-      display: block;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .category-header {
-      text-align: center;
-      margin-bottom: 40px;
-      padding-bottom: 20px;
-      border-bottom: 3px solid #ff9900;
-    }
-
-    .category-header h2 {
-      font-family: 'Noto Serif Devanagari', serif;
-      font-size: 42px;
-      color: #ffcc00;
-      margin-bottom: 15px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-    }
-
-    .category-header p {
-      color: #aaa;
-      font-size: 18px;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .images-count {
-      display: inline-block;
-      background: rgba(255, 153, 0, 0.2);
-      color: #ffcc00;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 16px;
-      margin-top: 15px;
-      border: 1px solid rgba(255, 153, 0, 0.3);
-    }
-
-    /* Images Grid - Full Width */
-    .images-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 30px;
-      width: 100%;
-    }
-
-    .image-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      height: 100%;
-      position: relative;
-    }
-
-    .image-card:hover {
-      transform: translateY(-15px) scale(1.02);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-      border-color: #ff9900;
-    }
-
-    .image-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .image-info {
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.5);
-    }
-
-    .image-info h3 {
-      color: #ffcc00;
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-
-    .image-info p {
-      color: #ccc;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .image-number {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: rgba(255, 153, 0, 0.9);
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 18px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    /* Loading Animation */
-    .loading {
-      text-align: center;
-      padding: 50px;
-      font-size: 20px;
-      color: #ff9900;
-      display: none;
-    }
-
-    .loading.active {
-      display: block;
-    }
-
-    .loading-spinner {
-      border: 5px solid rgba(255, 255, 255, 0.1);
-      border-top: 5px solid #ff9900;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Scroll to top button */
-    .scroll-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: rgba(255, 153, 0, 0.9);
-      color: white;
-      border: none;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .scroll-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .scroll-top:hover {
-      background: #ff9900;
-      transform: translateY(-5px);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1600px) {
-      .categories-grid {
-        grid-template-columns: repeat(6, 1fr);
-        gap: 20px;
-      }
-      
-      .category-card img {
-        height: 100px;
-      }
-      
-      .banner-title h1 {
-        font-size: 58px;
-      }
-      
-      .images-grid {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 25px;
-      }
-    }
-
-    @media (max-width: 1200px) {
-      .categories-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      
-      .banner-title h1 {
-        font-size: 52px;
-      }
-      
-      .banner-subtitle {
-        font-size: 18px;
-        padding: 10px 30px;
-      }
-      
-      .category-header h2 {
-        font-size: 38px;
-      }
-      
-      .main-content {
-        max-width: 98%;
-      }
-    }
-
-    @media (max-width: 992px) {
-      .navbar {
-        height: 70px;
-      }
-      
-      body {
-        padding-top: 70px;
-      }
-      
-      .nav-container,
-      .banner-section {
-        padding-left: 30px;
-        padding-right: 30px;
-      }
-      
-      .banner-title h1 {
-        font-size: 46px;
-      }
-      
-      .banner-section {
-        padding: 35px 30px;
-      }
-      
-      .categories-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .category-header h2 {
-        font-size: 34px;
-      }
-      
-      .images-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 25px;
-      }
-      
-      .image-card img {
-        height: 220px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        height: 65px;
-      }
-      
-      body {
-        padding-top: 65px;
-      }
-      
-      .nav-container,
-      .banner-section {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      
-      .banner-title h1 {
-        font-size: 40px;
-      }
-      
-      .banner-subtitle {
-        font-size: 16px;
-        padding: 10px 25px;
-      }
-      
-      .banner-contact {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-      }
-      
-      .contact-item {
-        width: 100%;
-        text-align: center;
-      }
-      
-      .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      .category-header h2 {
-        font-size: 30px;
-      }
-      
-      .category-header p {
-        font-size: 16px;
-      }
-      
-      .images-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-      }
-      
-      .image-card img {
-        height: 200px;
-      }
-      
-      .default-message {
-        padding: 60px 30px;
-      }
-      
-      .default-icon {
-        font-size: 60px;
-      }
-      
-      .default-message h2 {
-        font-size: 28px;
-      }
-      
-      .default-message p {
-        font-size: 16px;
-      }
-      
-      .phone {
-        font-size: 16px;
-      }
-      
-      .logo-text h2 {
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .navbar {
-        height: 60px;
-      }
-      
-      body {
-        padding-top: 60px;
-      }
-      
-      .nav-container,
-      .banner-section {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-      
-      .banner-title h1 {
-        font-size: 36px;
-      }
-      
-      .banner-subtitle {
-        font-size: 14px;
-        padding: 8px 20px;
-      }
-      
-      .banner-section {
-        padding: 30px 20px;
-      }
-      
-      .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-      
-      .category-card img {
-        height: 85px;
-      }
-      
-      .category-card span {
-        font-size: 11px;
-        padding: 10px 3px;
-      }
-      
-      .category-header h2 {
-        font-size: 28px;
-      }
-      
-      .images-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .logo-text h2 {
-        font-size: 18px;
-      }
-      
-      .logo-icon {
-        font-size: 24px;
-      }
-      
-      .phone {
-        font-size: 14px;
-      }
-      
-      .gst {
-        font-size: 11px;
-      }
-      
-      .default-message {
-        padding: 50px 20px;
-      }
-      
-      .default-icon {
-        font-size: 50px;
-      }
-      
-      .default-message h2 {
-        font-size: 24px;
-      }
-      
-      .default-message p {
-        font-size: 15px;
-      }
-      
-      .banner-footer {
-        font-size: 16px;
-        padding: 12px;
-      }
-      
-      .scroll-top {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        bottom: 20px;
-        right: 20px;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .banner-title h1 {
-        font-size: 32px;
-      }
-      
-      .categories-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .category-header h2 {
-        font-size: 26px;
-      }
-      
-      .banner-contact {
-        font-size: 14px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimberCraft Doors | About Our Legacy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
-<body>
-  <!-- Fixed Navigation Bar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo">
-        <div class="logo-icon">
-          <i class="fas fa-tree"></i>
+<body class="bg-gray-900 text-gray-100 overflow-x-hidden">
+    <!-- Animated Background Particles -->
+    <div id="particles-js" class="absolute inset-0 z-0"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 py-6 transition-all duration-500" id="mainNav">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center group cursor-pointer">
+                <div class="relative">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-amber-600 to-amber-800 flex items-center justify-center transform transition-transform duration-500 group-hover:rotate-180">
+                        <i class="fas fa-door-open text-white text-xl"></i>
+                    </div>
+                    <div class="absolute -top-1 -right-1 w-5 h-5 bg-amber-400 rounded-full animate-ping opacity-70"></div>
+                </div>
+                <div class="ml-4">
+                    <h1 class="text-2xl font-bold font-cinzel tracking-wide">Timber<span class="text-amber-400">Craft</span></h1>
+                    <p class="text-xs text-amber-300 tracking-widest">DOORS & CHAUKATHS</p>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex space-x-10">
+                <a href="#" class="nav-link relative group">
+                    <span class="text-lg font-medium">Home</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" class="nav-link relative group text-amber-400">
+                    <span class="text-lg font-medium">About</span>
+                    <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-amber-400"></span>
+                </a>
+                <a href="#" class="nav-link relative group">
+                    <span class="text-lg font-medium">Gallery</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" class="nav-link relative group">
+                    <span class="text-lg font-medium">Services</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#" class="nav-link relative group">
+                    <span class="text-lg font-medium">Contact</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+            
+            <div class="lg:hidden">
+                <button id="mobileMenuBtn" class="text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
-        <div class="logo-text">
-          <h2>माँ कृपा वुड आर्ट</h2>
-          <p>Premium Interior Decorators</p>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden fixed top-0 left-0 w-full h-0 bg-gray-900 overflow-hidden transition-all duration-500">
+            <div class="container mx-auto px-6 py-24 flex flex-col items-center justify-center space-y-10">
+                <button id="closeMenuBtn" class="absolute top-8 right-8 text-3xl">
+                    <i class="fas fa-times"></i>
+                </button>
+                <a href="#" class="text-2xl font-medium hover:text-amber-400 transition-colors">Home</a>
+                <a href="#" class="text-2xl font-medium text-amber-400">About</a>
+                <a href="#" class="text-2xl font-medium hover:text-amber-400 transition-colors">Gallery</a>
+                <a href="#" class="text-2xl font-medium hover:text-amber-400 transition-colors">Services</a>
+                <a href="#" class="text-2xl font-medium hover:text-amber-400 transition-colors">Contact</a>
+            </div>
         </div>
-      </div>
-      
-      <div class="nav-contact">
-        <div class="phone"><i class="fas fa-phone"></i> 8007774733</div>
-        <div class="gst">GSTIN: 27CJYPP4338M1Z5</div>
-      </div>
-    </div>
-  </nav>
+    </nav>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Banner Section with Categories Grid -->
-    <section class="banner-section">
-      <div class="banner-title">
-        <h1>माँ कृपा वुड आर्ट</h1>
-        <div class="banner-subtitle">PREMIUM INTERIOR DECORATORS & WOODWORK SPECIALISTS</div>
-      </div>
-
-      <div class="banner-contact">
-        <div class="contact-item">VIVEK LALJI PAL · 8007774733</div>
-        <div class="contact-item">GSTIN: 27CJYPP4338M1Z5</div>
-      </div>
-
-      <!-- Categories Grid (12 items) -->
-      <div class="categories-grid" id="categoriesGrid">
-        <!-- Categories will be populated by JavaScript -->
-      </div>
-
-      <div class="banner-footer">
-        <i class="fas fa-cogs"></i> WE DO ALL TYPES OF CNC & LASER CUTTING <i class="fas fa-cogs"></i>
-      </div>
+    <!-- Hero Section with Parallax -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-gray-900 z-10"></div>
+            <div class="parallax-bg h-full w-full" style="background-image: url('https://images.unsplash.com/photo-1545147986-713b1f30b665?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 z-20 relative text-center">
+            <div class="mb-10 animate__animated animate__fadeInUp">
+                <div class="inline-block px-6 py-2 bg-amber-500/20 border border-amber-500/30 rounded-full mb-8">
+                    <span class="text-amber-300 tracking-widest text-sm">ESTABLISHED 1985</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 font-cinzel leading-tight">
+                    <span class="block text-white">Where Art Meets</span>
+                    <span class="block text-amber-400 mt-2">Craftsmanship</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 font-lora">
+                    For over three decades, we've transformed houses into homes with meticulously crafted wooden doors and chaukaths that tell a story.
+                </p>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <button class="cta-btn px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-800 rounded-full font-medium text-lg shadow-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-amber-500/30">
+                        <i class="fas fa-play-circle mr-3"></i> Watch Our Story
+                    </button>
+                    <button class="px-8 py-4 border-2 border-amber-500 rounded-full font-medium text-lg transform transition-all duration-500 hover:scale-105 hover:bg-amber-500/10">
+                        <i class="fas fa-compass mr-3"></i> Explore Gallery
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Animated Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 animate__animated animate__fadeIn animate__delay-1s">
+                <div class="stat-card text-center transform transition-all duration-700 hover:translate-y-2">
+                    <div class="text-5xl font-bold text-amber-400 mb-2 stat-counter" data-target="8500">0</div>
+                    <div class="text-gray-300 uppercase tracking-widest text-sm">Doors Crafted</div>
+                </div>
+                <div class="stat-card text-center transform transition-all duration-700 hover:translate-y-2">
+                    <div class="text-5xl font-bold text-amber-400 mb-2 stat-counter" data-target="38">0</div>
+                    <div class="text-gray-300 uppercase tracking-widest text-sm">Years Experience</div>
+                </div>
+                <div class="stat-card text-center transform transition-all duration-700 hover:translate-y-2">
+                    <div class="text-5xl font-bold text-amber-400 mb-2 stat-counter" data-target="15">0</div>
+                    <div class="text-gray-300 uppercase tracking-widest text-sm">Master Craftsmen</div>
+                </div>
+                <div class="stat-card text-center transform transition-all duration-700 hover:translate-y-2">
+                    <div class="text-5xl font-bold text-amber-400 mb-2 stat-counter" data-target="100">0</div>
+                    <div class="text-gray-300 uppercase tracking-widest text-sm">% Satisfaction</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+            <div class="w-6 h-10 border-2 border-amber-400 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-amber-400 rounded-full mt-2"></div>
+            </div>
+        </div>
     </section>
 
-    <!-- Default Message -->
-    <div class="default-message" id="defaultMessage">
-      <div class="default-icon">
-        <i class="fas fa-mouse-pointer"></i>
-      </div>
-      <h2>Select a Category to View Products</h2>
-      <p>
-        Click on any category above to explore our premium collection. Each category contains 50+ high-quality images 
-        showcasing our craftsmanship and design expertise. We offer CNC cutting, laser cutting, and custom woodwork services.
-      </p>
-      <div style="margin-top: 30px; color: #ff9900; font-weight: 600; font-size: 18px;">
-        <i class="fas fa-arrow-up"></i> Choose from 12 categories above
-      </div>
+    <!-- Wood Texture Separator -->
+    <div class="relative h-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900"></div>
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover;"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h2 class="text-3xl font-bold font-cinzel tracking-wider text-white">OUR LEGACY IN WOOD</h2>
+        </div>
     </div>
 
-    <!-- Category Display Sections -->
-    <!-- Each category section will be generated by JavaScript -->
-    <div id="categorySectionsContainer">
-      <!-- Category sections will be added here by JavaScript -->
-    </div>
-
-    <!-- Loading Indicator -->
-    <div class="loading" id="loading">
-      <div class="loading-spinner"></div>
-      <p>Loading Images...</p>
-    </div>
-  </div>
-
-  <!-- Scroll to Top Button -->
-  <button class="scroll-top" id="scrollTop">
-    <i class="fas fa-chevron-up"></i>
-  </button>
-
-  <script>
-    // Generate 50 images for each category
-    function generateCategoryImages(categoryName, count = 50) {
-      const images = [];
-      const baseUrl = 'https://images.unsplash.com/photo-';
-      const imageIds = [
-        '1586023492125-27b2c045efd7', // door/window
-        '1505693416388-ac5ce068fe85', // bed
-        '1592496008944-ebd4f6c24c8e', // temple
-        '1584917865442-de89df76afd3', // door cutting
-        '1558618666-fcd25c85cd64',   // 3d panel
-        '1615876234886-fd9a39fda97f', // wall panel
-        '1591955506269-5f9a88b3ba32', // safety door
-        '1588854337236-6a87f0163586', // furniture
-        '1538688525198-9b88f6f53126', // shelves
-        '1567538096630-e0c55bd6374c', // stairs
-        '1598300042247-d088f8ab3a91', // ceiling
-        '1540574163026-643ea20ade25', // carving
-        '1616594039964-ae9021a400a0', // bed2
-        '1616627547586-6c6d6d8f0e71', // bed3
-        '1560448204-603b3fc33ddc',   // door2
-        '1570129477492-45c003edd2be', // door3
-      ];
-      
-      for (let i = 1; i <= count; i++) {
-        const randomImageId = imageIds[Math.floor(Math.random() * imageIds.length)];
-        images.push({
-          url: `${baseUrl}${randomImageId}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600&q=80`,
-          title: `${categoryName} Design ${i}`,
-          desc: `Premium ${categoryName.toLowerCase()} design with exquisite craftsmanship. This is sample ${i} of our collection.`,
-          number: i
-        });
-      }
-      
-      return images;
-    }
-
-    // Category data
-    const categories = [
-      { 
-        id: 'door-frame', 
-        name: 'DOOR FRAME', 
-        description: 'Premium wooden door frames with intricate designs and durable construction.'
-      },
-      { 
-        id: 'wooden-bed', 
-        name: 'WOODEN BED', 
-        description: 'Elegant and sturdy wooden beds in various designs for your bedroom.'
-      },
-      { 
-        id: 'wooden-mandir', 
-        name: 'WOODEN MANDIR', 
-        description: 'Beautifully crafted wooden temples for home worship with intricate designs.'
-      },
-      { 
-        id: 'door-cutting', 
-        name: 'DOOR CUTTING', 
-        description: 'Precision door cutting services for custom designs and patterns.'
-      },
-      { 
-        id: '3d-panel', 
-        name: '3D PANEL', 
-        description: 'Modern 3D wall panels that add depth and texture to your interiors.'
-      },
-      { 
-        id: 'wall-panel', 
-        name: 'WALL PANEL', 
-        description: 'Decorative wall panels to enhance the aesthetics of your space.'
-      },
-      { 
-        id: 'safety-door', 
-        name: 'SAFETY DOOR', 
-        description: 'Strong and secure safety doors with advanced locking mechanisms.'
-      },
-      { 
-        id: 'furniture', 
-        name: 'FURNITURE', 
-        description: 'Custom wooden furniture including tables, chairs, and cabinets.'
-      },
-      { 
-        id: 'wooden-shelves', 
-        name: 'WOODEN SHELVES', 
-        description: 'Functional and decorative wooden shelves for storage and display.'
-      },
-      { 
-        id: 'wooden-stairs', 
-        name: 'WOODEN STAIRS', 
-        description: 'Sturdy and elegant wooden staircases with handrails and balusters.'
-      },
-      { 
-        id: 'wooden-ceiling', 
-        name: 'WOODEN CEILING', 
-        description: 'Wooden ceiling designs that add warmth and character to interiors.'
-      },
-      { 
-        id: 'custom-carving', 
-        name: 'CUSTOM CARVING', 
-        description: 'Custom wood carving services for personalized designs and patterns.'
-      }
-    ];
-
-    // DOM Elements
-    const categoriesGrid = document.getElementById('categoriesGrid');
-    const categorySectionsContainer = document.getElementById('categorySectionsContainer');
-    const defaultMessage = document.getElementById('defaultMessage');
-    const scrollTopBtn = document.getElementById('scrollTop');
-    const loadingIndicator = document.getElementById('loading');
-    let activeCategory = null;
-    let categoryImagesCache = {};
-
-    // Initialize categories grid (12 items in grid)
-    function initCategoriesGrid() {
-      categories.forEach((category, index) => {
-        const categoryCard = document.createElement('div');
-        categoryCard.className = 'category-card';
-        categoryCard.dataset.id = category.id;
-        categoryCard.dataset.index = index;
-        
-        // Use appropriate image for each category
-        let imageUrl = '';
-        switch(category.id) {
-          case 'door-frame': imageUrl = 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'wooden-bed': imageUrl = 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'wooden-mandir': imageUrl = 'https://images.unsplash.com/photo-1592496008944-ebd4f6c24c8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'door-cutting': imageUrl = 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case '3d-panel': imageUrl = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'wall-panel': imageUrl = 'https://images.unsplash.com/photo-1615876234886-fd9a39fda97f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'safety-door': imageUrl = 'https://images.unsplash.com/photo-1591955506269-5f9a88b3ba32?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'furniture': imageUrl = 'https://images.unsplash.com/photo-1588854337236-6a87f0163586?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'wooden-shelves': imageUrl = 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'wooden-stairs': imageUrl = 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'wooden-ceiling': imageUrl = 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          case 'custom-carving': imageUrl = 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80'; break;
-          default: imageUrl = 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80';
-        }
-        
-        categoryCard.innerHTML = `
-          <img src="${imageUrl}" alt="${category.name}" loading="lazy" />
-          <span>${category.name}</span>
-        `;
-        
-        categoryCard.addEventListener('click', () => {
-          activateCategory(category.id);
-        });
-        
-        categoriesGrid.appendChild(categoryCard);
-      });
-    }
-
-    // Create category sections
-    function createCategorySections() {
-      categories.forEach(category => {
-        // Create section for this category
-        const section = document.createElement('div');
-        section.className = 'category-display';
-        section.id = `category-${category.id}`;
-        
-        section.innerHTML = `
-          <div class="category-header">
-            <h2>${category.name}</h2>
-            <p>${category.description}</p>
-            <div class="images-count">
-              <i class="fas fa-images"></i> 50+ Images Available
+    <!-- Story Section with 3D Effect -->
+    <section class="py-24 bg-gray-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <!-- 3D Floating Image -->
+                <div class="lg:w-1/2">
+                    <div class="relative perspective-1000">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-amber-600 to-amber-800 rounded-2xl blur-xl opacity-50 animate-pulse"></div>
+                        <div class="relative rounded-xl overflow-hidden shadow-2xl transform transition-all duration-700 hover:rotate-y-12">
+                            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                                 alt="Crafted Wooden Door" class="w-full h-auto">
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 bg-gradient-to-r from-amber-700 to-amber-900 p-6 rounded-xl shadow-2xl transform rotate-3">
+                            <div class="text-4xl font-bold text-white">1985</div>
+                            <div class="text-amber-200 font-medium">Our Humble Beginnings</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Story Content -->
+                <div class="lg:w-1/2">
+                    <div class="inline-block px-4 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full mb-6">
+                        <span class="text-amber-300 tracking-widest text-sm">OUR JOURNEY</span>
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8 font-cinzel">
+                        Carving <span class="text-amber-400">Legacy</span> Since 1985
+                    </h2>
+                    
+                    <p class="text-gray-300 text-lg mb-6 font-lora">
+                        What began as a small workshop in the heart of Udaipur has blossomed into a renowned name in wooden door craftsmanship. Founded by Master Craftsman Arvind Sharma, TimberCraft began with a simple philosophy: every door should be a masterpiece.
+                    </p>
+                    
+                    <p class="text-gray-300 text-lg mb-10 font-lora">
+                        Today, under the guidance of Arvind's son, Rajesh Sharma, we continue to blend traditional woodworking techniques with contemporary designs, creating doors that are not just functional elements but works of art that enhance architectural beauty.
+                    </p>
+                    
+                    <!-- Interactive Timeline -->
+                    <div class="space-y-6">
+                        <div class="timeline-item transform transition-all duration-500 hover:translate-x-2">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-3 h-3 rounded-full bg-amber-500 mt-2 mr-4"></div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-1">1985 - The Beginning</h4>
+                                    <p class="text-gray-400">Arvind Sharma opens a small workshop with two apprentices</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item transform transition-all duration-500 hover:translate-x-2">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-3 h-3 rounded-full bg-amber-500 mt-2 mr-4"></div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-1">2000 - Expansion</h4>
+                                    <p class="text-gray-400">Moves to larger facility, adds 5 master craftsmen to the team</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item transform transition-all duration-500 hover:translate-x-2">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-3 h-3 rounded-full bg-amber-500 mt-2 mr-4"></div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-1">2015 - Modernization</h4>
+                                    <p class="text-gray-400">Introduces CNC technology while preserving handcrafted techniques</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="images-grid" id="images-grid-${category.id}">
-            <!-- Images will be loaded here on demand -->
-          </div>
-        `;
-        
-        categorySectionsContainer.appendChild(section);
-      });
-    }
+        </div>
+    </section>
 
-    // Activate a category
-    function activateCategory(categoryId) {
-      const category = categories.find(cat => cat.id === categoryId);
-      if (!category) return;
-      
-      // Update active card
-      document.querySelectorAll('.category-card').forEach(card => {
-        card.classList.remove('active');
-        if (card.dataset.id === categoryId) {
-          card.classList.add('active');
-        }
-      });
-      
-      // Hide default message
-      defaultMessage.style.display = 'none';
-      
-      // Hide all category sections
-      document.querySelectorAll('.category-display').forEach(section => {
-        section.classList.remove('active');
-      });
-      
-      // Show selected category section
-      const categorySection = document.getElementById(`category-${categoryId}`);
-      if (categorySection) {
-        categorySection.classList.add('active');
+    <!-- Craftsmanship Showcase - Animated Cards -->
+    <section class="py-24 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden">
+        <!-- Animated floating wood chips -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="wood-chip" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
+            <div class="wood-chip" style="top: 20%; left: 80%; animation-delay: 1s;"></div>
+            <div class="wood-chip" style="top: 60%; left: 15%; animation-delay: 2s;"></div>
+            <div class="wood-chip" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+        </div>
         
-        // Load images if not already loaded
-        const imagesGrid = document.getElementById(`images-grid-${categoryId}`);
-        if (imagesGrid.children.length === 0) {
-          loadCategoryImages(categoryId);
-        }
-        
-        // Scroll to the category section
-        setTimeout(() => {
-          categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
-      
-      // Set active category
-      activeCategory = categoryId;
-    }
-
-    // Load images for a category
-    function loadCategoryImages(categoryId) {
-      const category = categories.find(cat => cat.id === categoryId);
-      if (!category) return;
-      
-      // Show loading indicator
-      loadingIndicator.classList.add('active');
-      
-      // Generate or get images from cache
-      if (!categoryImagesCache[categoryId]) {
-        categoryImagesCache[categoryId] = generateCategoryImages(category.name, 50);
-      }
-      
-      const images = categoryImagesCache[categoryId];
-      const imagesGrid = document.getElementById(`images-grid-${categoryId}`);
-      
-      // Clear any existing content
-      imagesGrid.innerHTML = '';
-      
-      // Create image cards
-      setTimeout(() => {
-        images.forEach(img => {
-          const imageCard = document.createElement('div');
-          imageCard.className = 'image-card';
-          
-          imageCard.innerHTML = `
-            <div class="image-number">${img.number}</div>
-            <img src="${img.url}" alt="${img.title}" loading="lazy" />
-            <div class="image-info">
-              <h3>${img.title}</h3>
-              <p>${img.desc}</p>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <div class="inline-block px-4 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full mb-6">
+                    <span class="text-amber-300 tracking-widest text-sm">OUR CRAFT</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 font-cinzel">
+                    The <span class="text-amber-400">Art</span> of Woodworking
+                </h2>
+                
+                <p class="text-gray-300 text-lg max-w-3xl mx-auto font-lora">
+                    Every door we create undergoes a meticulous 12-step process, combining centuries-old techniques with modern precision.
+                </p>
             </div>
-          `;
-          
-          imagesGrid.appendChild(imageCard);
+            
+            <!-- Animated Cards Carousel -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Card 1 -->
+                <div class="craft-card group">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-amber-900/80 to-amber-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-amber-700/30 flex flex-col items-center justify-center text-center h-full transform transition-all duration-700 group-hover:-translate-y-4">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-800 flex items-center justify-center mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
+                                <i class="fas fa-tree text-3xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Wood Selection</h3>
+                            <p class="text-gray-300">Only the finest Teak, Sheesham, and Sal wood, aged to perfection.</p>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-gradient-to-br from-amber-800 to-amber-900 rounded-2xl p-8 flex flex-col justify-center transform rotate-y-180">
+                            <h4 class="text-xl font-bold mb-4 text-white">Our Process</h4>
+                            <ul class="text-amber-100 space-y-2">
+                                <li><i class="fas fa-check mr-2"></i> Wood curing (6-12 months)</li>
+                                <li><i class="fas fa-check mr-2"></i> Grain matching</li>
+                                <li><i class="fas fa-check mr-2"></i> Moisture control</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="craft-card group">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-amber-900/80 to-amber-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-amber-700/30 flex flex-col items-center justify-center text-center h-full transform transition-all duration-700 group-hover:-translate-y-4">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-800 flex items-center justify-center mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
+                                <i class="fas fa-hammer text-3xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Hand Carving</h3>
+                            <p class="text-gray-300">Intricate designs carved by master craftsmen with decades of experience.</p>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-gradient-to-br from-amber-800 to-amber-900 rounded-2xl p-8 flex flex-col justify-center transform rotate-y-180">
+                            <h4 class="text-xl font-bold mb-4 text-white">Traditional Tools</h4>
+                            <ul class="text-amber-100 space-y-2">
+                                <li><i class="fas fa-check mr-2"></i> Chisel & mallet work</li>
+                                <li><i class="fas fa-check mr-2"></i> Hand router detailing</li>
+                                <li><i class="fas fa-check mr-2"></i> Sanding to perfection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="craft-card group">
+                    <div class="card-inner">
+                        <div class="card-front bg-gradient-to-br from-amber-900/80 to-amber-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-amber-700/30 flex flex-col items-center justify-center text-center h-full transform transition-all duration-700 group-hover:-translate-y-4">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-r from-amber-600 to-amber-800 flex items-center justify-center mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-12">
+                                <i class="fas fa-paint-roller text-3xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Finishing</h3>
+                            <p class="text-gray-300">Multiple layers of protective finish for longevity and natural beauty.</p>
+                        </div>
+                        <div class="card-back absolute inset-0 bg-gradient-to-br from-amber-800 to-amber-900 rounded-2xl p-8 flex flex-col justify-center transform rotate-y-180">
+                            <h4 class="text-xl font-bold mb-4 text-white">Finish Types</h4>
+                            <ul class="text-amber-100 space-y-2">
+                                <li><i class="fas fa-check mr-2"></i> Natural oil finishes</li>
+                                <li><i class="fas fa-check mr-2"></i> UV-resistant polyurethane</li>
+                                <li><i class="fas fa-check mr-2"></i> Hand-rubbed wax</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Animated Progress Bar -->
+            <div class="mt-20 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-8 text-center">Our Craftsmanship Timeline</h3>
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-amber-300">Wood Preparation</span>
+                            <span class="text-amber-300">15 days</span>
+                        </div>
+                        <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="progress-bar h-full bg-gradient-to-r from-amber-600 to-amber-800 rounded-full" data-width="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-amber-300">Carving & Joinery</span>
+                            <span class="text-amber-300">20-30 days</span>
+                        </div>
+                        <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="progress-bar h-full bg-gradient-to-r from-amber-600 to-amber-800 rounded-full" data-width="85"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-amber-300">Finishing & Polishing</span>
+                            <span class="text-amber-300">10 days</span>
+                        </div>
+                        <div class="h-3 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="progress-bar h-full bg-gradient-to-r from-amber-600 to-amber-800 rounded-full" data-width="70"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Preview - Interactive -->
+    <section class="py-24 bg-gray-900 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="inline-block px-4 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full mb-6">
+                    <span class="text-amber-300 tracking-widest text-sm">GALLERY</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 font-cinzel">
+                    Masterpieces <span class="text-amber-400">in Wood</span>
+                </h2>
+                
+                <p class="text-gray-300 text-lg max-w-3xl mx-auto font-lora">
+                    Each door tells a unique story. Explore our collection of handcrafted doors that have transformed homes across India.
+                </p>
+            </div>
+            
+            <!-- Interactive Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Door 1 -->
+                <div class="gallery-item relative overflow-hidden rounded-2xl group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Traditional Carved Door" class="w-full h-80 object-cover transform transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Traditional Rajasthani</h3>
+                        <p class="text-amber-200">Hand-carved Sheesham wood with brass fittings</p>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-amber-600 text-white px-4 py-2 rounded-full transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                        View Details
+                    </div>
+                </div>
+                
+                <!-- Door 2 -->
+                <div class="gallery-item relative overflow-hidden rounded-2xl group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Modern Wooden Door" class="w-full h-80 object-cover transform transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Contemporary Teak</h3>
+                        <p class="text-amber-200">Sleek design with geometric patterns and matte finish</p>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-amber-600 text-white px-4 py-2 rounded-full transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                        View Details
+                    </div>
+                </div>
+                
+                <!-- Door 3 -->
+                <div class="gallery-item relative overflow-hidden rounded-2xl group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                         alt="Ornate Entry Door" class="w-full h-80 object-cover transform transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 class="text-2xl font-bold text-white mb-2">Grand Entry Door</h3>
+                        <p class="text-amber-200">Custom-designed with intricate floral carvings</p>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-amber-600 text-white px-4 py-2 rounded-full transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                        View Details
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Animated View All Button -->
+            <div class="text-center mt-16">
+                <button class="view-all-btn px-10 py-4 bg-transparent border-2 border-amber-500 text-amber-400 rounded-full font-bold text-lg transform transition-all duration-500 hover:bg-amber-500 hover:text-white hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+                    <span>View Complete Gallery</span>
+                    <i class="fas fa-arrow-right ml-3 transform transition-transform duration-500 group-hover:translate-x-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials with Slider -->
+    <section class="py-24 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="inline-block px-4 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full mb-6">
+                    <span class="text-amber-300 tracking-widest text-sm">TESTIMONIALS</span>
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 font-cinzel">
+                    What Our <span class="text-amber-400">Clients Say</span>
+                </h2>
+            </div>
+            
+            <!-- Testimonial Slider -->
+            <div class="max-w-4xl mx-auto">
+                <div class="testimonial-slider overflow-hidden rounded-2xl bg-gradient-to-r from-amber-900/30 to-amber-800/30 backdrop-blur-sm border border-amber-700/30 p-10">
+                    <div class="testimonial active">
+                        <div class="flex items-center mb-8">
+                            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-amber-500">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+                                     alt="Client" class="w-full h-full object-cover">
+                            </div>
+                            <div class="ml-6">
+                                <h4 class="text-xl font-bold">Rahul Mehta</h4>
+                                <p class="text-amber-300">Jaipur Heritage Hotel Owner</p>
+                            </div>
+                            <div class="ml-auto text-amber-400 text-4xl">"</div>
+                        </div>
+                        <p class="text-gray-300 text-lg italic">
+                            "The main door TimberCraft created for our heritage hotel transformed the entire property. The craftsmanship is unparalleled - every guest comments on its beauty. It's been 8 years and the door looks as stunning as day one."
+                        </p>
+                        <div class="flex mt-6">
+                            <i class="fas fa-star text-amber-400"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial Navigation -->
+                <div class="flex justify-center mt-10 space-x-4">
+                    <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-700 active"></button>
+                    <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-700/50"></button>
+                    <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-700/50"></button>
+                    <button class="testimonial-nav w-3 h-3 rounded-full bg-amber-700/50"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section with Animation -->
+    <section class="py-24 bg-gradient-to-r from-amber-900 to-amber-800 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1545147986-713b1f30b665?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 font-cinzel">
+                Ready to Transform Your <span class="text-white">Entrance?</span>
+            </h2>
+            
+            <p class="text-xl text-amber-100 max-w-3xl mx-auto mb-12 font-lora">
+                Schedule a consultation with our master craftsmen. Let's design the perfect door that reflects your style and stands the test of time.
+            </p>
+            
+            <!-- Animated CTA Button -->
+            <div class="cta-button-container">
+                <button class="px-12 py-5 bg-white text-amber-800 rounded-full font-bold text-xl shadow-2xl transform transition-all duration-700 hover:scale-110 hover:shadow-white/30 animate-pulse-slow">
+                    <i class="fas fa-calendar-alt mr-3"></i> Book Your Consultation
+                </button>
+                <div class="cta-rings"></div>
+                <div class="cta-rings ring-2"></div>
+                <div class="cta-rings ring-3"></div>
+            </div>
+            
+            <p class="text-amber-200 mt-10">
+                <i class="fas fa-phone-alt mr-2"></i> Call us at: +91 98765 43210 | 
+                <i class="fas fa-envelope ml-4 mr-2"></i> info@timbercraftdoors.com
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-12 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-amber-600 to-amber-800 flex items-center justify-center">
+                            <i class="fas fa-door-open text-white text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-2xl font-bold font-cinzel">Timber<span class="text-amber-400">Craft</span></h2>
+                            <p class="text-sm text-amber-300 tracking-widest">DOORS & CHAUKATHS</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        Crafting bespoke wooden doors and chaukaths since 1985. Where tradition meets innovation in woodworking.
+                    </p>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <h3 class="text-xl font-bold mb-6">Visit Our Workshop</h3>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt mr-2 text-amber-400"></i> 47 Craftsmanship Lane, Udaipur, Rajasthan</p>
+                    <p class="text-gray-400"><i class="fas fa-clock mr-2 text-amber-400"></i> Mon-Sat: 9AM-7PM | Sun: 10AM-4PM</p>
+                    
+                    <div class="flex justify-center md:justify-end space-x-6 mt-8">
+                        <a href="#" class="social-icon w-12 h-12 rounded-full bg-gray-800 hover:bg-amber-700 flex items-center justify-center transform transition-all duration-300 hover:scale-110">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon w-12 h-12 rounded-full bg-gray-800 hover:bg-amber-700 flex items-center justify-center transform transition-all duration-300 hover:scale-110">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon w-12 h-12 rounded-full bg-gray-800 hover:bg-amber-700 flex items-center justify-center transform transition-all duration-300 hover:scale-110">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 TimberCraft Doors & Chaukaths. All rights reserved. | Crafted with <i class="fas fa-heart text-red-500"></i> in India</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize Particles.js Background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#d97706" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#b45309",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Navigation Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-gray-900/90', 'backdrop-blur-md', 'py-4');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-gray-900/90', 'backdrop-blur-md', 'py-4');
+                nav.classList.add('py-6');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.style.height = '100vh';
         });
         
-        // Hide loading indicator
-        loadingIndicator.classList.remove('active');
-      }, 800);
-    }
+        closeMenuBtn.addEventListener('click', function() {
+            mobileMenu.style.height = '0';
+        });
 
-    // Scroll to top function
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+        // Animated Counter
+        const counters = document.querySelectorAll('.stat-counter');
+        const speed = 200;
 
-    // Show/hide scroll to top button
-    function toggleScrollTopButton() {
-      if (window.scrollY > 500) {
-        scrollTopBtn.classList.add('visible');
-      } else {
-        scrollTopBtn.classList.remove('visible');
-      }
-    }
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + '+';
+                    }
+                };
+                updateCount();
+            });
+        };
 
-    // Reset to default view (when clicking logo)
-    function resetToDefaultView() {
-      // Remove active class from all cards
-      document.querySelectorAll('.category-card').forEach(card => {
-        card.classList.remove('active');
-      });
-      
-      // Hide all category sections
-      document.querySelectorAll('.category-display').forEach(section => {
-        section.classList.remove('active');
-      });
-      
-      // Show default message
-      defaultMessage.style.display = 'block';
-      
-      // Scroll to top
-      scrollToTop();
-      
-      activeCategory = null;
-    }
+        // Trigger counters when in viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
 
-    // Event Listeners
-    scrollTopBtn.addEventListener('click', scrollToTop);
+        observer.observe(document.querySelector('.animate__delay-1s'));
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      initCategoriesGrid();
-      createCategorySections();
-      
-      // Show scroll to top button on scroll
-      window.addEventListener('scroll', toggleScrollTopButton);
-      
-      // Initial check for scroll position
-      toggleScrollTopButton();
-      
-      // Click on logo to reset to default view
-      document.querySelector('.logo').addEventListener('click', resetToDefaultView);
-    });
-  </script>
+        // 3D Flip Cards
+        const craftCards = document.querySelectorAll('.craft-card');
+        
+        craftCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.card-inner').style.transform = 'rotateY(180deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.card-inner').style.transform = 'rotateY(0deg)';
+            });
+        });
+
+        // Animate Progress Bars
+        const progressBars = document.querySelectorAll('.progress-bar');
+        
+        const animateProgressBars = () => {
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.transition = 'width 2s ease-in-out';
+                    bar.style.width = width + '%';
+                }, 500);
+            });
+        };
+        
+        // Trigger progress bars when in view
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    progressObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        progressObserver.observe(document.querySelector('.craftsmanship-timeline'));
+
+        // Testimonial Slider
+        const testimonialNavs = document.querySelectorAll('.testimonial-nav');
+        const testimonials = [
+            {
+                name: "Rahul Mehta",
+                role: "Jaipur Heritage Hotel Owner",
+                text: "The main door TimberCraft created for our heritage hotel transformed the entire property. The craftsmanship is unparalleled - every guest comments on its beauty. It's been 8 years and the door looks as stunning as day one.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            },
+            {
+                name: "Priya Sharma",
+                role: "Architect, Delhi",
+                text: "I've specified TimberCraft doors for 12 of my projects. Their attention to detail and ability to interpret complex designs into wood is exceptional. They're my go-to for custom door solutions.",
+                image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            },
+            {
+                name: "Vikram Singh",
+                role: "Heritage Home Owner",
+                text: "We needed a replacement for a 100-year-old door in our ancestral home. TimberCraft not only matched the original design but improved upon it with modern joinery techniques. Simply outstanding work.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            },
+            {
+                name: "Anjali Patel",
+                role: "Interior Designer, Mumbai",
+                text: "The bespoke chaukaths they created for my client's villa were the highlight of the entire interior. The quality of wood and finish is something you rarely see these days. Highly recommended!",
+                image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            }
+        ];
+
+        testimonialNavs.forEach((nav, index) => {
+            nav.addEventListener('click', function() {
+                // Update active nav
+                testimonialNavs.forEach(n => n.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update testimonial content
+                const testimonial = testimonials[index];
+                const testimonialContainer = document.querySelector('.testimonial-slider .testimonial');
+                
+                testimonialContainer.innerHTML = `
+                    <div class="testimonial active">
+                        <div class="flex items-center mb-8">
+                            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-amber-500">
+                                <img src="${testimonial.image}" 
+                                     alt="${testimonial.name}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="ml-6">
+                                <h4 class="text-xl font-bold">${testimonial.name}</h4>
+                                <p class="text-amber-300">${testimonial.role}</p>
+                            </div>
+                            <div class="ml-auto text-amber-400 text-4xl">"</div>
+                        </div>
+                        <p class="text-gray-300 text-lg italic">
+                            "${testimonial.text}"
+                        </p>
+                        <div class="flex mt-6">
+                            <i class="fas fa-star text-amber-400"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                            <i class="fas fa-star text-amber-400 ml-1"></i>
+                        </div>
+                    </div>
+                `;
+                
+                // Add fade animation
+                testimonialContainer.style.opacity = '0';
+                setTimeout(() => {
+                    testimonialContainer.style.transition = 'opacity 0.5s';
+                    testimonialContainer.style.opacity = '1';
+                }, 10);
+            });
+        });
+
+        // Auto-rotate testimonials
+        let currentTestimonial = 0;
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonialNavs.length;
+            testimonialNavs[currentTestimonial].click();
+        }, 5000);
+
+        // Parallax Effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.querySelector('.parallax-bg');
+            if (parallaxBg) {
+                parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add floating animation to wood chips
+        document.querySelectorAll('.wood-chip').forEach(chip => {
+            chip.style.animation = `float 6s infinite ease-in-out ${chip.style.animationDelay}`;
+        });
+    </script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        
+        .font-lora {
+            font-family: 'Lora', serif;
+        }
+        
+        /* Particle Canvas */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        /* 3D Card Flip */
+        .craft-card {
+            perspective: 1000px;
+            height: 320px;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Wood Chip Animation */
+        .wood-chip {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 L90,50 L50,90 L10,50 Z" fill="%23b45309" opacity="0.3"/></svg>');
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b45309;
+        }
+        
+        /* Slow Pulse Animation */
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite;
+        }
+        
+        /* CTA Button Rings */
+        .cta-button-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .cta-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 9999px;
+            animation: ring-expand 3s infinite;
+        }
+        
+        .cta-rings.ring-2 {
+            animation-delay: 1s;
+        }
+        
+        .cta-rings.ring-3 {
+            animation-delay: 2s;
+        }
+        
+        @keyframes ring-expand {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
+            100% {
+                width: 150%;
+                height: 150%;
+                opacity: 0;
+            }
+        }
+        
+        /* Gallery Hover Effect */
+        .gallery-item {
+            transition: all 0.5s ease;
+        }
+        
+        /* Custom Perspective */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .rotate-y-12 {
+            transform: rotateY(12deg);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .craft-card {
+                height: 280px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </body>
 </html>
