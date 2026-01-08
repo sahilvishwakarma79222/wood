@@ -670,7 +670,7 @@ const CustomerReviews = () => {
         </div>
 
         {/* Featured Review */}
-        <div className="featured-review">
+        {/* <div className="featured-review">
           <div className="featured-review-header">
             <div className="reviewer-main-info">
               <div className={`reviewer-avatar ${reviews[currentIndex].avatarColor}`}>
@@ -737,10 +737,10 @@ const CustomerReviews = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Review Navigation */}
-        <div className="review-navigation">
+        {/* <div className="review-navigation">
           <button className="nav-button" onClick={prevReview}>
             ←
           </button>
@@ -758,7 +758,7 @@ const CustomerReviews = () => {
           <button className="nav-button" onClick={nextReview}>
             →
           </button>
-        </div>
+        </div> */}
 
         {/* Auto-scrolling Reviews Grid - Simple like MaterialsSection */}
         <div className="scrollable-reviews-section">
@@ -817,7 +817,7 @@ const CustomerReviews = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="reviews-cta">
+        {/* <div className="reviews-cta">
           <div className="cta-top-line"></div>
           
           <h2 className="cta-title">Share Your Experience</h2>
@@ -854,7 +854,7 @@ const CustomerReviews = () => {
           <p className="cta-privacy">
             🔒 Your privacy is important. We only display first names and protect your personal information.
           </p>
-        </div>
+        </div> */}
       </div>
     </section>
   )

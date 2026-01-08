@@ -136,8 +136,8 @@ export default function Home() {
       <BestSeller />
       <Categories />
       <MaterialsSection />
-      <FindTheRightFit />
-      <Products />
+      {/* <FindTheRightFit /> */}
+      {/* <Products /> */}
       <AboutSection />
       <CustomerReviews />
       <Features />

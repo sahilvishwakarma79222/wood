@@ -190,20 +190,7 @@ export default function ProductCategories() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="categories-cta">
-          <div className="cta-content">
-            <div className="cta-icon">🪚</div>
-            <h3 className="cta-title">Custom Designs Available</h3>
-            <p className="cta-description">
-              Have a specific requirement? Our master craftsmen can create custom designs tailored to your needs.
-            </p>
-            <Link href="/custom-order" className="cta-button">
-              Request Custom Quote
-              <span className="cta-arrow">⟶</span>
-            </Link>
-          </div>
-          <div className="cta-ornament"></div>
-        </div>
+        
       </div>
     </section>
   )

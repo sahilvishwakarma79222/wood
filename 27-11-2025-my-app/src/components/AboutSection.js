@@ -298,65 +298,6 @@ export default function AboutSection() {
                             </div>
                         </div>
                     </div>
-
-                    {/* Compact CTA */}
-                    <div style={{
-                        textAlign: 'center',
-                        padding: '30px',
-                        background: 'linear-gradient(135deg, rgba(139, 69, 19, 0.03) 0%, rgba(212, 175, 55, 0.03) 100%)',
-                        borderRadius: '15px',
-                        border: '1px dashed rgba(139, 69, 19, 0.2)'
-                    }}>
-                        <h3 style={{
-                            fontSize: '20px',
-                            fontWeight: '700',
-                            color: '#1F2937',
-                            marginBottom: '15px'
-                        }}>
-                            Experience the <span style={{ color: '#8B4513' }}>Maa Kripa</span> Difference
-                        </h3>
-                        
-                        <p style={{
-                            fontSize: '15px',
-                            color: '#6B7280',
-                            marginBottom: '20px',
-                            maxWidth: '500px',
-                            margin: '0 auto 20px'
-                        }}>
-                            Join 5000+ satisfied customers who trust us for premium wooden furniture.
-                        </p>
-                        
-                        <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                            <button
-                                onClick={() => window.open('https://wa.me/917028426042?text=Hello%20Maa%20Kripa%20Wood%20Art!%20I%27d%20like%20to%20know%20more%20about%20your%20products.', '_blank')}
-                                style={{
-                                    background: 'linear-gradient(135deg, #8B4513 0%, #D4AF37 100%)',
-                                    color: 'white',
-                                    border: 'none',
-                                    padding: '12px 25px',
-                                    fontSize: '14px',
-                                    fontWeight: '600',
-                                    borderRadius: '25px',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    transition: 'all 0.3s ease',
-                                    boxShadow: '0 5px 15px rgba(139, 69, 19, 0.2)'
-                                }}
-                                onMouseOver={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(139, 69, 19, 0.3)';
-                                }}
-                                onMouseOut={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 5px 15px rgba(139, 69, 19, 0.2)';
-                                }}
-                            >
-                                📞 Connect Now
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </section>
 
