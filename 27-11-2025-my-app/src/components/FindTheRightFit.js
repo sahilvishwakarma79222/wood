@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import './FindTheRightFit.css'
 
-
 function FindTheRightFit() {
   const [selectedDoor, setSelectedDoor] = useState(null);
+  const [animatedDoors, setAnimatedDoors] = useState([]);
+  const cardRefs = useRef([]);
 
   const doors = [
     { 
@@ -34,6 +35,49 @@ function FindTheRightFit() {
       features: ["Double width", "Grand entrance", "Wide opening"]
     },
   ];
+
+  useEffect(() => {
+    // Intersection Observer for animation
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = cardRefs.current.indexOf(entry.target);
+            setAnimatedDoors(prev => {
+              const newSet = new Set(prev);
+              newSet.add(index);
+              return Array.from(newSet);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    cardRefs.current.forEach(card => {
+      if (card) observer.observe(card);
+    });
+
+    return () => {
+      cardRefs.current.forEach(card => {
+        if (card) observer.unobserve(card);
+      });
+    };
+  }, []);
+
+  const handleCardClick = (index) => {
+    setSelectedDoor(index);
+    
+    // Image animation on click
+    const image = document.querySelector(`.rightfit-card:nth-child(${index + 1}) .rightfit-image`);
+    if (image) {
+      image.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        image.style.transform = 'scale(1.05)';
+      }, 150);
+    }
+  };
 
   return (
     <section className="rightfit-section">
@@ -68,8 +112,9 @@ function FindTheRightFit() {
           {doors.map((door, index) => (
             <div 
               key={index}
-              className={`rightfit-card ${selectedDoor === index ? 'selected' : ''}`}
-              onClick={() => setSelectedDoor(index)}
+              ref={el => cardRefs.current[index] = el}
+              className={`rightfit-card ${selectedDoor === index ? 'selected' : ''} ${animatedDoors.includes(index) ? 'animated' : ''}`}
+              onClick={() => handleCardClick(index)}
               style={{ '--card-index': index }}
             >
               {/* Card Glow Effect */}
@@ -84,7 +129,7 @@ function FindTheRightFit() {
                       alt={door.title}
                       width={280}
                       height={320}
-                      className="rightfit-image"
+                      className={`rightfit-image ${animatedDoors.includes(index) ? 'image-animated' : ''}`}
                     />
                     <div className="image-overlay"></div>
                   </div>
@@ -98,14 +143,14 @@ function FindTheRightFit() {
                   <span className="type-number">0{index + 1}</span>
                 </div>
                 
-                <button className="rightfit-button">
+                <button className={`rightfit-button ${animatedDoors.includes(index) ? 'title-animated' : ''}`}>
                   <span className="button-text">{door.title}</span>
                   <span className="button-arrow">→</span>
                 </button>
 
                 <div className="door-features">
                   {door.features.map((feature, i) => (
-                    <div key={i} className="feature-tag">
+                    <div key={i} className={`feature-tag ${animatedDoors.includes(index) ? `feature-animated-${i}` : ''}`}>
                       {feature}
                     </div>
                   ))}
