@@ -1065,17 +1065,1174 @@
 //   );
 // }
 
+// "use client";
+
+// import { useState, useEffect } from 'react';
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import { 
+//   ChevronLeft, Home, Star, ZoomIn, X, 
+//   ChevronRight, ChevronLeft as LeftIcon,
+//   Search, Filter, Grid
+// } from 'lucide-react';
+// import './ProductDetail.css';
+// import Navbar from '@/components/Navbar';
+
+// const categories = [
+//   { id: 1, name: 'Wooden Doors', folder: '1_woodenDoor', icon: '🚪', color: '#8B4513' },
+//   { id: 2, name: 'Wooden Frames', folder: '2_WoodenFream', icon: '🖼️', color: '#D2691E' },
+//   { id: 3, name: 'Safety Doors', folder: '3_safetyDoors', icon: '🔒', color: '#2E8B57' },
+//   { id: 4, name: 'Wooden Beds', folder: '4_woodenBed', icon: '🛏️', color: '#5D4037' },
+//   { id: 5, name: 'Wooden Mandir', folder: '5_woodenMandir', icon: '🛕', color: '#FFD700' },
+//   { id: 6, name: 'Wooden Windows', folder: '6_woodenWindow', icon: '🪟', color: '#4682B4' },
+//   { id: 7, name: 'MDF 2D/3D', folder: '7_mdf2d3d', icon: '📐', color: '#708090' },
+//   { id: 8, name: 'Wooden Art', folder: '8_woodenArt', icon: '🎨', color: '#FF6B6B' },
+//   { id: 9, name: 'Sofa Chair', folder: '9_sofaChair', icon: '🪑', color: '#8A2BE2' },
+//   { id: 10, name: 'Marble Cutting', folder: '10_marbelCutting', icon: '🗿', color: '#C0C0C0' },
+//   { id: 11, name: 'Safety Door', folder: '11_safetyDoor', icon: '🚪', color: '#36454F' },
+// ];
+
+// // Function to generate product info
+// const generateProductInfo = (categoryName, index) => {
+//   const prices = [12500, 18500, 22500, 28500, 32500];
+//   const ratings = [4.2, 4.5, 4.7, 4.8, 5.0];
+  
+//   return {
+//     id: index,
+//     name: `${categoryName} Design ${index}`,
+//     price: `₹${prices[index % 5].toLocaleString('en-IN')}`,
+//     rating: ratings[index % 5],
+//     reviews: Math.floor(Math.random() * 50) + 10,
+//     badge: index % 4 === 0 ? 'BEST' : index % 4 === 1 ? 'NEW' : index % 4 === 2 ? 'SALE' : null
+//   };
+// };
+
+// // Function to load actual images
+// const loadActualImages = async (folder) => {
+//   const images = [];
+//   const extensions = ['.jpg', '.jpeg', '.JPG', '.JPEG'];
+  
+//   // Try to load up to 20 images
+//   for (let i = 1; i <= 20; i++) {
+//     let imageFound = false;
+    
+//     for (const ext of extensions) {
+//       const imagePath = `/images/category/${folder}/${i}${ext}`;
+      
+//       // Check if image exists
+//       try {
+//         const img = new window.Image();
+//         const exists = await new Promise((resolve) => {
+//           img.onload = () => resolve(true);
+//           img.onerror = () => resolve(false);
+//           img.src = imagePath;
+//           setTimeout(() => resolve(false), 100);
+//         });
+        
+//         if (exists) {
+//           images.push({
+//             url: imagePath,
+//             info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), i)
+//           });
+//           imageFound = true;
+//           break;
+//         }
+//       } catch (err) {
+//         console.log(`Error loading ${imagePath}:`, err);
+//       }
+//     }
+    
+//     // If no image found after checking all extensions, break
+//     if (!imageFound && i > 5) {
+//       break;
+//     }
+//   }
+  
+//   // If no actual images found, use mock data for demo
+//   if (images.length === 0) {
+//     console.log(`No images found in ${folder}, using mock data`);
+//     for (let i = 1; i <= 12; i++) {
+//       images.push({
+//         url: `/images/category/${folder}/demo.jpg`,
+//         info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), i)
+//       });
+//     }
+//   }
+  
+//   return images;
+// };
+
+// export default function CategoriesPage() {
+//   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+//   const [images, setImages] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [selectedImage, setSelectedImage] = useState(null);
+//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [sortBy, setSortBy] = useState('popular');
+
+//   // Load actual images
+//   useEffect(() => {
+//     const loadImages = async () => {
+//       setLoading(true);
+//       const loadedImages = await loadActualImages(selectedCategory.folder);
+//       setImages(loadedImages);
+//       setLoading(false);
+//     };
+    
+//     if (typeof window !== 'undefined') {
+//       loadImages();
+//     }
+//   }, [selectedCategory]);
+
+//   // Handle category click
+//   const handleCategoryClick = (category) => {
+//     setSelectedCategory(category);
+//     setSelectedImage(null);
+//     setCurrentImageIndex(0);
+    
+//     // Scroll to gallery
+//     setTimeout(() => {
+//       document.getElementById('gallery-section')?.scrollIntoView({ 
+//         behavior: 'smooth', 
+//         block: 'start' 
+//       });
+//     }, 100);
+//   };
+
+//   // Image modal functions
+//   const openImageModal = (image, index) => {
+//     setSelectedImage(image);
+//     setCurrentImageIndex(index);
+//   };
+
+//   const closeImageModal = () => {
+//     setSelectedImage(null);
+//   };
+
+//   const navigateImage = (direction) => {
+//     if (!selectedImage) return;
+    
+//     let newIndex = currentImageIndex + direction;
+//     if (newIndex < 0) newIndex = images.length - 1;
+//     if (newIndex >= images.length) newIndex = 0;
+    
+//     setCurrentImageIndex(newIndex);
+//     setSelectedImage(images[newIndex]);
+//   };
+
+//   // Filter and sort images
+//   const filteredImages = images.filter(image => 
+//     image.info.name.toLowerCase().includes(searchQuery.toLowerCase())
+//   );
+
+//   const sortedImages = [...filteredImages].sort((a, b) => {
+//     switch(sortBy) {
+//       case 'price-low':
+//         return parseInt(a.info.price.replace('₹', '').replace(/,/g, '')) - 
+//                parseInt(b.info.price.replace('₹', '').replace(/,/g, ''));
+//       case 'price-high':
+//         return parseInt(b.info.price.replace('₹', '').replace(/,/g, '')) - 
+//                parseInt(a.info.price.replace('₹', '').replace(/,/g, ''));
+//       case 'rating':
+//         return b.info.rating - a.info.rating;
+//       default:
+//         return b.info.reviews - a.info.reviews;
+//     }
+//   });
+
+//   return (
+//     <>
+//     <Navbar />
+//     <div className="square-categories-page">
+//       {/* Header */}
+//       <header className="square-header">
+//         <div className="header-wrapper">
+//           <div className="header-top">
+//             <Link href="/" className="back-btn">
+//               <ChevronLeft size={18} />
+//               <Home size={16} />
+//               <span>Home</span>
+//             </Link>
+            
+//             <div className="header-search">
+//               <Search size={18} />
+//               <input
+//                 type="text"
+//                 placeholder="Search designs..."
+//                 value={searchQuery}
+//                 onChange={(e) => setSearchQuery(e.target.value)}
+//                 className="search-input"
+//               />
+//               {searchQuery && (
+//                 <button className="clear-search" onClick={() => setSearchQuery('')}>
+//                   <X size={14} />
+//                 </button>
+//               )}
+//             </div>
+//           </div>
+          
+//           <div className="header-main">
+//             <h1 className="page-title">Product Gallery</h1>
+//             <p className="page-subtitle">Select a category to explore designs</p>
+//           </div>
+//         </div>
+//       </header>
+
+//       {/* Square Categories in Single Row */}
+//       <section className="square-categories-section">
+//         <div className="section-wrapper">
+//           <div className="section-header">
+//             <h2 className="section-title">
+//               <Grid size={20} />
+//               All Categories
+//               <span className="category-count">{categories.length} Categories</span>
+//             </h2>
+//           </div>
+          
+//           <div className="categories-row">
+//             {categories.map((category) => (
+//               <div
+//                 key={category.id}
+//                 className={`square-category ${selectedCategory.id === category.id ? 'active' : ''}`}
+//                 onClick={() => handleCategoryClick(category)}
+//                 style={{ '--category-color': category.color }}
+//               >
+//                 <div className="square-inner">
+//                   <div className="category-icon-box">
+//                     <span className="category-icon">{category.icon}</span>
+//                   </div>
+                  
+//                   <div className="category-content">
+//                     <h3 className="category-name">{category.name}</h3>
+//                     <div className="category-stats">
+//                       <span className="stat-item">15+ Designs</span>
+//                     </div>
+//                   </div>
+                  
+//                   {selectedCategory.id === category.id && (
+//                     <div className="active-indicator">
+//                       <div className="indicator-dot"></div>
+//                     </div>
+//                   )}
+//                 </div>
+                
+//                 <div className="hover-effect">
+//                   <div className="hover-bg"></div>
+//                   <div className="hover-content">
+//                     <span className="hover-text">View Designs</span>
+//                     <span className="hover-arrow">→</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Selected Category Info */}
+//       <div className="selected-category-bar">
+//         <div className="bar-wrapper">
+//           <div className="bar-left">
+//             <div className="selected-category-display">
+//               <div className="selected-icon" style={{ backgroundColor: `${selectedCategory.color}20` }}>
+//                 <span>{selectedCategory.icon}</span>
+//               </div>
+//               <div className="selected-info">
+//                 <h3 className="selected-title">{selectedCategory.name}</h3>
+//                 <p className="selected-subtitle">{images.length} designs available</p>
+//               </div>
+//             </div>
+//           </div>
+          
+//           <div className="bar-right">
+//             <div className="sort-control">
+//               <Filter size={14} />
+//               <select 
+//                 value={sortBy} 
+//                 onChange={(e) => setSortBy(e.target.value)}
+//                 className="sort-select"
+//               >
+//                 <option value="popular">Most Popular</option>
+//                 <option value="rating">Highest Rated</option>
+//                 <option value="price-low">Price: Low to High</option>
+//                 <option value="price-high">Price: High to Low</option>
+//               </select>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Products Gallery */}
+//       <section id="gallery-section" className="square-gallery">
+//         <div className="gallery-wrapper">
+//           {loading ? (
+//             <div className="loading-state">
+//               <div className="spinner-container">
+//                 <div className="spinner"></div>
+//               </div>
+//               <p>Loading {selectedCategory.name} designs...</p>
+//             </div>
+//           ) : sortedImages.length > 0 ? (
+//             <div className="products-grid">
+//               {sortedImages.map((image, index) => (
+//                 <div key={index} className="product-square">
+//                   <div className="square-image" onClick={() => openImageModal(image, index)}>
+//                     <div className="image-container">
+//                       <Image
+//                         src={image.url}
+//                         alt={image.info.name}
+//                         width={280}
+//                         height={200}
+//                         className="product-img"
+//                         loading={index < 4 ? 'eager' : 'lazy'}
+//                         onError={(e) => {
+//                           e.target.style.display = 'none';
+//                           e.target.parentElement.innerHTML = `
+//                             <div class="img-fallback">
+//                               <span class="fallback-icon">${selectedCategory.icon}</span>
+//                               <span class="fallback-title">Design ${index + 1}</span>
+//                             </div>
+//                           `;
+//                         }}
+//                       />
+//                       <button className="view-btn">
+//                         <ZoomIn size={18} />
+//                       </button>
+//                     </div>
+                    
+//                     {image.info.badge && (
+//                       <div className={`product-tag ${image.info.badge.toLowerCase()}`}>
+//                         {image.info.badge}
+//                       </div>
+//                     )}
+//                   </div>
+                  
+//                   <div className="square-info">
+//                     <h4 className="product-name" title={image.info.name}>
+//                       {image.info.name}
+//                     </h4>
+                    
+//                     <div className="product-footer">
+//                       <div className="product-price">₹{parseInt(image.info.price.replace('₹', '').replace(/,/g, '')).toLocaleString('en-IN')}</div>
+                      
+//                       <div className="product-rating">
+//                         <Star size={12} fill="#FFD700" />
+//                         <span className="rating-value">{image.info.rating}</span>
+//                         <span className="rating-count">({image.info.reviews})</span>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           ) : (
+//             <div className="empty-gallery">
+//               <div className="empty-icon">🎨</div>
+//               <h3>No designs found</h3>
+//               <p>Try changing your search or select another category</p>
+//             </div>
+//           )}
+//         </div>
+//       </section>
+
+//       {/* Image Modal */}
+//       {selectedImage && (
+//         <div className="image-modal-overlay" onClick={closeImageModal}>
+//           <div className="square-modal" onClick={e => e.stopPropagation()}>
+//             <div className="modal-top">
+//               <div className="modal-header">
+//                 <h3 className="modal-title">{selectedImage.info.name}</h3>
+//                 <div className="modal-rating">
+//                   <Star size={16} fill="#FFD700" />
+//                   <span>{selectedImage.info.rating}</span>
+//                   <span className="reviews">({selectedImage.info.reviews} reviews)</span>
+//                 </div>
+//               </div>
+//               <button className="close-btn" onClick={closeImageModal}>
+//                 <X size={24} />
+//               </button>
+//             </div>
+            
+//             <div className="modal-body">
+//               <div className="modal-image-area">
+//                 <button className="nav-btn prev" onClick={() => navigateImage(-1)}>
+//                   <ChevronLeft size={24} />
+//                 </button>
+                
+//                 <div className="large-image">
+//                   <Image
+//                     src={selectedImage.url}
+//                     alt={selectedImage.info.name}
+//                     width={600}
+//                     height={400}
+//                     className="modal-img"
+//                     onError={(e) => {
+//                       e.target.style.display = 'none';
+//                       e.target.parentElement.innerHTML = `
+//                         <div class="modal-fallback">
+//                           <span class="modal-fallback-icon">${selectedCategory.icon}</span>
+//                           <span class="modal-fallback-text">${selectedImage.info.name}</span>
+//                         </div>
+//                       `;
+//                     }}
+//                   />
+//                 </div>
+                
+//                 <button className="nav-btn next" onClick={() => navigateImage(1)}>
+//                   <ChevronRight size={24} />
+//                 </button>
+//               </div>
+              
+//               <div className="modal-sidebar">
+//                 <div className="sidebar-section">
+//                   <h4 className="sidebar-title">Product Details</h4>
+//                   <div className="details-grid">
+//                     <div className="detail-item">
+//                       <span className="detail-label">Price</span>
+//                       <span className="detail-value">{selectedImage.info.price}</span>
+//                     </div>
+//                     <div className="detail-item">
+//                       <span className="detail-label">Category</span>
+//                       <span className="detail-value">{selectedCategory.name}</span>
+//                     </div>
+//                     <div className="detail-item">
+//                       <span className="detail-label">Design No</span>
+//                       <span className="detail-value">{currentImageIndex + 1}</span>
+//                     </div>
+//                   </div>
+//                 </div>
+                
+//                 <div className="sidebar-actions">
+//                   <button className="action-btn primary">Add to Cart</button>
+//                   <button className="action-btn secondary">Enquire Now</button>
+//                 </div>
+//               </div>
+//             </div>
+            
+//             <div className="modal-footer">
+//               <div className="image-nav">
+//                 <span className="nav-text">
+//                   Image {currentImageIndex + 1} of {images.length}
+//                 </span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Footer */}
+//       <footer className="square-footer">
+//         <div className="footer-wrapper">
+//           <div className="footer-content">
+//             <div className="footer-stats">
+//               <div className="stat-box">
+//                 <div className="stat-number">{categories.length}</div>
+//                 <div className="stat-label">Categories</div>
+//               </div>
+//               <div className="stat-box">
+//                 <div className="stat-number">200+</div>
+//                 <div className="stat-label">Total Designs</div>
+//               </div>
+//               <div className="stat-box">
+//                 <div className="stat-number">4.8</div>
+//                 <div className="stat-label">Avg Rating</div>
+//               </div>
+//             </div>
+            
+//             <p className="footer-text">
+//               Browse our complete collection of premium wooden products
+//             </p>
+//           </div>
+//         </div>
+//       </footer>
+//     </div>
+//     </>
+//   );
+// }
+
+
+
+
+
+
+// "use client";
+
+// import { useState, useEffect, useCallback } from 'react';
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import { 
+//   ChevronLeft, Home, Star, ZoomIn, X, 
+//   ChevronRight, ChevronLeft as LeftIcon,
+//   Search, Filter, Grid,
+//   ChevronFirst, ChevronLast
+// } from 'lucide-react';
+// import './ProductDetail.css';
+// import Navbar from '@/components/Navbar';
+
+// const categories = [
+//   { id: 1, name: 'Wooden Doors', folder: '1_woodenDoor', icon: '🚪', color: '#8B4513' },
+//   { id: 2, name: 'Wooden Frames', folder: '2_WoodenFream', icon: '🖼️', color: '#D2691E' },
+//   { id: 3, name: 'Safety Doors', folder: '3_safetyDoors', icon: '🔒', color: '#2E8B57' },
+//   { id: 4, name: 'Wooden Beds', folder: '4_woodenBed', icon: '🛏️', color: '#5D4037' },
+//   { id: 5, name: 'Wooden Mandir', folder: '5_woodenMandir', icon: '🛕', color: '#FFD700' },
+//   { id: 6, name: 'Wooden Windows', folder: '6_woodenWindow', icon: '🪟', color: '#4682B4' },
+//   { id: 7, name: 'MDF 2D/3D', folder: '7_mdf2d3d', icon: '📐', color: '#708090' },
+//   { id: 8, name: 'Wooden Art', folder: '8_woodenArt', icon: '🎨', color: '#FF6B6B' },
+//   { id: 9, name: 'Sofa Chair', folder: '9_sofaChair', icon: '🪑', color: '#8A2BE2' },
+//   { id: 10, name: 'Marble Cutting', folder: '10_marbelCutting', icon: '🗿', color: '#C0C0C0' },
+//   { id: 11, name: 'Safety Door', folder: '11_safetyDoor', icon: '🚪', color: '#36454F' },
+// ];
+
+// // Function to generate product info
+// const generateProductInfo = (categoryName, index) => {
+//   const prices = [12500, 18500, 22500, 28500, 32500];
+//   const ratings = [4.2, 4.5, 4.7, 4.8, 5.0];
+  
+//   return {
+//     id: index,
+//     name: `${categoryName} Design ${index}`,
+//     price: `₹${prices[index % 5].toLocaleString('en-IN')}`,
+//     rating: ratings[index % 5],
+//     reviews: Math.floor(Math.random() * 50) + 10,
+//     badge: index % 4 === 0 ? 'BEST' : index % 4 === 1 ? 'NEW' : index % 4 === 2 ? 'SALE' : null
+//   };
+// };
+
+// // Function to check if image exists using fetch
+// const checkImageExists = async (url) => {
+//   try {
+//     const response = await fetch(url, { method: 'HEAD', cache: 'no-cache' });
+//     return response.ok;
+//   } catch {
+//     return false;
+//   }
+// };
+
+// // Function to load all images from folder
+// const loadAllImages = async (folder) => {
+//   const images = [];
+//   const extensions = ['.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG', '.webp', '.WEBP'];
+  
+//   console.log(`Loading images from ${folder}...`);
+  
+//   // Check for images 1 to 80
+//   const imageNumbers = Array.from({ length: 80 }, (_, i) => i + 1);
+  
+//   // Process in batches for better performance
+//   const batchSize = 10;
+//   for (let i = 0; i < imageNumbers.length; i += batchSize) {
+//     const batch = imageNumbers.slice(i, i + batchSize);
+    
+//     const batchPromises = batch.map(async (imageNumber) => {
+//       for (const ext of extensions) {
+//         const imagePath = `/images/category/${folder}/${imageNumber}${ext}`;
+//         const exists = await checkImageExists(imagePath);
+        
+//         if (exists) {
+//           return {
+//             url: imagePath,
+//             info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), imageNumber)
+//           };
+//         }
+//       }
+//       return null;
+//     });
+    
+//     const batchResults = await Promise.all(batchPromises);
+//     batchResults.forEach(result => {
+//       if (result) {
+//         images.push(result);
+//       }
+//     });
+    
+//     // Optional: Update loading progress if you want
+//     if (i % 20 === 0) {
+//       console.log(`Checked ${Math.min(i + batchSize, 80)} images...`);
+//     }
+//   }
+  
+//   // Sort by image number
+//   images.sort((a, b) => {
+//     const numA = parseInt(a.url.match(/(\d+)/g)[0]);
+//     const numB = parseInt(b.url.match(/(\d+)/g)[0]);
+//     return numA - numB;
+//   });
+  
+//   console.log(`✅ Loaded ${images.length} images from ${folder}`);
+  
+//   // If no images found, use demo images
+//   if (images.length === 0) {
+//     console.log(`⚠️ No images found in ${folder}, using demo data`);
+//     for (let i = 1; i <= 12; i++) {
+//       images.push({
+//         url: `/images/category/${folder}/demo.jpg`,
+//         info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), i)
+//       });
+//     }
+//   }
+  
+//   return images;
+// };
+
+// export default function CategoriesPage() {
+//   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+//   const [images, setImages] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [selectedImage, setSelectedImage] = useState(null);
+//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [sortBy, setSortBy] = useState('popular');
+  
+//   // Pagination states
+//   const [currentPage, setCurrentPage] = useState(1);
+//   const [itemsPerPage, setItemsPerPage] = useState(20); // 20 images per page
+  
+//   // Load actual images
+//   useEffect(() => {
+//     const loadImages = async () => {
+//       setLoading(true);
+//       setCurrentPage(1); // Reset to first page when category changes
+      
+//       try {
+//         const loadedImages = await loadAllImages(selectedCategory.folder);
+//         setImages(loadedImages);
+//       } catch (error) {
+//         console.error('Error loading images:', error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+    
+//     if (typeof window !== 'undefined') {
+//       loadImages();
+//     }
+//   }, [selectedCategory]);
+
+//   // Handle category click
+//   const handleCategoryClick = (category) => {
+//     setSelectedCategory(category);
+//     setSelectedImage(null);
+//     setCurrentImageIndex(0);
+//     setCurrentPage(1);
+    
+//     // Scroll to gallery
+//     setTimeout(() => {
+//       document.getElementById('gallery-section')?.scrollIntoView({ 
+//         behavior: 'smooth', 
+//         block: 'start' 
+//       });
+//     }, 100);
+//   };
+
+//   // Image modal functions
+//   const openImageModal = (image, index) => {
+//     // Calculate actual index in all images
+//     const actualIndex = (currentPage - 1) * itemsPerPage + index;
+//     setSelectedImage(image);
+//     setCurrentImageIndex(actualIndex);
+//   };
+
+//   const closeImageModal = () => {
+//     setSelectedImage(null);
+//   };
+
+//   const navigateImage = (direction) => {
+//     if (!selectedImage) return;
+    
+//     let newIndex = currentImageIndex + direction;
+//     if (newIndex < 0) newIndex = images.length - 1;
+//     if (newIndex >= images.length) newIndex = 0;
+    
+//     setCurrentImageIndex(newIndex);
+//     setSelectedImage(images[newIndex]);
+//   };
+
+//   // Filter and sort images
+//   const filteredImages = images.filter(image => 
+//     image.info.name.toLowerCase().includes(searchQuery.toLowerCase())
+//   );
+
+//   const sortedImages = [...filteredImages].sort((a, b) => {
+//     switch(sortBy) {
+//       case 'price-low':
+//         return parseInt(a.info.price.replace('₹', '').replace(/,/g, '')) - 
+//                parseInt(b.info.price.replace('₹', '').replace(/,/g, ''));
+//       case 'price-high':
+//         return parseInt(b.info.price.replace('₹', '').replace(/,/g, '')) - 
+//                parseInt(a.info.price.replace('₹', '').replace(/,/g, ''));
+//       case 'rating':
+//         return b.info.rating - a.info.rating;
+//       default:
+//         return b.info.reviews - a.info.reviews;
+//     }
+//   });
+
+//   // Pagination calculations
+//   const totalPages = Math.ceil(sortedImages.length / itemsPerPage);
+//   const startIndex = (currentPage - 1) * itemsPerPage;
+//   const endIndex = startIndex + itemsPerPage;
+//   const currentImages = sortedImages.slice(startIndex, endIndex);
+
+//   // Pagination handlers
+//   const goToPage = (pageNumber) => {
+//     setCurrentPage(pageNumber);
+//     // Scroll to top of gallery
+//     document.getElementById('gallery-section')?.scrollIntoView({ 
+//       behavior: 'smooth', 
+//       block: 'start' 
+//     });
+//   };
+
+//   const nextPage = () => {
+//     if (currentPage < totalPages) {
+//       goToPage(currentPage + 1);
+//     }
+//   };
+
+//   const prevPage = () => {
+//     if (currentPage > 1) {
+//       goToPage(currentPage - 1);
+//     }
+//   };
+
+//   // Generate page numbers
+//   const getPageNumbers = () => {
+//     const pages = [];
+//     const maxVisiblePages = 5;
+    
+//     if (totalPages <= maxVisiblePages) {
+//       // Show all pages
+//       for (let i = 1; i <= totalPages; i++) {
+//         pages.push(i);
+//       }
+//     } else {
+//       // Show first 2 pages, current page, and last 2 pages
+//       const start = Math.max(2, currentPage - 1);
+//       const end = Math.min(totalPages - 1, currentPage + 1);
+      
+//       pages.push(1);
+      
+//       if (start > 2) {
+//         pages.push('...');
+//       }
+      
+//       for (let i = start; i <= end; i++) {
+//         pages.push(i);
+//       }
+      
+//       if (end < totalPages - 1) {
+//         pages.push('...');
+//       }
+      
+//       pages.push(totalPages);
+//     }
+    
+//     return pages;
+//   };
+
+//   return (
+//     <>
+//     <Navbar />
+//     <div className="square-categories-page">
+//       {/* Header */}
+//       <header className="square-header">
+//         <div className="header-wrapper">
+//           <div className="header-top">
+//             <Link href="/" className="back-btn">
+//               <ChevronLeft size={18} />
+//               <Home size={16} />
+//               <span>Home</span>
+//             </Link>
+            
+//             <div className="header-search">
+//               <Search size={18} />
+//               <input
+//                 type="text"
+//                 placeholder="Search designs..."
+//                 value={searchQuery}
+//                 onChange={(e) => setSearchQuery(e.target.value)}
+//                 className="search-input"
+//               />
+//               {searchQuery && (
+//                 <button className="clear-search" onClick={() => setSearchQuery('')}>
+//                   <X size={14} />
+//                 </button>
+//               )}
+//             </div>
+//           </div>
+          
+//           <div className="header-main">
+//             <h1 className="page-title">Product Gallery</h1>
+//             <p className="page-subtitle">Select a category to explore designs</p>
+//           </div>
+//         </div>
+//       </header>
+
+//       {/* Square Categories in Single Row */}
+//       <section className="square-categories-section">
+//         <div className="section-wrapper">
+//           <div className="section-header">
+//             <h2 className="section-title">
+//               <Grid size={20} />
+//               All Categories
+//               <span className="category-count">{categories.length} Categories</span>
+//             </h2>
+//           </div>
+          
+//           <div className="categories-row">
+//             {categories.map((category) => (
+//               <div
+//                 key={category.id}
+//                 className={`square-category ${selectedCategory.id === category.id ? 'active' : ''}`}
+//                 onClick={() => handleCategoryClick(category)}
+//                 style={{ '--category-color': category.color }}
+//               >
+//                 <div className="square-inner">
+//                   <div className="category-icon-box">
+//                     <span className="category-icon">{category.icon}</span>
+//                   </div>
+                  
+//                   <div className="category-content">
+//                     <h3 className="category-name">{category.name}</h3>
+//                     <div className="category-stats">
+//                       <span className="stat-item">80+ Designs</span>
+//                     </div>
+//                   </div>
+                  
+//                   {selectedCategory.id === category.id && (
+//                     <div className="active-indicator">
+//                       <div className="indicator-dot"></div>
+//                     </div>
+//                   )}
+//                 </div>
+                
+//                 <div className="hover-effect">
+//                   <div className="hover-bg"></div>
+//                   <div className="hover-content">
+//                     <span className="hover-text">View Designs</span>
+//                     <span className="hover-arrow">→</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Selected Category Info */}
+//       <div className="selected-category-bar">
+//         <div className="bar-wrapper">
+//           <div className="bar-left">
+//             <div className="selected-category-display">
+//               <div className="selected-icon" style={{ backgroundColor: `${selectedCategory.color}20` }}>
+//                 <span>{selectedCategory.icon}</span>
+//               </div>
+//               <div className="selected-info">
+//                 <h3 className="selected-title">{selectedCategory.name}</h3>
+//                 <p className="selected-subtitle">{images.length} designs available • Page {currentPage} of {totalPages}</p>
+//               </div>
+//             </div>
+//           </div>
+          
+//           <div className="bar-right">
+//             <div className="sort-control">
+//               <Filter size={14} />
+//               <select 
+//                 value={sortBy} 
+//                 onChange={(e) => setSortBy(e.target.value)}
+//                 className="sort-select"
+//               >
+//                 <option value="popular">Most Popular</option>
+//                 <option value="rating">Highest Rated</option>
+//                 <option value="price-low">Price: Low to High</option>
+//                 <option value="price-high">Price: High to Low</option>
+//               </select>
+//             </div>
+            
+//             {/* Items per page selector */}
+//             <div className="items-per-page-control">
+//               <select 
+//                 value={itemsPerPage} 
+//                 onChange={(e) => {
+//                   setItemsPerPage(Number(e.target.value));
+//                   setCurrentPage(1);
+//                 }}
+//                 className="items-select"
+//               >
+//                 <option value="12">12 per page</option>
+//                 <option value="20">20 per page</option>
+//                 <option value="40">40 per page</option>
+//                 <option value="80">All designs</option>
+//               </select>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Products Gallery */}
+//       <section id="gallery-section" className="square-gallery">
+//         <div className="gallery-wrapper">
+//           {loading ? (
+//             <div className="loading-state">
+//               <div className="spinner-container">
+//                 <div className="spinner"></div>
+//               </div>
+//               <p>Loading {selectedCategory.name} designs... ({images.length} found)</p>
+//             </div>
+//           ) : currentImages.length > 0 ? (
+//             <>
+//               <div className="products-grid">
+//                 {currentImages.map((image, index) => (
+//                   <div key={startIndex + index} className="product-square">
+//                     <div className="square-image" onClick={() => openImageModal(image, index)}>
+//                       <div className="image-container">
+//                         <Image
+//                           src={image.url}
+//                           alt={image.info.name}
+//                           width={280}
+//                           height={200}
+//                           className="product-img"
+//                           loading={index < 4 ? 'eager' : 'lazy'}
+//                           onError={(e) => {
+//                             e.target.style.display = 'none';
+//                             e.target.parentElement.innerHTML = `
+//                               <div class="img-fallback">
+//                                 <span class="fallback-icon">${selectedCategory.icon}</span>
+//                                 <span class="fallback-title">Design ${startIndex + index + 1}</span>
+//                               </div>
+//                             `;
+//                           }}
+//                         />
+//                         <button className="view-btn">
+//                           <ZoomIn size={18} />
+//                         </button>
+//                       </div>
+                      
+//                       {image.info.badge && (
+//                         <div className={`product-tag ${image.info.badge.toLowerCase()}`}>
+//                           {image.info.badge}
+//                         </div>
+//                       )}
+//                     </div>
+                    
+//                     <div className="square-info">
+//                       <h4 className="product-name" title={image.info.name}>
+//                         {image.info.name}
+//                       </h4>
+                      
+//                       <div className="product-footer">
+//                         <div className="product-price">₹{parseInt(image.info.price.replace('₹', '').replace(/,/g, '')).toLocaleString('en-IN')}</div>
+                        
+//                         <div className="product-rating">
+//                           <Star size={12} fill="#FFD700" />
+//                           <span className="rating-value">{image.info.rating}</span>
+//                           <span className="rating-count">({image.info.reviews})</span>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+              
+//               {/* Pagination Controls */}
+//               {totalPages > 1 && (
+//                 <div className="pagination-controls">
+//                   <div className="pagination-info">
+//                     Showing {startIndex + 1} to {Math.min(endIndex, sortedImages.length)} of {sortedImages.length} designs
+//                   </div>
+                  
+//                   <div className="pagination-buttons">
+//                     <button 
+//                       className="pagination-btn first" 
+//                       onClick={() => goToPage(1)}
+//                       disabled={currentPage === 1}
+//                     >
+//                       <ChevronFirst size={16} />
+//                     </button>
+                    
+//                     <button 
+//                       className="pagination-btn prev" 
+//                       onClick={prevPage}
+//                       disabled={currentPage === 1}
+//                     >
+//                       <ChevronLeft size={16} />
+//                       <span>Previous</span>
+//                     </button>
+                    
+//                     <div className="page-numbers">
+//                       {getPageNumbers().map((page, index) => (
+//                         page === '...' ? (
+//                           <span key={`ellipsis-${index}`} className="page-ellipsis">...</span>
+//                         ) : (
+//                           <button
+//                             key={page}
+//                             className={`page-number ${currentPage === page ? 'active' : ''}`}
+//                             onClick={() => goToPage(page)}
+//                           >
+//                             {page}
+//                           </button>
+//                         )
+//                       ))}
+//                     </div>
+                    
+//                     <button 
+//                       className="pagination-btn next" 
+//                       onClick={nextPage}
+//                       disabled={currentPage === totalPages}
+//                     >
+//                       <span>Next</span>
+//                       <ChevronRight size={16} />
+//                     </button>
+                    
+//                     <button 
+//                       className="pagination-btn last" 
+//                       onClick={() => goToPage(totalPages)}
+//                       disabled={currentPage === totalPages}
+//                     >
+//                       <ChevronLast size={16} />
+//                     </button>
+//                   </div>
+//                 </div>
+//               )}
+//             </>
+//           ) : (
+//             <div className="empty-gallery">
+//               <div className="empty-icon">🎨</div>
+//               <h3>No designs found</h3>
+//               <p>Try changing your search or select another category</p>
+//             </div>
+//           )}
+//         </div>
+//       </section>
+
+//       {/* Image Modal */}
+//       {selectedImage && (
+//         <div className="image-modal-overlay" onClick={closeImageModal}>
+//           <div className="square-modal" onClick={e => e.stopPropagation()}>
+//             <div className="modal-top">
+//               <div className="modal-header">
+//                 <h3 className="modal-title">{selectedImage.info.name}</h3>
+//                 <div className="modal-rating">
+//                   <Star size={16} fill="#FFD700" />
+//                   <span>{selectedImage.info.rating}</span>
+//                   <span className="reviews">({selectedImage.info.reviews} reviews)</span>
+//                 </div>
+//               </div>
+//               <button className="close-btn" onClick={closeImageModal}>
+//                 <X size={24} />
+//               </button>
+//             </div>
+            
+//             <div className="modal-body">
+//               <div className="modal-image-area">
+//                 <button className="nav-btn prev" onClick={() => navigateImage(-1)}>
+//                   <ChevronLeft size={24} />
+//                 </button>
+                
+//                 <div className="large-image">
+//                   <Image
+//                     src={selectedImage.url}
+//                     alt={selectedImage.info.name}
+//                     width={600}
+//                     height={400}
+//                     className="modal-img"
+//                     onError={(e) => {
+//                       e.target.style.display = 'none';
+//                       e.target.parentElement.innerHTML = `
+//                         <div class="modal-fallback">
+//                           <span class="modal-fallback-icon">${selectedCategory.icon}</span>
+//                           <span class="modal-fallback-text">${selectedImage.info.name}</span>
+//                         </div>
+//                       `;
+//                     }}
+//                   />
+//                 </div>
+                
+//                 <button className="nav-btn next" onClick={() => navigateImage(1)}>
+//                   <ChevronRight size={24} />
+//                 </button>
+//               </div>
+              
+//               <div className="modal-sidebar">
+//                 <div className="sidebar-section">
+//                   <h4 className="sidebar-title">Product Details</h4>
+//                   <div className="details-grid">
+//                     <div className="detail-item">
+//                       <span className="detail-label">Price</span>
+//                       <span className="detail-value">{selectedImage.info.price}</span>
+//                     </div>
+//                     <div className="detail-item">
+//                       <span className="detail-label">Category</span>
+//                       <span className="detail-value">{selectedCategory.name}</span>
+//                     </div>
+//                     <div className="detail-item">
+//                       <span className="detail-label">Design No</span>
+//                       <span className="detail-value">{currentImageIndex + 1} of {images.length}</span>
+//                     </div>
+//                   </div>
+//                 </div>
+                
+//                 <div className="sidebar-actions">
+//                   <button className="action-btn primary">Add to Cart</button>
+//                   <button className="action-btn secondary">Enquire Now</button>
+//                 </div>
+//               </div>
+//             </div>
+            
+//             <div className="modal-footer">
+//               <div className="image-nav">
+//                 <span className="nav-text">
+//                   Image {currentImageIndex + 1} of {images.length}
+//                 </span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Footer */}
+//       <footer className="square-footer">
+//         <div className="footer-wrapper">
+//           <div className="footer-content">
+//             <div className="footer-stats">
+//               <div className="stat-box">
+//                 <div className="stat-number">{categories.length}</div>
+//                 <div className="stat-label">Categories</div>
+//               </div>
+//               <div className="stat-box">
+//                 <div className="stat-number">{images.length}</div>
+//                 <div className="stat-label">Current Designs</div>
+//               </div>
+//               <div className="stat-box">
+//                 <div className="stat-number">{currentPage}/{totalPages}</div>
+//                 <div className="stat-label">Current Page</div>
+//               </div>
+//             </div>
+            
+//             <p className="footer-text">
+//               Browse our complete collection of premium wooden products
+//             </p>
+//           </div>
+//         </div>
+//       </footer>
+//     </div>
+//     </>
+//   );
+// }
+
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
   ChevronLeft, Home, Star, ZoomIn, X, 
-  ChevronRight, ChevronLeft as LeftIcon,
-  Search, Filter, Grid
+  ChevronRight, Search, Filter, Grid,
+  ChevronFirst, ChevronLast
 } from 'lucide-react';
 import './ProductDetail.css';
+import Navbar from '@/components/Navbar';
 
 const categories = [
   { id: 1, name: 'Wooden Doors', folder: '1_woodenDoor', icon: '🚪', color: '#8B4513' },
@@ -1106,82 +2263,167 @@ const generateProductInfo = (categoryName, index) => {
   };
 };
 
-// Function to load actual images
-const loadActualImages = async (folder) => {
+// ✅ FASTEST SOLUTION: Predefined image patterns
+const IMAGE_PATTERNS = [
+  '/{folder}/{num}.jpg',
+  '/{folder}/{num}.jpeg',
+  '/{folder}/{num}.png',
+  '/{folder}/{num}.JPG',
+  '/{folder}/{num}.JPEG',
+  '/{folder}/{num}.PNG',
+  '/{folder}/{num}.webp',
+  '/{folder}/{num}.WEBP',
+];
+
+// ✅ NEW: Optimized image loader - NO HEAD requests, just try loading
+const loadAllImages = async (folder) => {
   const images = [];
-  const extensions = ['.jpg', '.jpeg', '.JPG', '.JPEG'];
+  const maxImages = 80;
   
-  // Try to load up to 20 images
-  for (let i = 1; i <= 20; i++) {
-    let imageFound = false;
+  console.time(`ImageLoad-${folder}`);
+  
+  // Create all image URLs at once (FAST)
+  const imagePromises = [];
+  
+  for (let i = 1; i <= maxImages; i++) {
+    // Create image URL with most common extension first (jpg)
+    const imagePath = `/images/category/${folder}/${i}.jpg`;
     
-    for (const ext of extensions) {
-      const imagePath = `/images/category/${folder}/${i}${ext}`;
-      
-      // Check if image exists
-      try {
-        const img = new window.Image();
-        const exists = await new Promise((resolve) => {
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = imagePath;
-          setTimeout(() => resolve(false), 100);
-        });
-        
-        if (exists) {
-          images.push({
-            url: imagePath,
-            info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), i)
-          });
-          imageFound = true;
-          break;
-        }
-      } catch (err) {
-        console.log(`Error loading ${imagePath}:`, err);
-      }
-    }
-    
-    // If no image found after checking all extensions, break
-    if (!imageFound && i > 5) {
-      break;
-    }
+    imagePromises.push({
+      url: imagePath,
+      info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), i),
+      index: i
+    });
   }
   
-  // If no actual images found, use mock data for demo
-  if (images.length === 0) {
-    console.log(`No images found in ${folder}, using mock data`);
-    for (let i = 1; i <= 12; i++) {
-      images.push({
-        url: `/images/category/${folder}/demo.jpg`,
-        info: generateProductInfo(folder.replace(/^\d+_/, '').replace(/([A-Z])/g, ' $1').trim(), i)
-      });
-    }
-  }
+  // ✅ CRITICAL: Don't check if images exist, just assume they do
+  // This is the key to speed - browser will handle missing images
+  images.push(...imagePromises);
+  
+  console.timeEnd(`ImageLoad-${folder}`);
+  console.log(`⚡ Instantly loaded ${images.length} image paths for ${folder}`);
   
   return images;
+};
+
+// ✅ NEW: Smart fallback for missing images
+const SmartImage = ({ src, alt, width, height, className, categoryIcon }) => {
+  const [error, setError] = useState(false);
+  const [currentSrc, setCurrentSrc] = useState(src);
+  
+  // Try different extensions if main fails
+  const tryAlternativeExtensions = (failedSrc) => {
+    const pathParts = failedSrc.split('/');
+    const filename = pathParts.pop();
+    const baseName = filename.split('.')[0];
+    const folder = pathParts.join('/');
+    
+    const extensions = ['.jpeg', '.png', '.JPG', '.JPEG', '.PNG', '.webp', '.WEBP'];
+    
+    // Try next extension
+    const currentExtIndex = IMAGE_PATTERNS.findIndex(pattern => 
+      pattern.includes(failedSrc.split('.').pop())
+    );
+    
+    if (currentExtIndex < extensions.length - 1) {
+      const nextExt = extensions[currentExtIndex + 1];
+      return `${folder}/${baseName}${nextExt}`;
+    }
+    
+    return null;
+  };
+  
+  return (
+    <>
+      <Image
+        src={currentSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        loading="lazy"
+        decoding="async"
+        onError={(e) => {
+          const newSrc = tryAlternativeExtensions(currentSrc);
+          if (newSrc) {
+            setCurrentSrc(newSrc);
+          } else {
+            setError(true);
+            e.target.style.display = 'none';
+            const parent = e.target.parentElement;
+            if (parent) {
+              parent.innerHTML = `
+                <div class="img-fallback" style="width:${width}px;height:${height}px;background:#f5f5f5;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;">
+                  <span style="font-size:32px;margin-bottom:8px;">${categoryIcon}</span>
+                  <span style="font-size:12px;color:#666;">Design ${alt.match(/\d+/)?.[0] || ''}</span>
+                </div>
+              `;
+            }
+          }
+        }}
+      />
+    </>
+  );
 };
 
 export default function CategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // Now false because we load instantly
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('popular');
+  
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
 
-  // Load actual images
+  // ✅ NEW: Cache images by category
+  const [imageCache, setImageCache] = useState({});
+
+  // ✅ UPDATED: Fast image loading with cache
   useEffect(() => {
     const loadImages = async () => {
+      // Check cache first
+      if (imageCache[selectedCategory.folder]) {
+        console.log(`📦 Using cached images for ${selectedCategory.folder}`);
+        setImages(imageCache[selectedCategory.folder]);
+        return;
+      }
+      
       setLoading(true);
-      const loadedImages = await loadActualImages(selectedCategory.folder);
-      setImages(loadedImages);
-      setLoading(false);
+      setCurrentPage(1);
+      
+      try {
+        // This loads INSTANTLY now (no HTTP checks)
+        const loadedImages = await loadAllImages(selectedCategory.folder);
+        
+        // Update cache
+        setImageCache(prev => ({
+          ...prev,
+          [selectedCategory.folder]: loadedImages
+        }));
+        
+        setImages(loadedImages);
+        
+        // Preload first few images in background
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            loadedImages.slice(0, 5).forEach(img => {
+              const tempImg = new window.Image();
+              tempImg.src = img.url;
+            });
+          }, 100);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     
-    if (typeof window !== 'undefined') {
-      loadImages();
-    }
+    loadImages();
   }, [selectedCategory]);
 
   // Handle category click
@@ -1189,6 +2431,7 @@ export default function CategoriesPage() {
     setSelectedCategory(category);
     setSelectedImage(null);
     setCurrentImageIndex(0);
+    setCurrentPage(1);
     
     // Scroll to gallery
     setTimeout(() => {
@@ -1196,13 +2439,25 @@ export default function CategoriesPage() {
         behavior: 'smooth', 
         block: 'start' 
       });
-    }, 100);
+    }, 50);
   };
 
-  // Image modal functions
+  // ✅ UPDATED: Fast modal open
   const openImageModal = (image, index) => {
+    const actualIndex = (currentPage - 1) * itemsPerPage + index;
     setSelectedImage(image);
-    setCurrentImageIndex(index);
+    setCurrentImageIndex(actualIndex);
+    
+    // Preload adjacent images for modal navigation
+    if (images.length > 0) {
+      const prevIndex = actualIndex > 0 ? actualIndex - 1 : images.length - 1;
+      const nextIndex = actualIndex < images.length - 1 ? actualIndex + 1 : 0;
+      
+      [prevIndex, nextIndex].forEach(idx => {
+        const tempImg = new Image();
+        tempImg.src = images[idx].url;
+      });
+    }
   };
 
   const closeImageModal = () => {
@@ -1240,7 +2495,72 @@ export default function CategoriesPage() {
     }
   });
 
+  // Pagination calculations
+  const totalPages = Math.ceil(sortedImages.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentImages = sortedImages.slice(startIndex, endIndex);
+
+  // Pagination handlers
+  const goToPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    // Smooth scroll
+    requestAnimationFrame(() => {
+      document.getElementById('gallery-section')?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    });
+  };
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      goToPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      goToPage(currentPage - 1);
+    }
+  };
+
+  // Generate page numbers
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      
+      pages.push(1);
+      
+      if (start > 2) {
+        pages.push('...');
+      }
+      
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      
+      if (end < totalPages - 1) {
+        pages.push('...');
+      }
+      
+      pages.push(totalPages);
+    }
+    
+    return pages;
+  };
+
   return (
+    <>
+    <Navbar />
     <div className="square-categories-page">
       {/* Header */}
       <header className="square-header">
@@ -1303,7 +2623,7 @@ export default function CategoriesPage() {
                   <div className="category-content">
                     <h3 className="category-name">{category.name}</h3>
                     <div className="category-stats">
-                      <span className="stat-item">15+ Designs</span>
+                      <span className="stat-item">80+ Designs</span>
                     </div>
                   </div>
                   
@@ -1337,7 +2657,9 @@ export default function CategoriesPage() {
               </div>
               <div className="selected-info">
                 <h3 className="selected-title">{selectedCategory.name}</h3>
-                <p className="selected-subtitle">{images.length} designs available</p>
+                <p className="selected-subtitle">
+                  {loading ? 'Loading...' : `${sortedImages.length} designs available`} • Page {currentPage} of {totalPages}
+                </p>
               </div>
             </div>
           </div>
@@ -1356,6 +2678,22 @@ export default function CategoriesPage() {
                 <option value="price-high">Price: High to Low</option>
               </select>
             </div>
+            
+            <div className="items-per-page-control">
+              <select 
+                value={itemsPerPage} 
+                onChange={(e) => {
+                  setItemsPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+                className="items-select"
+              >
+                <option value="12">12 per page</option>
+                <option value="20">20 per page</option>
+                <option value="40">40 per page</option>
+                <option value="80">All designs</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -1363,66 +2701,121 @@ export default function CategoriesPage() {
       {/* Products Gallery */}
       <section id="gallery-section" className="square-gallery">
         <div className="gallery-wrapper">
-          {loading ? (
+          {loading && images.length === 0 ? (
             <div className="loading-state">
               <div className="spinner-container">
                 <div className="spinner"></div>
               </div>
               <p>Loading {selectedCategory.name} designs...</p>
             </div>
-          ) : sortedImages.length > 0 ? (
-            <div className="products-grid">
-              {sortedImages.map((image, index) => (
-                <div key={index} className="product-square">
-                  <div className="square-image" onClick={() => openImageModal(image, index)}>
-                    <div className="image-container">
-                      <Image
-                        src={image.url}
-                        alt={image.info.name}
-                        width={280}
-                        height={200}
-                        className="product-img"
-                        loading={index < 4 ? 'eager' : 'lazy'}
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.parentElement.innerHTML = `
-                            <div class="img-fallback">
-                              <span class="fallback-icon">${selectedCategory.icon}</span>
-                              <span class="fallback-title">Design ${index + 1}</span>
-                            </div>
-                          `;
-                        }}
-                      />
-                      <button className="view-btn">
-                        <ZoomIn size={18} />
-                      </button>
+          ) : currentImages.length > 0 ? (
+            <>
+              <div className="products-grid">
+                {currentImages.map((image, index) => (
+                  <div key={startIndex + index} className="product-square">
+                    <div className="square-image" onClick={() => openImageModal(image, index)}>
+                      <div className="image-container">
+                        {/* ✅ UPDATED: Using SmartImage component */}
+                        <SmartImage
+                          src={image.url}
+                          alt={image.info.name}
+                          width={280}
+                          height={200}
+                          className="product-img"
+                          categoryIcon={selectedCategory.icon}
+                        />
+                        <button className="view-btn">
+                          <ZoomIn size={18} />
+                        </button>
+                      </div>
+                      
+                      {image.info.badge && (
+                        <div className={`product-tag ${image.info.badge.toLowerCase()}`}>
+                          {image.info.badge}
+                        </div>
+                      )}
                     </div>
                     
-                    {image.info.badge && (
-                      <div className={`product-tag ${image.info.badge.toLowerCase()}`}>
-                        {image.info.badge}
+                    <div className="square-info">
+                      <h4 className="product-name" title={image.info.name}>
+                        {image.info.name}
+                      </h4>
+                      
+                      <div className="product-footer">
+                        <div className="product-price">{image.info.price}</div>
+                        
+                        <div className="product-rating">
+                          <Star size={12} fill="#FFD700" />
+                          <span className="rating-value">{image.info.rating}</span>
+                          <span className="rating-count">({image.info.reviews})</span>
+                        </div>
                       </div>
-                    )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="pagination-controls">
+                  <div className="pagination-info">
+                    Showing {startIndex + 1} to {Math.min(endIndex, sortedImages.length)} of {sortedImages.length} designs
                   </div>
                   
-                  <div className="square-info">
-                    <h4 className="product-name" title={image.info.name}>
-                      {image.info.name}
-                    </h4>
+                  <div className="pagination-buttons">
+                    <button 
+                      className="pagination-btn first" 
+                      onClick={() => goToPage(1)}
+                      disabled={currentPage === 1}
+                    >
+                      <ChevronFirst size={16} />
+                    </button>
                     
-                    <div className="product-footer">
-                      <div className="product-price">₹{parseInt(image.info.price.replace('₹', '').replace(/,/g, '')).toLocaleString('en-IN')}</div>
-                      
-                      <div className="product-rating">
-                        <Star size={12} fill="#FFD700" />
-                        <span className="rating-value">{image.info.rating}</span>
-                        <span className="rating-count">({image.info.reviews})</span>
-                      </div>
+                    <button 
+                      className="pagination-btn prev" 
+                      onClick={prevPage}
+                      disabled={currentPage === 1}
+                    >
+                      <ChevronLeft size={16} />
+                      <span>Previous</span>
+                    </button>
+                    
+                    <div className="page-numbers">
+                      {getPageNumbers().map((page, index) => (
+                        page === '...' ? (
+                          <span key={`ellipsis-${index}`} className="page-ellipsis">...</span>
+                        ) : (
+                          <button
+                            key={page}
+                            className={`page-number ${currentPage === page ? 'active' : ''}`}
+                            onClick={() => goToPage(page)}
+                          >
+                            {page}
+                          </button>
+                        )
+                      ))}
                     </div>
+                    
+                    <button 
+                      className="pagination-btn next" 
+                      onClick={nextPage}
+                      disabled={currentPage === totalPages}
+                    >
+                      <span>Next</span>
+                      <ChevronRight size={16} />
+                    </button>
+                    
+                    <button 
+                      className="pagination-btn last" 
+                      onClick={() => goToPage(totalPages)}
+                      disabled={currentPage === totalPages}
+                    >
+                      <ChevronLast size={16} />
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           ) : (
             <div className="empty-gallery">
               <div className="empty-icon">🎨</div>
@@ -1433,7 +2826,7 @@ export default function CategoriesPage() {
         </div>
       </section>
 
-      {/* Image Modal */}
+      {/* Image Modal - Optimized */}
       {selectedImage && (
         <div className="image-modal-overlay" onClick={closeImageModal}>
           <div className="square-modal" onClick={e => e.stopPropagation()}>
@@ -1458,21 +2851,13 @@ export default function CategoriesPage() {
                 </button>
                 
                 <div className="large-image">
-                  <Image
+                  <SmartImage
                     src={selectedImage.url}
                     alt={selectedImage.info.name}
                     width={600}
                     height={400}
                     className="modal-img"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = `
-                        <div class="modal-fallback">
-                          <span class="modal-fallback-icon">${selectedCategory.icon}</span>
-                          <span class="modal-fallback-text">${selectedImage.info.name}</span>
-                        </div>
-                      `;
-                    }}
+                    categoryIcon={selectedCategory.icon}
                   />
                 </div>
                 
@@ -1495,7 +2880,7 @@ export default function CategoriesPage() {
                     </div>
                     <div className="detail-item">
                       <span className="detail-label">Design No</span>
-                      <span className="detail-value">{currentImageIndex + 1}</span>
+                      <span className="detail-value">{currentImageIndex + 1} of {images.length}</span>
                     </div>
                   </div>
                 </div>
@@ -1518,7 +2903,6 @@ export default function CategoriesPage() {
         </div>
       )}
 
-      {/* Footer */}
       <footer className="square-footer">
         <div className="footer-wrapper">
           <div className="footer-content">
@@ -1528,12 +2912,12 @@ export default function CategoriesPage() {
                 <div className="stat-label">Categories</div>
               </div>
               <div className="stat-box">
-                <div className="stat-number">200+</div>
-                <div className="stat-label">Total Designs</div>
+                <div className="stat-number">{sortedImages.length}</div>
+                <div className="stat-label">Current Designs</div>
               </div>
               <div className="stat-box">
-                <div className="stat-number">4.8</div>
-                <div className="stat-label">Avg Rating</div>
+                <div className="stat-number">{currentPage}/{totalPages}</div>
+                <div className="stat-label">Current Page</div>
               </div>
             </div>
             
@@ -1544,5 +2928,6 @@ export default function CategoriesPage() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
