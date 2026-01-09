@@ -8,18 +8,68 @@ import {
   ChevronRight, Grid, Check, ChevronDown
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Add this
 import './ProductDetail.css';
 
 // Categories Data (Your actual folder names)
 const categories = [
-  { id: 1, name: 'Wooden Doors', folder: '1_woodenDoor', icon: '🚪', color: '#8B4513' },
-  { id: 2, name: 'Wooden Frames', folder: '2_WoodenFream', icon: '🖼️', color: '#D2691E' },
-  { id: 3, name: 'Safety Doors', folder: '3_safetyDoors', icon: '🔒', color: '#2E8B57' },
-  { id: 4, name: 'Wooden Beds', folder: '4_woodenBed', icon: '🛏️', color: '#5D4037' },
-  { id: 5, name: 'Wooden Mandir', folder: '5_woodenMandir', icon: '🛕', color: '#FFD700' },
-  { id: 6, name: 'Wooden Windows', folder: '6_woodenWindow', icon: '🪟', color: '#4682B4' },
-  { id: 7, name: 'Wooden Art', folder: '8_woodenArt', icon: '🎨', color: '#FF6B6B' },
-  { id: 8, name: 'Sofa Chair', folder: '9_sofaChair', icon: '🪑', color: '#8A2BE2' },
+  { 
+    id: 'wooden-doors',
+    name: 'Wooden Doors', 
+    folder: '1_woodenDoor', 
+    icon: '🚪', 
+    color: '#8B4513' 
+  },
+  { 
+    id: 'wooden-frames',
+    name: 'Wooden Frames', 
+    folder: '2_WoodenFream', 
+    icon: '🖼️', 
+    color: '#D2691E' 
+  },
+  { 
+    id: 'safety-doors',
+    name: 'Safety Doors', 
+    folder: '3_safetyDoors', 
+    icon: '🔒', 
+    color: '#2E8B57' 
+  },
+  { 
+    id: 'wooden-beds',
+    name: 'Wooden Beds', 
+    folder: '4_woodenBed', 
+    icon: '🛏️', 
+    color: '#5D4037' 
+  },
+  { 
+    id: 'wooden-mandir',
+    name: 'Wooden Mandir', 
+    folder: '5_woodenMandir', 
+    icon: '🛕', 
+    color: '#FFD700' 
+  },
+  { 
+    id: 'wooden-windows',
+    name: 'Wooden Windows', 
+    folder: '6_woodenWindow', 
+    icon: '🪟', 
+    color: '#4682B4' 
+  },
+  { 
+    id: 'wooden-art',
+    name: 'Wooden Art', 
+    folder: '8_woodenArt', 
+    icon: '🎨', 
+    color: '#FF6B6B' 
+  },
+  { 
+    id: 'sofa-chair',
+    name: 'Sofa Chair', 
+    folder: '9_sofaChair', 
+    icon: '🪑', 
+    color: '#8A2BE2' 
+  },
 ];
 
 // Function to generate product info
@@ -118,7 +168,19 @@ const loadCategoryImages = async (folderName) => {
 };
 
 export default function CategoriesPage() {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+  
+  // Find category by ID or use first one as default
+  const findCategoryById = (id) => {
+    return categories.find(cat => cat.id === id) || categories[0];
+  };
+  
+  const [selectedCategory, setSelectedCategory] = useState(
+    categoryParam ? findCategoryById(categoryParam) : categories[0]
+  );
+  
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -128,6 +190,18 @@ export default function CategoriesPage() {
   const [sortBy, setSortBy] = useState('default');
   const [showMobileCategorySelector, setShowMobileCategorySelector] = useState(false);
   const sidebarRef = useRef(null);
+
+  // Update category when URL changes
+  useEffect(() => {
+    if (categoryParam) {
+      const newCategory = findCategoryById(categoryParam);
+      if (newCategory && newCategory.id !== selectedCategory.id) {
+        setSelectedCategory(newCategory);
+        // Scroll to top when category changes from URL
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [categoryParam]);
 
   // Load images when category changes
   useEffect(() => {
@@ -162,6 +236,10 @@ export default function CategoriesPage() {
     setSelectedImage(null);
     setCurrentImageIndex(0);
     setShowMobileCategorySelector(false);
+    
+    // Update URL with new category
+    const newUrl = `/products/wooden-doors?category=${category.id}`;
+    router.push(newUrl);
     
     // Scroll to images section
     setTimeout(() => {

@@ -206,6 +206,7 @@
 
 /* Current Category Info */
 .current-category-info {
+      margin-top: 5rem;
   background: white;
   border-radius: 12px;
   padding: 1.25rem;
