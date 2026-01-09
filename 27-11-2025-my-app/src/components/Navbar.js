@@ -1,11 +1,14 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import './navbar.css' // CSS file import
+import './navbar.css'
 
 export default function Navbar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const mobileMenuRef = useRef(null)
+  const mobileToggleRef = useRef(null)
 
   const menuData = {
     products: [
@@ -20,7 +23,6 @@ export default function Navbar() {
       { name: 'Sheesham Wood', href: '/categories/sheesham-wood' },
       { name: 'Engineered Wood', href: '/categories/engineered-wood' }
     ],
-    // Designs section removed
     categories: [
       {
         name: 'By Wood Type',
@@ -45,26 +47,27 @@ export default function Navbar() {
           { name: 'Office Doors', href: '/explore-designs/office' },
           { name: 'Balcony Doors', href: '/explore-designs/balcony' }
         ]
-      },
-      {
-        name: 'View All Categories',
-        href: '/explore-categories',
-        highlight: true
       }
     ]
   }
 
   const toggleMobileMenu = () => {
-    setIsMobileOpen(!isMobileOpen)
-    if (!isMobileOpen) {
-      document.body.classList.add('no-scroll')
-    } else {
+    console.log('Toggle mobile menu clicked, current state:', isMobileOpen)
+    const newState = !isMobileOpen
+    setIsMobileOpen(newState)
+    
+    if (!newState) {
+      // Closing menu
       document.body.classList.remove('no-scroll')
       setActiveDropdown(null)
+    } else {
+      // Opening menu
+      document.body.classList.add('no-scroll')
     }
   }
 
   const toggleDropdown = (dropdownName) => {
+    console.log('Toggle dropdown:', dropdownName)
     if (activeDropdown === dropdownName) {
       setActiveDropdown(null)
     } else {
@@ -73,6 +76,7 @@ export default function Navbar() {
   }
 
   const closeMobileMenu = () => {
+    console.log('Closing mobile menu')
     setIsMobileOpen(false)
     setActiveDropdown(null)
     document.body.classList.remove('no-scroll')
@@ -82,33 +86,85 @@ export default function Navbar() {
     closeMobileMenu()
   }
 
+  const handleScroll = () => {
+    if (window.scrollY > 10) {
+      setIsScrolled(true)
+    } else {
+      setIsScrolled(false)
+    }
+  }
+
+  // Click outside to close mobile menu
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMobileOpen &&
+        mobileMenuRef.current && 
+        !mobileMenuRef.current.contains(event.target) &&
+        mobileToggleRef.current &&
+        !mobileToggleRef.current.contains(event.target)
+      ) {
+        closeMobileMenu()
+      }
+    }
+
+    // Escape key to close menu
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape' && isMobileOpen) {
+        closeMobileMenu()
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscapeKey)
+    
+    // Close mobile menu on resize to desktop
+    const handleResize = () => {
+      if (window.innerWidth > 1023 && isMobileOpen) {
+        closeMobileMenu()
+      }
+    }
+    
+    window.addEventListener('resize', handleResize)
+    
     return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscapeKey)
+      window.removeEventListener('resize', handleResize)
       document.body.classList.remove('no-scroll')
     }
-  }, [])
+  }, [isMobileOpen])
+
+  // Debug log
+  useEffect(() => {
+    console.log('Mobile menu state:', isMobileOpen)
+  }, [isMobileOpen])
 
   return (
     <>
-      <nav className={`navbar ${isMobileOpen ? 'nav-mobile-active' : ''}`}>
+      <nav className={`navbar ${isMobileOpen ? 'nav-mobile-active' : ''} ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
          
           <div className="nav-logo">
-            <Link href="/" className="logo">
+            <Link href="/" className="logo" onClick={handleLinkClick}>
               <div className="logo-horizontal">
-                {/* पहली image */}
                 <img
                   src="/images/logo/3.png"
-                  alt="Logo 1"
+                  alt="Woods Arts Logo"
                   className="logo-img logo-img-1"
+                  width="70"
+                  height="70"
                 />
 
-                {/* दूसरी image और text */}
                 <div className="logo-text-wrapper">
                   <img
                     src="/images/logo/2.png"
-                    alt="Logo 2"
+                    alt="Woods Arts Logo Symbol"
                     className="logo-img logo-img-2"
+                    width="65"
+                    height="58"
                   />
                   <span className="logo-text">
                     Woods Arts
@@ -118,14 +174,13 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Navigation Menu */}
+          {/* Navigation Menu - Hidden on Mobile */}
           <div className="nav-menu">
             <ul>
               <li><Link href="/">Home</Link></li>
 
-              {/* Products Dropdown */}
               <li className="dropdown">
-                <a>Products <i className="fas fa-chevron-down"></i></a>
+                <a className="dropdown-toggle">Products <i className="fas fa-chevron-down"></i></a>
                 <div className="dropdown-menu">
                   {menuData.products.map(item => (
                     <Link key={item.href} href={item.href}>{item.name}</Link>
@@ -133,9 +188,8 @@ export default function Navbar() {
                 </div>
               </li>
 
-              {/* Materials Dropdown */}
               <li className="dropdown">
-                <a>Materials <i className="fas fa-chevron-down"></i></a>
+                <a className="dropdown-toggle">Materials <i className="fas fa-chevron-down"></i></a>
                 <div className="dropdown-menu">
                   {menuData.materials.map(item => (
                     <Link key={item.href} href={item.href}>{item.name}</Link>
@@ -143,9 +197,8 @@ export default function Navbar() {
                 </div>
               </li>
 
-              {/* NEW: Categories Dropdown with Mega Menu */}
               <li className="dropdown mega-dropdown">
-                <a>Categories <i className="fas fa-chevron-down"></i></a>
+                <a className="dropdown-toggle">Categories <i className="fas fa-chevron-down"></i></a>
                 <div className="dropdown-menu mega-menu">
                   <div className="mega-menu-content">
                     <div className="mega-menu-header">
@@ -154,7 +207,6 @@ export default function Navbar() {
                     </div>
 
                     <div className="mega-menu-grid">
-                      {/* Wood Type Categories */}
                       <div className="mega-menu-column">
                         <h4>By Wood Type</h4>
                         {menuData.categories[0].submenu.map(item => (
@@ -165,7 +217,6 @@ export default function Navbar() {
                         ))}
                       </div>
 
-                      {/* Usage Categories */}
                       <div className="mega-menu-column">
                         <h4>By Usage</h4>
                         {menuData.categories[1].submenu.map(item => (
@@ -190,7 +241,7 @@ export default function Navbar() {
             </ul>
           </div>
 
-          {/* Contact Section */}
+          {/* Contact Section - Hidden on Mobile */}
           <div className="nav-contact">
             <a href="tel:+918007747733" className="nav-phone">
               <i className="fas fa-phone"></i>
@@ -201,124 +252,144 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="mobile-toggle" onClick={toggleMobileMenu}>
+          {/* Mobile Toggle Button */}
+          <button 
+            ref={mobileToggleRef}
+            className="mobile-toggle" 
+            onClick={toggleMobileMenu}
+            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileOpen}
+          >
             <span></span>
             <span></span>
             <span></span>
-          </div>
+          </button>
         </div>
       </nav>
 
       {/* Mobile Menu */}
-      {isMobileOpen && (
-        <div className="mobile-menu">
-          <div className="mobile-header">
-            <div className="mobile-logo">
-              <div className="logo-icon">🚪</div>
-              <span>Woods Arts</span>
-            </div>
-            <button className="mobile-close" onClick={closeMobileMenu}>
-              <i className="fas fa-times"></i>
-            </button>
+      <div 
+        ref={mobileMenuRef}
+        className={`mobile-menu ${isMobileOpen ? 'active' : ''}`}
+        style={{ 
+          right: isMobileOpen ? '0' : '-100%',
+          display: isMobileOpen ? 'flex' : 'none'
+        }}
+      >
+        <div className="mobile-header">
+          <div className="mobile-logo">
+            <div className="logo-icon">🚪</div>
+            <span>Woods Arts</span>
           </div>
-
-          <div className="mobile-phone-section">
-            <a href="tel:+918007747733" className="mobile-phone">
-              <i className="fas fa-phone"></i>
-              <div>
-                <div>Call Now</div>
-                <div>+91 8007747733</div>
-              </div>
-            </a>
-          </div>
-
-          <nav className="mobile-nav">
-            <Link href="/" onClick={handleLinkClick}>Home</Link>
-
-            {/* Products Dropdown - Mobile */}
-            <div className="mobile-dropdown">
-              <button onClick={() => toggleDropdown('products')}>
-                Products <i className={`fas fa-chevron-${activeDropdown === 'products' ? 'up' : 'down'}`}></i>
-              </button>
-              {activeDropdown === 'products' && (
-                <div className="mobile-dropdown-menu">
-                  {menuData.products.map(item => (
-                    <Link key={item.href} href={item.href} onClick={handleLinkClick}>
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Materials Dropdown - Mobile */}
-            <div className="mobile-dropdown">
-              <button onClick={() => toggleDropdown('materials')}>
-                Materials <i className={`fas fa-chevron-${activeDropdown === 'materials' ? 'up' : 'down'}`}></i>
-              </button>
-              {activeDropdown === 'materials' && (
-                <div className="mobile-dropdown-menu">
-                  {menuData.materials.map(item => (
-                    <Link key={item.href} href={item.href} onClick={handleLinkClick}>
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* NEW: Categories Dropdown - Mobile */}
-            <div className="mobile-dropdown">
-              <button onClick={() => toggleDropdown('categories')}>
-                Categories <i className={`fas fa-chevron-${activeDropdown === 'categories' ? 'up' : 'down'}`}></i>
-              </button>
-              {activeDropdown === 'categories' && (
-                <div className="mobile-dropdown-menu">
-                  {/* Wood Type */}
-                  <div className="mobile-subcategory">
-                    <div className="subcategory-title">By Wood Type</div>
-                    {menuData.categories[0].submenu.map(item => (
-                      <Link key={item.href} href={item.href} onClick={handleLinkClick} className="mobile-subcategory-item">
-                        <span className="item-icon">🪵</span>
-                        <span>{item.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Usage */}
-                  <div className="mobile-subcategory">
-                    <div className="subcategory-title">By Usage</div>
-                    {menuData.categories[1].submenu.map(item => (
-                      <Link key={item.href} href={item.href} onClick={handleLinkClick} className="mobile-subcategory-item">
-                        <span className="item-icon">🚪</span>
-                        <span>{item.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* View All Link */}
-                  <Link href="/explore-categories" onClick={handleLinkClick} className="mobile-view-all">
-                    <span>View All Categories</span>
-                    <i className="fas fa-arrow-right"></i>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link href="/gallery" onClick={handleLinkClick}>Gallery</Link>
-            <Link href="/about" onClick={handleLinkClick}>About</Link>
-            <Link href="/contact" className="mobile-cta" onClick={handleLinkClick}>
-              Get Free Quote
-            </Link>
-          </nav>
+          <button 
+            className="mobile-close" 
+            onClick={closeMobileMenu}
+            aria-label="Close menu"
+          >
+            <i className="fas fa-times"></i>
+          </button>
         </div>
-      )}
 
-      {/* Backdrop */}
-      {isMobileOpen && (
-        <div className="mobile-backdrop" onClick={closeMobileMenu}></div>
-      )}
+        <div className="mobile-phone-section">
+          <a href="tel:+918007747733" className="mobile-phone">
+            <i className="fas fa-phone"></i>
+            <div>
+              <div>Call Now</div>
+              <div>+91 8007747733</div>
+            </div>
+          </a>
+        </div>
+
+        <nav className="mobile-nav">
+          <Link href="/" onClick={handleLinkClick}>Home</Link>
+
+          <div className="mobile-dropdown">
+            <button 
+              onClick={() => toggleDropdown('products')} 
+              aria-expanded={activeDropdown === 'products'}
+            >
+              Products <i className={`fas fa-chevron-${activeDropdown === 'products' ? 'up' : 'down'}`}></i>
+            </button>
+            {activeDropdown === 'products' && (
+              <div className="mobile-dropdown-menu">
+                {menuData.products.map(item => (
+                  <Link key={item.href} href={item.href} onClick={handleLinkClick}>
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="mobile-dropdown">
+            <button 
+              onClick={() => toggleDropdown('materials')} 
+              aria-expanded={activeDropdown === 'materials'}
+            >
+              Materials <i className={`fas fa-chevron-${activeDropdown === 'materials' ? 'up' : 'down'}`}></i>
+            </button>
+            {activeDropdown === 'materials' && (
+              <div className="mobile-dropdown-menu">
+                {menuData.materials.map(item => (
+                  <Link key={item.href} href={item.href} onClick={handleLinkClick}>
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="mobile-dropdown">
+            <button 
+              onClick={() => toggleDropdown('categories')} 
+              aria-expanded={activeDropdown === 'categories'}
+            >
+              Categories <i className={`fas fa-chevron-${activeDropdown === 'categories' ? 'up' : 'down'}`}></i>
+            </button>
+            {activeDropdown === 'categories' && (
+              <div className="mobile-dropdown-menu">
+                <div className="mobile-subcategory">
+                  <div className="subcategory-title">By Wood Type</div>
+                  {menuData.categories[0].submenu.map(item => (
+                    <Link key={item.href} href={item.href} onClick={handleLinkClick} className="mobile-subcategory-item">
+                      <span className="item-icon">🪵</span>
+                      <span>{item.name}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="mobile-subcategory">
+                  <div className="subcategory-title">By Usage</div>
+                  {menuData.categories[1].submenu.map(item => (
+                    <Link key={item.href} href={item.href} onClick={handleLinkClick} className="mobile-subcategory-item">
+                      <span className="item-icon">🚪</span>
+                      <span>{item.name}</span>
+                    </Link>
+                  ))}
+                </div>
+
+                <Link href="/explore-categories" onClick={handleLinkClick} className="mobile-view-all">
+                  <span>View All Categories</span>
+                  <i className="fas fa-arrow-right"></i>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <Link href="/gallery" onClick={handleLinkClick}>Gallery</Link>
+          <Link href="/about" onClick={handleLinkClick}>About</Link>
+          <Link href="/contact" className="mobile-cta" onClick={handleLinkClick}>
+            Get Free Quote
+          </Link>
+        </nav>
+      </div>
+
+      {/* Backdrop - Always render but control with CSS */}
+      <div 
+        className={`mobile-backdrop ${isMobileOpen ? 'active' : ''}`}
+        style={{ display: isMobileOpen ? 'block' : 'none' }}
+        onClick={closeMobileMenu}
+      ></div>
     </>
   )
 }
