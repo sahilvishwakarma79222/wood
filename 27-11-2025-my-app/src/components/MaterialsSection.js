@@ -73,7 +73,7 @@ const MaterialsSection = () => {
         <div className="showcase-content">
           <div className="content-wrapper">
             <h2 className="showcase-title">
-              Explore Our <span className="gradient-text">Material Types</span>
+              Explore Our <span className="gradient-text">Best Seller</span>
             </h2>
 
             <p className="showcase-description">

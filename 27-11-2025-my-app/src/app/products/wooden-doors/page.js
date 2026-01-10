@@ -11,6 +11,7 @@ import Navbar from '@/components/Navbar';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation'; // Add this
 import './ProductDetail.css';
+import Footer from '@/components/Footer';
 
 // Categories Data (Your actual folder names)
 const categories = [
@@ -631,33 +632,8 @@ export default function CategoriesPage() {
           </div>
         )}
 
-        {/* Footer */}
-        <footer className="page-footer">
-          <div className="container">
-            <div className="footer-content">
-              <div className="footer-stats">
-                <div className="stat">
-                  <div className="stat-number">{categories.length}</div>
-                  <div className="stat-label">Categories</div>
-                </div>
-                <div className="stat">
-                  <div className="stat-number">{images.length}</div>
-                  <div className="stat-label">Current Designs</div>
-                </div>
-                <div className="stat">
-                  <div className="stat-number">+91 8007747733</div>
-                  <div className="stat-label">Call for Quote</div>
-                </div>
-              </div>
-              
-              <p className="footer-note">
-                All images are loaded directly from your folder structure. 
-                Ensure images are named sequentially (1.jpg, 2.jpg, etc.)
-              </p>
-            </div>
-          </div>
-        </footer>
       </div>
+    <Footer />
     </>
   );
 }

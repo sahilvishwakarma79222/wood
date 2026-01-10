@@ -233,13 +233,13 @@ const menuData = {
                         </Link>
                       ))}
                     </div>
-
+{/* 
                     <div className="mega-menu-footer">
                       <Link href="/all-categories" className="view-all-btn" onClick={handleLinkClick}>
                         <span>View All Products</span>
                         <i className="fas fa-arrow-right"></i>
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </li>

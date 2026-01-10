@@ -25,7 +25,7 @@ export default function BestSeller() {
     <section className="best-seller-section">
       <h2 className="best-seller-heading">
         <span className="heading-text">BEST</span>
-        <span className="heading-accent">SELLER</span>
+        <span className="heading-accent">DOORS</span>
       </h2>
 
       <p className="best-seller-subtitle">
