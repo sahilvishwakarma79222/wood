@@ -32,7 +32,7 @@ const featuresData = [
 const statsData = [
   { number: 50, label: 'Door Categories', suffix: '+' },
   { number: 1000, label: 'Happy Customers', suffix: '+' },
-  { number: 15, label: 'Years Experience', suffix: '' },
+  { number: 28, label: 'Years Experience', suffix: '' },
   { number: 28, label: 'States Covered', suffix: '' }
 ]
 

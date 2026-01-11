@@ -200,19 +200,24 @@
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  /* gap: 1.25rem; */
   height: 100%;
 }
 
 /* Current Category Info */
+/* ===== CURRENT CATEGORY INFO ===== */
+/* Current Category Info */
 .current-category-info {
-      margin-top: 5rem;
   background: white;
   border-radius: 12px;
-  padding: 1.25rem;
+  padding: 1.5rem; /* थोड़ा ज्यादा padding */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e2e8f0;
   display: block;
+  margin: 1.5rem 0; /* ऊपर-नीचे spacing */
+  position: relative;
+  z-index: 10;
+      margin-top: 81px;
 }
 
 .category-badge {
@@ -279,6 +284,7 @@
 
 /* Images Gallery */
 .images-gallery {
+  /* margin-top: 5rem; */
   background: white;
   border-radius: 12px;
   padding: 1.25rem;
@@ -1110,7 +1116,21 @@
     position: sticky;
     top: 100px;
   }
+
+  /* Desktop पर ही दिखाएं */
+@media (min-width: 1025px) {
+  .current-category-info {
+    display: block;
+  }
+}
   
+
+/* Mobile पर छुपाएं */
+@media (max-width: 1024px) {
+  .current-category-info {
+    display: none;
+  }
+}
   .floating-category-btn {
     display: none !important; /* Desktop पर floating button hidden */
   }

@@ -77,8 +77,7 @@ const MaterialsSection = () => {
             </h2>
 
             <p className="showcase-description">
-              Discover the perfect material for your doors and windows. From classic woods to modern metals,
-              we offer a wide range of premium materials to match your style and requirements.
+             From beautifully crafted doors and beds to divine wooden temples and elegant frames—our best sellers reflect timeless craftsmanship and premium quality.
             </p>
           </div>
         </div>

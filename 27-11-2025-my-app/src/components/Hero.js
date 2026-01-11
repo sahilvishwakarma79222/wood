@@ -514,16 +514,16 @@ export default function Hero() {
     const customersStep = 1000 / steps
 
     let experienceCount = 0
-    const experienceStep = 15 / steps
+    const experienceStep = 28 / steps
 
     const counterInterval = setInterval(() => {
       categoriesCount += categoriesStep
       customersCount += customersStep
       experienceCount += experienceStep
 
-      if (categoriesCount >= 50) categoriesCount = 50
+      if (categoriesCount >= 8) categoriesCount = 8
       if (customersCount >= 1000) customersCount = 1000
-      if (experienceCount >= 15) experienceCount = 15
+      if (experienceCount >= 15) experienceCount = 28
 
       setCurrentStat({
         categories: Math.floor(categoriesCount),
@@ -531,7 +531,7 @@ export default function Hero() {
         experience: Math.floor(experienceCount)
       })
 
-      if (categoriesCount >= 50 && customersCount >= 1000 && experienceCount >= 15) {
+      if (categoriesCount >= 8 && customersCount >= 1000 && experienceCount >= 15) {
         clearInterval(counterInterval)
       }
     }, stepDuration)
@@ -694,7 +694,7 @@ export default function Hero() {
           <div className="trust-badges">
             <div className="trust-badge">
               <i className="fas fa-shield-alt"></i>
-              <span>10 Years Warranty</span>
+              <span>Natural Product</span>
             </div>
             <div className="trust-badge">
               <i className="fas fa-truck"></i>

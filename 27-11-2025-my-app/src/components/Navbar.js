@@ -184,7 +184,7 @@ const menuData = {
               <div className="logo-horizontal">
                 <img
                   src="/images/logo/3.png"
-                  alt="Woods Arts Logo"
+                  alt="Wood Arts Logo"
                   className="logo-img logo-img-1"
                   width="70"
                   height="70"
@@ -193,13 +193,13 @@ const menuData = {
                 <div className="logo-text-wrapper">
                   <img
                     src="/images/logo/2.png"
-                    alt="Woods Arts Logo Symbol"
+                    alt="Wood Arts Logo Symbol"
                     className="logo-img logo-img-2"
                     width="65"
                     height="58"
                   />
                   <span className="logo-text">
-                    Woods Arts
+                    Wood Arts
                   </span>
                 </div>
               </div>
@@ -296,7 +296,7 @@ const menuData = {
         <div className="mobile-header">
           <div className="mobile-logo">
             <div className="logo-icon">🚪</div>
-            <span>Woods Arts</span>
+            <span>Wood Arts</span>
           </div>
           <button 
             className="mobile-close" 
